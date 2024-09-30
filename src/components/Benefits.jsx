@@ -14,13 +14,14 @@ const Benefits = ({ benefits }) => {
                         const discountedAmount = item.amount - (item.amount * (item.discount / 100));
 
                         return (
-                            <div  className="relative w-full max-w-[320px] sm:max-w-[350px] md:max-w-[400px] transform transition duration-300 hover:scale-105 mx-auto"
+                            <div className=" relative  bg-[length:100%_100%] w-full h-full max-w-[310px] sm:max-w-[340px]  transform transition duration-300 hover:scale-105 mx-auto"
                                 style={{
                                     backgroundImage: `url(${item.backgroundUrl})`,
-                                    backgroundSize: 'cover', // Ensure the background image covers the card
+                                    // backgroundSize: 'cover',
+
                                 }}
                                 key={item.id}>
-                                <div className="relative z-2 flex flex-col min-h-[20rem] sm:min-h-[22rem] p-[1.6rem] sm:p-[2.4rem] rounded-lg">
+                                <div className="relative z-2 flex flex-col min-h-[11rem] sm:min-h-[20rem] p-[1.6rem] sm:p-[1.5rem] pb-6 mb-3 rounded-lg  bg-opacity-50">
                                     {/* Centered Title in Uppercase */}
                                     <h5 className="h5 mb-2 sm:mb-4 text-md sm:text-lg text-white text-center uppercase tracking-wide">
                                         {item.title}
@@ -51,16 +52,17 @@ const Benefits = ({ benefits }) => {
                                     <div className="flex items-center mt-auto">
                                         <img
                                             src={item.iconUrl}
-                                            width={36}
-                                            height={36}
+                                            width={32} // Reduced icon size
+                                            height={32}
                                             alt={item.title}
                                             className="rounded-full shadow-lg"
                                         />
-                                        <button className="ml-auto py-2 px-4 sm:px-6 rounded-md font-medium text-white transition-all duration-300 bg-purple-600 hover:bg-purple-800 hover:shadow-neon focus:ring focus:ring-purple-500">
+                                        <button className="ml-auto py-1 px-3 sm:px-5 rounded-md font-medium text-white transition-all duration-300 bg-purple-600 hover:bg-purple-800 hover:shadow-neon focus:ring focus:ring-purple-500">
                                             Buy Now
                                         </button>
                                     </div>
                                 </div>
+
                             </div>
                         );
                     })}
@@ -71,6 +73,4 @@ const Benefits = ({ benefits }) => {
 };
 
 export default Benefits;
-
-
 
