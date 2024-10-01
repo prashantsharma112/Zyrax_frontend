@@ -1,52 +1,71 @@
 import Heading from "./Heading";
 import Section from './Section';
-import Arrow from "../assets/svg/Arrow";
 
 const Benefits = ({ benefits }) => {
     return (
-        <Section id="features">
+        <Section id="features" className="gradient-background">
             <div className="container relative z-2">
                 <Heading className="md:max-w-md lg:max-w-2xl"
                     title="Get Fit, Have Fun: Join Our Zumba Classes Today!"
                 />
-                <div className="flex flex-wrap gap-10 mb-10">
-                    {benefits.map((item) => (
-                        <div className="block relative p-0.5 bg-no-repeat bg-[length:100%_100%] w-full max-w-[300px] md:max-w-[24rem]"
-                            style={{
-                                backgroundImage: `url(${item.backgroundUrl})`,
-                                
-                            }}
-                            key={item.id}>
-                            <div className="relative z-2 flex flex-col min-h-[22rem] p-[2.4rem] pointer-events-none">
-                                <h5 className="h5 mb-5">{item.title}</h5>
-                                <p className="body-2 mb-6 text-n-3">{item.text}</p>
-                                <p className="body-2 mb-2 text-n-3">
-                  <strong>Amount:</strong> ₹{item.amount}
-                </p>
-                <p className="body-2 mb-2 text-n-3">
-                  <strong>Discount:</strong> {item.discount}%
-                </p>
-                <p className="body-2 mb-2 text-n-3">
-                  <strong>Duration:</strong> {item.duration} days
-                </p>
-                <p className="body-2 mb-6 text-n-3">
-                  {item.text}
-                </p>
-                                <div className="flex items-center mt-auto">
-                                    <img
-                                        src={item.iconUrl}
-                                        width={48}
-                                        height={48}
-                                        alt={item.title}
-                                    />
-                                    <p className="ml-auto font-code text-xs font-bold text-n-1 uppercase tracking-wider">
-                                        Explore more
-                                    </p>
-                                    <Arrow />
+                <div className="flex flex-wrap gap-6 sm:gap-8 md:gap-10 mb-10 justify-center">
+                    {benefits.map((item) => {
+                        // Calculate discounted price
+                        const discountedAmount = item.amount - (item.amount * (item.discount / 100));
+
+                        return (
+                            <div className=" relative  bg-[length:100%_100%] w-full h-full max-w-[310px] sm:max-w-[340px]  transform transition duration-300 hover:scale-105 mx-auto"
+                                style={{
+                                    backgroundImage: `url(${item.backgroundUrl})`,
+                                    // backgroundSize: 'cover',
+
+                                }}
+                                key={item.id}>
+                                <div className="relative z-2 flex flex-col min-h-[11rem] sm:min-h-[20rem] p-[1.6rem] sm:p-[1.5rem] pb-6 mb-3 rounded-lg  bg-opacity-50">
+                                    {/* Centered Title in Uppercase */}
+                                    <h5 className="h5 mb-2 sm:mb-4 text-md sm:text-lg text-white text-center uppercase tracking-wide">
+                                        {item.title}
+                                    </h5>
+
+                                    {/* Key Offer Info */}
+                                    <div className="flex flex-col mb-2 sm:mb-4">
+                                        {/* Discounted price */}
+                                        <p className="text-2xl sm:text-3xl font-semibold text-center text-purple-400">
+                                            ₹{discountedAmount.toFixed(2)}
+                                        </p>
+                                        <p className="text-sm sm:text-base font-medium text-green-500 text-center">
+                                            Discount: {item.discount}%
+                                        </p>
+                                        {/* Strikethrough Original Price */}
+                                        <p className="text-sm sm:text-base font-medium text-center line-through text-purple-400">
+                                            ₹{item.amount}
+                                        </p>
+                                        <p className="text-sm sm:text-base font-medium text-gray-300 text-center">
+                                            Duration: {item.duration} days
+                                        </p>
+                                    </div>
+
+                                    {/* Offer Description */}
+                                    <p className="body-2 mb-2 sm:mb-4 text-gray-200 text-center">{item.text}</p>
+
+                                    {/* Buy Now Button with Message Icon */}
+                                    <div className="flex items-center mt-auto">
+                                        <img
+                                            src={item.iconUrl}
+                                            width={32} // Reduced icon size
+                                            height={32}
+                                            alt={item.title}
+                                            className="rounded-full shadow-lg"
+                                        />
+                                        <button className="ml-auto py-1 px-3 sm:px-5 rounded-md font-medium text-white transition-all duration-300 bg-purple-600 hover:bg-purple-800 hover:shadow-neon focus:ring focus:ring-purple-500">
+                                            Buy Now
+                                        </button>
+                                    </div>
                                 </div>
+
                             </div>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </div>
         </Section>
@@ -54,3 +73,4 @@ const Benefits = ({ benefits }) => {
 };
 
 export default Benefits;
+

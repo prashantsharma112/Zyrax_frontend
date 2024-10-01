@@ -86,3 +86,34 @@
 .-rotate-360 {
   @apply rotate-[-360deg];
 }
+
+
+
+/* Gradient Background for the entire section */
+.gradient-background {
+  background: linear-gradient(135deg, #1a1a1a 0%, #000000 40%, #5d17eb 100%);
+  padding: 60px 0;
+}
+
+/* Neon Text Effect for Prices */
+.neon-text {
+  text-shadow: 0 0 8px #5e57ff, 0 0 15px #5e57ff;
+}
+
+/* Hover Effect for the Buy Now Button */
+button {
+  background-color: #5d17eb;
+  box-shadow: 0 0 8px rgba(93, 23, 235, 0.7);
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #4c12c9;
+  box-shadow: 0 0 12px rgba(93, 23, 235, 1), 0 0 20px rgba(93, 23, 235, 0.7);
+}
+
+/* Adding some padding around the container */
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
+} 

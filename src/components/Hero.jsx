@@ -1,7 +1,9 @@
 
+
+
 import { curve, heroBackground } from "../assets";
 import Button from "./Button";
-import Section from "./Section"; 
+import Section from "./Section";
 import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
 import { useRef } from "react";
 
@@ -43,15 +45,15 @@ const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
                     </Button>
                 </div>
 
-                <div className="relative max-w-[23rem] mx-auto md:max-w-5xl xl:mb-24">
+                <div className="relative max-w-[23rem] mx-auto md:max-w-[100rem] xl:mb-24">
                     <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient">
                         <div className="relative bg-n-8 rounded-[1rem]">
-                            <div className="h-[1.4rem] bg-n-10 rounded-t-[0.9rem]" />
-                            <div className="aspect-[16/9] rounded-b-[0.9rem] overflow-hidden md:aspect-[16/9] lg:aspect-[16/9]">
+                            {/* <div className="h-[1.4rem] bg-n-10 rounded-t-[0.9rem]" /> */}
+                            <div className="aspect-[16/9] rounded-b-[0.9rem] rounded-t-[0.9rem] overflow-hidden md:aspect-[16/9] lg:aspect-[16/0]">
                                 {imageUrl ? (
                                     <img
                                         src={baseUrl + imageUrl}  // Concatenate base URL with image path
-                                            className="w-full h-full object-cover"
+                                        className="w-full h-full object-cover"
                                         width={1024}
                                         height={490}
                                         alt="Banner"
