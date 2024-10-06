@@ -101,15 +101,15 @@
 }
 
 /* Hover Effect for the Buy Now Button */
-button {
+/* button {
   background-color: #5d17eb;
   box-shadow: 0 0 8px rgba(93, 23, 235, 0.7);
   transition: background-color 0.3s ease;
-}
+} */
 
 button:hover {
-  background-color: #4c12c9;
-  box-shadow: 0 0 12px rgba(93, 23, 235, 1), 0 0 20px rgba(93, 23, 235, 0.7);
+  background: transparent;
+  /* box-shadow: 0 0 12px rgba(93, 23, 235, 1), 0 0 20px rgba(93, 23, 235, 0.7); */
 }
 
 /* Adding some padding around the container */
