@@ -1,21 +1,25 @@
 
 
+
 import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Benefits from "./components/Benefits";
 import ButtonGradient from "./assets/svg/ButtonGradient";
 import axios from "axios";
-import Login from './components/Login';  // Import Login component
-import Register from './components/Register'; // Import Register component
+import Login from './components/Login';
+import Register from './components/Register';
+import VerifyOtp from './components/VerifyOTP'; // Import the VerifyOtp component
 
 const App = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [benefitsData, setBenefitsData] = useState([]);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);  // Modal state for login
-  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false); // Modal state for registration
-  const [loading, setLoading] = useState(true); // Loading state for fetching data
-  const [error, setError] = useState(null); // Error state for handling errors
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
+  const [isOtpModalOpen, setIsOtpModalOpen] = useState(false); // OTP modal state
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [phoneNumber, setPhoneNumber] = useState(''); // State to track phone number
 
   useEffect(() => {
     const fetchImage = async () => {
@@ -30,9 +34,9 @@ const App = () => {
         }
       } catch (error) {
         console.error("Error fetching image:", error);
-        setError(error.message); // Set error message
+        setError(error.message);
       } finally {
-        setLoading(false); // Set loading to false after fetching
+        setLoading(false);
       }
     };
     fetchImage();
@@ -56,11 +60,22 @@ const App = () => {
         setBenefitsData(fetchedOffers);
       } catch (error) {
         console.error('Error fetching offers:', error);
-        setError(error.message); // Set error message
+        setError(error.message);
       }
     };
     fetchOffers();
   }, []);
+
+  const handleOtpVerification = () => {
+    setIsOtpModalOpen(false); // Close OTP modal
+    setIsLoginModalOpen(true); // Open login modal after successful OTP
+  };
+
+  const handleRegisterSubmit = (phone) => {
+    setPhoneNumber(phone); // Capture the phone number from the Register form
+    setIsRegisterModalOpen(false); // Close Register modal
+    setIsOtpModalOpen(true); // Open OTP modal
+  };
 
   return (
     <>
@@ -78,8 +93,31 @@ const App = () => {
         )}
       </div>
       <ButtonGradient />
-      {isLoginModalOpen && <Login closeModal={() => setIsLoginModalOpen(false)} openRegisterModal={() => setIsRegisterModalOpen(true)} />}
-      {isRegisterModalOpen && <Register closeModal={() => setIsRegisterModalOpen(false)} />} {/* Conditionally render Register modal */}
+      
+      {/* Conditionally render Login modal */}
+      {isLoginModalOpen && (
+        <Login
+          closeModal={() => setIsLoginModalOpen(false)}
+          openRegisterModal={() => setIsRegisterModalOpen(true)}
+        />
+      )}
+      
+      {/* Conditionally render Register modal */}
+      {isRegisterModalOpen && (
+        <Register 
+          closeModal={() => setIsRegisterModalOpen(false)} 
+          onRegisterSubmit={handleRegisterSubmit}  // Pass callback to handle registration
+        />
+      )}
+      
+      {/* Conditionally render OTP Verification modal */}
+      {isOtpModalOpen && (
+        <VerifyOtp 
+          phoneNumber={phoneNumber}
+          onOtpVerified={handleOtpVerification} 
+          resendOtp={() => console.log("Resend OTP")}  // Add your logic for resending OTP
+        />
+      )}
     </>
   );
 };
