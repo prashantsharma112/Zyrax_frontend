@@ -248,8 +248,8 @@ import {
       duration: "",
       isActive: "",
       backgroundUrl: "src/assets/benefits/card-1.svg",
-      iconUrl: benefitIcon1,
-      imageUrl: benefitImage2,
+      // iconUrl: benefitIcon1,
+      // imageUrl: benefitImage2,
     },
     
   ];
