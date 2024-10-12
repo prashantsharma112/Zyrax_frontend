@@ -117,3 +117,106 @@ button:hover {
   padding-left: 20px;
   padding-right: 20px;
 } 
+
+/* .radio-border{
+  position: relative;
+  background-color: white;
+  padding: 0px;
+  will-change: transform;
+  
+  
+}
+
+.radio-border::after, .radio-border::before{
+--angle:0deg;
+content: '';
+position:absolute;
+height: 100%;
+width: 100%;
+background-image: conic-gradient(from var(--angle), #ff4545, #00ff99, #0063ff, #ff0095, #ff4545);
+top: 50%;
+left:50%;
+translate: -50% -50%;
+z-index: -1;
+padding: 90px;
+border-radius: 20px;
+animation: 3s spin linear infinite;
+
+
+}
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+
+}
+
+.radio-border::before{
+  filter: blur(1.5rem);
+  opacity: 0.5;
+
+}
+@keyframes spin{
+  from{
+    --angle:0deg;
+  }
+  to{
+    --angle:360deg;
+  }
+} */
+
+
+/* Team Member Card Animation */
+.radio-border {
+  position: relative;
+  padding: 0;
+  display: inline-block; /* Wrap the content */
+  will-change: transform;
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+
+}
+
+.radio-border::after, 
+.radio-border::before {
+  --angle: 0deg;
+  content: '';
+  position: absolute;
+  height: 98%; /* Make it larger than the image */
+  width: 98%; /* Make it larger than the image */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(1.05); /* Slightly larger than the image */
+  /* background-image: conic-gradient(from var(--angle),black, #89F9E8, #FACB7B,black, #D87CEE, #FACB7B,black, #9099FC, #89F9E8,black); */
+  background-image: conic-gradient(from var(--angle), transparent 10%, white);
+  z-index: -1;
+  border-radius: 10px;
+  animation: spin 5s linear infinite; /* Infinite spinning animation */
+}
+
+.radio-border::before {
+  filter: blur(0.5rem); /* Blur the glow */
+  opacity: 0.5;
+}
+
+/* Keyframes for the spinning animation */
+@keyframes spin {
+  from {
+    --angle: 0deg;
+  }
+  to {
+    --angle: 360deg;
+  }
+}
+
+/* Scale it to 1.05 to make the border bigger */
+.radio-border img {
+  display: block;
+  border-radius: 10px; /* Ensure the image has the same border-radius */
+  position: relative; /* Stack the image above the animation */
+}
+
