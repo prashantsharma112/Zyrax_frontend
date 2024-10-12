@@ -1,4 +1,6 @@
 
+
+
 import { useState } from 'react';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
 import { useLocation } from 'react-router-dom';
@@ -7,14 +9,18 @@ import { navigation } from '../constants/index';
 import Button from './Button';
 import MenuSvg from '../assets/svg/MenuSvg';
 import { HamburgerMenu } from './design/Header';
+import Login from './Login';  // Import the Login component
+import Register from './Register';  // Import the Register component
 
-const Header = ({ openLoginModal }) => { // Accept openLoginModal as prop
+const Header = ({ openLoginModal, openRegisterModal }) => {
     const pathname = useLocation();
     const [openNavigation, setOpenNavigation] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);   // State to control login modal
+    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false); // State to control register modal
 
     const toggleNavigation = () => {
         if (openNavigation) {
-            setOpenNavigation(false); 
+            setOpenNavigation(false);
             enablePageScroll();
         } else {
             setOpenNavigation(true);   
@@ -24,8 +30,18 @@ const Header = ({ openLoginModal }) => { // Accept openLoginModal as prop
 
     const handleClick = () => {
         if (!openNavigation) return;
-        enablePageScroll(); 
+        enablePageScroll();
         setOpenNavigation(false);
+    };
+
+    // Function to open/close Login modal
+    const toggleLoginModal = () => {
+        setIsLoginModalOpen(!isLoginModalOpen);
+    };
+
+    // Function to open/close Register modal
+    const toggleRegisterModal = () => {
+        setIsRegisterModalOpen(!isRegisterModalOpen);
     };
 
     return (
@@ -41,7 +57,9 @@ const Header = ({ openLoginModal }) => { // Accept openLoginModal as prop
                             <a
                                 key={item.id}
                                 href={item.url}
-                                onClick={handleClick}
+                                onClick={(item.id === "5") ? (e) => { e.preventDefault(); toggleLoginModal(); } 
+                                : (item.id === "4") ? (e) => { e.preventDefault(); toggleRegisterModal(); }
+                                : handleClick}
                                 className={`block relative font-code text-2xl uppercase text-n-1 transition-colors hover:text-color-1 ${item.onlyMobile ? "lg:hidden" : ""} px-6 py-6 md:py-8 lg:-mr-0.25 lg:text-xs lg:font-semibold ${item.url === pathname.hash ? 'z-2 lg:text-n-1' : "lg:text-n-1/50"} lg:leading-5 lg:hover:text-n-1 xl:px-12 `}
                             >
                                 {item.title}
@@ -54,7 +72,11 @@ const Header = ({ openLoginModal }) => { // Accept openLoginModal as prop
                 {/* Buttons - Add Flexbox for proper alignment */}
                 <div className="flex items-center space-x-4">
                     {/* New account link */}
-                    <a href="#signup" className="button hidden lg:block z-10 mr-4 text-n-1/50 transition-colors hover:text-n-1">
+                    <a
+                        href="#signup"
+                        className="button hidden lg:block z-10 mr-4 text-n-1/50 transition-colors hover:text-n-1"
+                        onClick={openRegisterModal}  // Open Register modal on click
+                    >
                         New account
                     </a>
                     {/* Sign in button */}
@@ -66,6 +88,12 @@ const Header = ({ openLoginModal }) => { // Accept openLoginModal as prop
                     </Button>
                 </div>
             </div>
+
+            {/* Login Modal */}
+            {isLoginModalOpen && <Login closeModal={toggleLoginModal} />}  {/* Show Login modal when isLoginModalOpen is true */}
+            
+            {/* Register Modal */}
+            {isRegisterModalOpen && <Register closeModal={toggleRegisterModal} />} {/* Show Register modal when isRegisterModalOpen is true */}
         </div>
     );
 };
