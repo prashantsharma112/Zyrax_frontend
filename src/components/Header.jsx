@@ -3,20 +3,20 @@
 
 import { useState } from 'react';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'; // Import Link from react-router-dom
 import logo from '../assets/Zyrax.svg'; 
 import { navigation } from '../constants/index';
 import Button from './Button';
 import MenuSvg from '../assets/svg/MenuSvg';
 import { HamburgerMenu } from './design/Header';
-import Login from './Login';  // Import the Login component
-import Register from './Register';  // Import the Register component
+import Login from './Login';  
+import Register from './Register'; 
 
 const Header = ({ openLoginModal, openRegisterModal }) => {
     const pathname = useLocation();
     const [openNavigation, setOpenNavigation] = useState(false);
-    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);   // State to control login modal
-    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false); // State to control register modal
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);   
+    const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false); 
 
     const toggleNavigation = () => {
         if (openNavigation) {
@@ -34,25 +34,25 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
         setOpenNavigation(false);
     };
 
-    // Function to open/close Login modal
     const toggleLoginModal = () => {
         setIsLoginModalOpen(!isLoginModalOpen);
     };
 
-    // Function to open/close Register modal
     const toggleRegisterModal = () => {
         setIsRegisterModalOpen(!isRegisterModalOpen);
     };
-
+    
     return (
         <div className={`fixed top-0 left-0 w-full z-50 border-b-n-6 lg:bg-n-8/90 lg:backdrop-blur-sm ${openNavigation ? "bg-n-8" : "bg-n-8/90 backdrop:backdrop-blur-sm"}`}>
             <div className="flex items-center justify-between px-5 lg:px-7.5 xl:px-10 max-lg:pt-4">
-                <a className="block w-[12rem] xl:mr-8 mt-2" href="#hero">
+                <a className="block w-[12rem] xl:mr-8 mt-2" href="/">
                     <img src={logo} width={50} height={40} alt="Zyrax" />
                 </a>
 
                 <nav className={`${openNavigation ? 'flex' : 'hidden'} fixed top-[5rem] left-0 right-0 bottom-0 bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}>
                     <div className="relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row lg:space-x-6">
+                       
+                         
                         {navigation.map((item) => (
                             <a
                                 key={item.id}
@@ -65,11 +65,15 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
                                 {item.title}
                             </a>
                         ))}
+                        
+                      
+
+                    
                     </div>
                     <HamburgerMenu />
                 </nav>
 
-                {/* Buttons - Add Flexbox for proper alignment */}
+                {/* Buttons */}
                 <div className="flex items-center space-x-4">
                     {/* New account link */}
                     <a
@@ -90,10 +94,10 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
             </div>
 
             {/* Login Modal */}
-            {isLoginModalOpen && <Login closeModal={toggleLoginModal} />}  {/* Show Login modal when isLoginModalOpen is true */}
+            {isLoginModalOpen && <Login closeModal={toggleLoginModal} />}  
             
             {/* Register Modal */}
-            {isRegisterModalOpen && <Register closeModal={toggleRegisterModal} />} {/* Show Register modal when isRegisterModalOpen is true */}
+            {isRegisterModalOpen && <Register closeModal={toggleRegisterModal} />} 
         </div>
     );
 };

@@ -37,7 +37,9 @@ import {
     {
       id: "0",
       title: "Home",
-      url: "#home",
+      url: "/",
+      // onlyMobile: true,
+
     },
     {
       id: "1",
@@ -47,12 +49,21 @@ import {
     {
       id: "2",
       title: "Community",
-      url: "#community",
+      url: "/community",
+      
+
     },
     {
       id: "3",
       title: "Success Story",
       url: "#success_story",
+    },
+    {
+      id: "6",
+      title: "Classes",
+      url: "/classes",
+      
+
     },
     {
       id: "4",
@@ -240,16 +251,16 @@ import {
   
   export const benefits = [
     {
-      id: "0",
-      title: "Ask anything",
-      text: "i mabuvi huervuu ur  rudbvdu hevhe gereo eoev eeb huhvhu huh",
+      id: "",
+      title: "",
+      text: "",
       amount: "",
       discount: "",
       duration: "",
       isActive: "",
       backgroundUrl: "src/assets/benefits/card-1.svg",
-      // iconUrl: benefitIcon1,
-      // imageUrl: benefitImage2,
+      iconUrl: benefitIcon1,
+      imageUrl: benefitImage2,
     },
     
   ];
