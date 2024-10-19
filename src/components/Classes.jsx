@@ -1,9 +1,7 @@
 
-
 import React, { useState, useEffect } from "react";
 import Button from "./Button"; // Importing the custom Button component
-import ClassBG from "../assets/ClassBG.webp"; // Import the background image
-
+import ClassBG from "../assets/ClassBG1.webp"; // Import the background image
 
 const Classes = () => {
   // Example array for time slots with Zoom link and class start time
@@ -42,8 +40,8 @@ const Classes = () => {
 
   // Function to convert 24-hour time format to 12-hour format with AM/PM
   const convertTo12HourFormat = (time) => {
-    const [hour, minute] = time.split(':');
-    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const [hour, minute] = time.split(":");
+    const ampm = hour >= 12 ? "PM" : "AM";
     const formattedHour = hour % 12 || 12; // Convert 0 to 12
     return `${formattedHour}:${minute} ${ampm}`;
   };
@@ -71,7 +69,10 @@ const Classes = () => {
     const today = new Date();
     const classDay = new Date(classDate);
     const isToday = today.toDateString() === classDay.toDateString();
-    const isTomorrow = today.getDate() + 1 === classDay.getDate() && today.getMonth() === classDay.getMonth() && today.getFullYear() === classDay.getFullYear();
+    const isTomorrow =
+      today.getDate() + 1 === classDay.getDate() &&
+      today.getMonth() === classDay.getMonth() &&
+      today.getFullYear() === classDay.getFullYear();
 
     if (isToday) return "TODAY";
     if (isTomorrow) return "TOMORROW";
@@ -79,89 +80,100 @@ const Classes = () => {
   };
 
   return (
-    <div className="  mx-auto my-8 px-4"
-    style={{
+    <div
+      className="relative min-h-screen w-full flex justify-center items-center bg-cover bg-fixed bg-no-repeat"
+      style={{
         backgroundImage: `url(${ClassBG})`,
-        // backgroundSize: "cover",
-        backgroundAttachment: "fixed",
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        height: "(100vh - 80px)", 
-        width: "100%",
-       
       }}
-      >
-         <div className="   mx-auto my-8 px-4">
-      <h1 className="text-3xl font-bold mb-6">Classes Schedule</h1>
-      <div className="space-y-6"> {/* Stacked vertically */}
-        {classSlots.map((classSlot) => {
-          const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(classSlot.classDate));
+    >
+      <div className="container mx-auto px-4 pt-20 md:pt-24 lg:pt-28 pb-20"> {/* Added pb-20 for bottom padding */}
+        <h1 className="text-3xl font-bold mb-6 sm:text-2xl md:text-3xl lg:text-4xl text-center text-white">
+          Classes Schedule
+        </h1>
 
-          useEffect(() => {
-            const timer = setInterval(() => {
-              setTimeLeft(calculateTimeLeft(classSlot.classDate));
-            }, 1000);
-            return () => clearInterval(timer); // Clean up the interval
-          }, [classSlot.classDate]);
+        <div className="space-y-6">
+          {classSlots.map((classSlot) => {
+            const [timeLeft, setTimeLeft] = useState(
+              calculateTimeLeft(classSlot.classDate)
+            );
 
-          // Calculate class start and end times
-          const classStartTime = new Date(classSlot.classDate);
-          const classEndTime = new Date(classStartTime.getTime() + classSlot.duration * 60000);
-          const currentTime = new Date();
+            useEffect(() => {
+              const timer = setInterval(() => {
+                setTimeLeft(calculateTimeLeft(classSlot.classDate));
+              }, 1000);
+              return () => clearInterval(timer); // Clean up the interval
+            }, [classSlot.classDate]);
 
-          // Determine if the class is currently ongoing
-          const isClassAvailable = currentTime >= classStartTime && currentTime <= classEndTime;
+            // Calculate class start and end times
+            const classStartTime = new Date(classSlot.classDate);
+            const classEndTime = new Date(
+              classStartTime.getTime() + classSlot.duration * 60000
+            );
+            const currentTime = new Date();
 
-          return (
-            <div className="card-border">
-            <div key={classSlot.id} className=" bg-gray-800 text-white p-6 rounded-lg shadow-lg flex flex-col items-start lg:p-8  "> {/* Increased padding for larger screens */}
-              <div className="flex items-center mb-4">
-                <img
-                  src={classSlot.image}
-                  alt={classSlot.title}
-                  className="w-24 h-24 object-cover rounded-md mr-4 lg:w-32 lg:h-32" // Increased image size
-                />
-                <div>
-                  <h2 className="text-2xl font-semibold lg:text-3xl">{classSlot.title}</h2> {/* Increased font size */}
-                  <p className="text-gray-400 text-lg lg:text-xl">{classSlot.duration} Min • {classSlot.location}</p> {/* Increased font size */}
+            // Determine if the class is currently ongoing
+            const isClassAvailable =
+              currentTime >= classStartTime && currentTime <= classEndTime;
+
+            return (
+              <div key={classSlot.id} className="card-border">
+                <div className="bg-gray-800 text-white p-6 rounded-lg shadow-lg flex flex-col items-start lg:p-8">
+                  <div className="flex items-center mb-4">
+                    <img
+                      src={classSlot.image}
+                      alt={classSlot.title}
+                      className="w-24 h-24 object-cover rounded-md mr-4 lg:w-32 lg:h-32"
+                    />
+                    <div>
+                      <h2 className="text-2xl font-semibold lg:text-3xl">
+                        {classSlot.title}
+                      </h2>
+                      <p className="text-gray-400 text-lg lg:text-xl">
+                        {classSlot.duration} Min • {classSlot.location}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex justify-between w-full">
+                    <p className="text-gray-300 text-lg lg:text-xl">
+                      {getDayLabel(classSlot.classDate)} •{" "}
+                      {convertTo12HourFormat(classSlot.time)}
+                    </p>
+
+                    {timeLeft ? (
+                      <div className="text-red-500 text-lg lg:text-2xl">
+                        {`${timeLeft.hours}h ${timeLeft.minutes}m ${timeLeft.seconds}s left`}
+                      </div>
+                    ) : (
+                      <div className="text-gray-400">
+                        There is not Class at that time
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex justify-between items-center mt-4 border-t border-gray-600 pt-4 w-full">
+                    {isClassAvailable ? (
+                      <Button
+                        onClick={() => window.open(classSlot.zoomLink, "_blank")}
+                        className="text-white px-6 py-3 rounded-md hover:bg-gray-1000 text-lg lg:text-xl"
+                      >
+                        Join Now
+                      </Button>
+                    ) : (
+                      <Button
+                        className="text-white px-6 py-3 rounded-md text-lg lg:text-xl"
+                        disabled
+                      >
+                        Join Closed
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
-
-              <div className="flex justify-between w-full">
-                <p className="text-gray-300 text-lg lg:text-xl">{getDayLabel(classSlot.classDate)} • {convertTo12HourFormat(classSlot.time)}</p> {/* Dynamic day label */}
-
-                {/* Countdown timer displayed to the right of class time */}
-                {timeLeft ? (
-                  <div className="text-red-500 text-lg lg:text-2xl"> {/* Increased font size for larger screens */}
-                    {`${timeLeft.hours}h ${timeLeft.minutes}m ${timeLeft.seconds}s left`}
-                  </div>
-                ) : (
-                  <div className="text-gray-400">There is not Class at that time</div>
-                )}
-              </div>
-
-              <div className="flex justify-between items-center mt-4 border-t border-gray-600 pt-4 w-full">
-                {/* Join Now button conditionally rendered based on class time */}
-                {isClassAvailable ? (
-                  <Button
-                    onClick={() => window.open(classSlot.zoomLink, "_blank")}
-                    className="text-white px-6 py-3 rounded-md hover:bg-gray-1000 text-lg lg:text-xl" // Increased button size
-                  >
-                    Join Now
-                  </Button>
-                ) : (
-                  <Button className=" text-white px-6 py-3 rounded-md text-lg lg:text-xl" disabled> {/* Increased button size */}
-                    Join Closed
-                  </Button>
-                )}
-                
-              </div>
-            </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
     </div>
   );
 };
