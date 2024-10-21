@@ -27,11 +27,12 @@ const App = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(''); 
+  const [classesData, setClassesData] = useState([]);
 
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/banners/');
+        const response = await fetch('http://127.0.0.1:8000/zyrax/banners/');
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -52,7 +53,7 @@ const App = () => {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/offers/');
+        const response = await axios.get('http://localhost:8000/zyrax/offers/');
         const fetchedOffers = response.data.map(offer => ({
           id: offer.id,
           title: offer.title,
@@ -75,6 +76,21 @@ const App = () => {
     fetchOffers();
   }, []);
 
+
+  useEffect(() => {
+    const fetchClasses = async () => {
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/zyrax/classes/');
+        setClassesData(response.data); // Store fetched classes in state
+      } catch (error) {
+        console.error('Error fetching classes:', error);
+        setError(error.message);
+      }
+    };
+    fetchClasses();
+  }, []);
+  
+
   const handleOtpVerification = () => {
     setIsOtpModalOpen(false); 
     setIsLoginModalOpen(true); 
@@ -88,7 +104,7 @@ const App = () => {
 
   return (
     <>
-      <div className="pt-[4.rem] lg:pt-[5.25rem] overflow-hidden">
+      <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
         <Header 
           openLoginModal={() => setIsLoginModalOpen(true)} 
           openRegisterModal={() => setIsRegisterModalOpen(true)} 
@@ -110,7 +126,7 @@ const App = () => {
                   <TeamSection />
                 </>
               } />
-              <Route path="/classes" element={<Classes />} /> {/* Route for Classes page */}
+               <Route path="/classes" element={<Classes classSlots={classesData} />} />  {/* Route for Classes page */}
               <Route path="/community" element={<CommunityPage />} /> {/* Route for Classes page */}
 
             </Routes>

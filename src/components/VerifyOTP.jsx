@@ -166,7 +166,7 @@ const VerifyOtp = ({ phoneNumber, onOtpVerified, resendOtp, closeModal }) => {
               onClick={resendOtp}
               className="text-purple-300 underline hover:text-purple-500"
             >
-              Resend OTP
+              Resend OTP 
             </button>
           </div>
         </div>

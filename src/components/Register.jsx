@@ -2,8 +2,9 @@
 
 
 import React, { useState } from 'react';
-import VerifyOTP from './VerifyOTP'; // Assuming you have this component for OTP verification
-import Button from './Button'; // Custom Button component (if you have one)
+import axios from 'axios';  // Make sure you import axios for making API calls
+import VerifyOTP from './VerifyOTP'; 
+import Button from './Button'; 
 
 const Register = ({ closeModal, openLoginModal }) => {
   const [firstName, setFirstName] = useState('');
@@ -16,14 +17,35 @@ const Register = ({ closeModal, openLoginModal }) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [isOTPModalOpen, setIsOTPModalOpen] = useState(false);
   
-
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
       setErrorMessage('Passwords do not match.');
-    } else {
-      // Perform registration logic here
-      setIsOTPModalOpen(true); // Open OTP modal on successful registration
+      return;
+    }
+
+    // Prepare the data to be sent
+    const registrationData = {
+      first_name: firstName,
+      last_name: lastName,
+      phone_number: phoneNumber,
+      date_of_birth: dateOfBirth,
+      password: password,
+      confirm_password:confirmPassword
+    };
+
+    try {
+      // Send a POST request to the registration API
+      const response = await axios.post('http://127.0.0.1:8000/zyrax/register/', registrationData);
+      console.log('Registration successful:', response.data);
+
+      // Handle successful registration, open OTP modal
+      setIsOTPModalOpen(true);
+      setErrorMessage('');
+    } catch (error) {
+      // Handle error, set error message
+      console.error('Error during registration:', error.response.data);
+      setErrorMessage('Registration failed. Please try again.');
     }
   };
 
@@ -34,24 +56,23 @@ const Register = ({ closeModal, openLoginModal }) => {
   };
 
   const handleVerifyOTP = (otp) => {
-     console.log('OTP verified:', otp);
+    console.log('OTP verified:', otp);
     setIsOTPModalOpen(false);
     closeModal();  // Handle OTP verification
   };
 
   const handleResendOTP = () => {
-    // Handle OTP resend logic
     console.log('Resend OTP');
   };
 
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-lg"
-      onClick={handleOverlayClick} // Handle clicks on the overlay
+      onClick={handleOverlayClick}
     >
       <div
         className="relative p-4 sm:p-6 md:p-8 w-11/12 max-w-[300px] sm:max-w-xs md:max-w-md mx-auto rounded-lg shadow-lg backdrop-blur-lg"
-        onClick={(e) => e.stopPropagation()} // Prevent modal clicks from closing it
+        onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-4 sm:mb-6">
           <h2 className="text-2xl sm:text-3xl text-left font-semibold text-white">Register</h2>
@@ -171,8 +192,8 @@ const Register = ({ closeModal, openLoginModal }) => {
             <button
               className="text-blue-400 hover:underline"
               onClick={() => {
-                closeModal(); // Close Register modal
-                openLoginModal(); // Open Login modal
+                closeModal();
+                openLoginModal();
               }}
             >
               Sign in
@@ -193,3 +214,15 @@ const Register = ({ closeModal, openLoginModal }) => {
 };
 
 export default Register;
+
+
+
+
+
+
+
+
+
+
+
+
