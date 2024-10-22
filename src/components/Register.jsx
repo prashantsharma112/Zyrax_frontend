@@ -45,7 +45,7 @@ const Register = ({ closeModal, openLoginModal }) => {
     } catch (error) {
       // Handle error, set error message
       console.error('Error during registration:', error.response.data);
-      setErrorMessage('Registration failed. Please try again.');
+      setErrorMessage('Phone number already exists');
     }
   };
 
