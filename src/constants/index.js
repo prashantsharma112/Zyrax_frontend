@@ -82,7 +82,7 @@ import {
       id: "8",
       title: "Sign out",
       url: "#logout",
-      onlyMobile: true,
+      // onlyMobile: true,
     },
     {
       id: "7",
@@ -271,7 +271,7 @@ import {
       discount: "",
       duration: "",
       isActive: "",
-      backgroundUrl: "src/assets/benefits/card-1.svg",
+      backgroundUrl: "",
       iconUrl: benefitIcon1,
       imageUrl: benefitImage2,
     },
