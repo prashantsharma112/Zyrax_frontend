@@ -183,6 +183,7 @@ button:hover {
   position: relative;
   padding: 0;
   z-index: 1;
+
   /* display: inline-block;  */
   will-change: transform;
 }
