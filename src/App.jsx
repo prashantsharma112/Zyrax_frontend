@@ -65,7 +65,7 @@ const App = () => {
           discount: offer.discount,
           duration: offer.duration,
           isActive: offer.is_active,
-          backgroundUrl: "src/assets/benefits/card-2.svg", 
+          backgroundUrl: "../src/assets/benefits/card-2.svg", 
           iconUrl: benefitIcon1,
           imageUrl: benefitImage2,
         }));
