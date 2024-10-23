@@ -58,13 +58,7 @@ import {
       title: "Success Story",
       url: "#success_story",
     },
-    {
-      id: "6",
-      title: "Classes",
-      url: "/classes",
-      
-
-    },
+   
     {
       id: "4",
       title: "New account",
@@ -75,6 +69,25 @@ import {
       id: "5",
       title: "Sign in",
       url: "#login",
+      onlyMobile: true,
+    },
+    {
+      id: "6",
+      title: "Classes",
+      url: "/classes",
+      
+
+    },
+    {
+      id: "8",
+      title: "Sign out",
+      url: "#logout",
+      onlyMobile: true,
+    },
+    {
+      id: "7",
+      title: "Profile",
+      url: "#profile",
       onlyMobile: true,
     },
   ];

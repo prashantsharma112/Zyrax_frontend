@@ -28,11 +28,14 @@ const App = () => {
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState(''); 
   const [classesData, setClassesData] = useState([]);
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
+  // const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
+
 
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/zyrax/banners/');
+        const response = await fetch(`${baseUrl}/banners/`);
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
@@ -53,7 +56,7 @@ const App = () => {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/zyrax/offers/');
+        const response = await axios.get(`${baseUrl}/offers/`);
         const fetchedOffers = response.data.map(offer => ({
           id: offer.id,
           title: offer.title,
@@ -80,7 +83,7 @@ const App = () => {
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const response = await axios.get('http://127.0.0.1:8000/zyrax/classes/');
+        const response = await axios.get(`${baseUrl}/classes/`);
         setClassesData(response.data); // Store fetched classes in state
       } catch (error) {
         console.error('Error fetching classes:', error);

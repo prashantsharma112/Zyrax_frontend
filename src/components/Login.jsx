@@ -144,12 +144,12 @@ import cardBackground from '../assets/benefits/card-3.svg'; // Ensure the backgr
 import Button from './Button'; // Import the Button component
 import ForgotPassword from './ForgotPassword'; // Import the Forgot Password modal
 
-const Login = ({ closeModal, openRegisterModal }) => {
-  const [forgotPasswordModal, setForgotPasswordModal] = useState(false); // Manage Forgot Password modal visibility
-  const [phoneNumber, setPhoneNumber] = useState(''); // State for phone number
-  const [password, setPassword] = useState(''); // State for password
-  const [error, setError] = useState(''); // State for error message
-
+const Login = ({ closeModal, openRegisterModal, setIsAuthenticated }) => {
+  const [forgotPasswordModal, setForgotPasswordModal] = useState(false); 
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState(''); 
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
   // Function to handle Forgot Password modal open/close
   const toggleForgotPasswordModal = (e) => {
     e.preventDefault(); // Prevent form submission
@@ -168,7 +168,7 @@ const Login = ({ closeModal, openRegisterModal }) => {
     setError(''); // Reset error state
 
     try {
-      const response = await axios.post('http://127.0.0.1:8000/zyrax/login/', {
+      const response = await axios.post(`${baseUrl}/login/`, {
         username: phoneNumber,
         password: password,
       });
@@ -181,8 +181,9 @@ const Login = ({ closeModal, openRegisterModal }) => {
         // Store tokens in localStorage
         localStorage.setItem('accessToken', response.data.access);
         localStorage.setItem('refreshToken', response.data.refresh);
+        
+        setIsAuthenticated(true); 
 
-        // Close modal or redirect to dashboard
         closeModal(); // Close modal on successful login
       } else {
         setError(response.data.message || 'Invalid phone number or password.'); // Set error based on backend message

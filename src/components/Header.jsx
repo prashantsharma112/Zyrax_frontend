@@ -105,9 +105,11 @@
 // export default Header;
 
 
+
+
 import { useState } from 'react';
 import { disablePageScroll, enablePageScroll } from 'scroll-lock';
-import { useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom'; // Import Link from react-router-dom
 import logo from '../assets/Zyrax.svg'; 
 import { navigation } from '../constants/index';
 import Button from './Button';
@@ -115,14 +117,14 @@ import MenuSvg from '../assets/svg/MenuSvg';
 import { HamburgerMenu } from './design/Header';
 import Login from './Login';  
 import Register from './Register'; 
-import ProfileIcon from '../assets/svg/ProfileIcon'; // Assuming you have a profile icon SVG
 
 const Header = ({ openLoginModal, openRegisterModal }) => {
     const pathname = useLocation();
     const [openNavigation, setOpenNavigation] = useState(false);
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);   
     const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false); 
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // State for tracking login status
+    const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
+    const [isAuthenticated, setIsAuthenticated] = useState(!!accessToken);
 
     const toggleNavigation = () => {
         if (openNavigation) {
@@ -147,13 +149,7 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
     const toggleRegisterModal = () => {
         setIsRegisterModalOpen(!isRegisterModalOpen);
     };
-
-    const handleLogin = () => {
-        // Perform login logic here, e.g., setting tokens or session
-        setIsLoggedIn(true); // Set logged in state to true after successful login
-        setIsLoginModalOpen(false); // Close the login modal after login
-    };
-
+    
     return (
         <div className={`fixed top-0 left-0 w-full z-50 border-b-n-6 lg:bg-n-8/90 lg:backdrop-blur-sm ${openNavigation ? "bg-n-8" : "bg-n-8/90 backdrop:backdrop-blur-sm"}`}>
             <div className="flex items-center justify-between px-5 lg:px-7.5 xl:px-10 max-lg:pt-4">
@@ -163,7 +159,10 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
 
                 <nav className={`${openNavigation ? 'flex' : 'hidden'} fixed top-[5rem] left-0 right-0 bottom-0 bg-n-8 lg:static lg:flex lg:mx-auto lg:bg-transparent`}>
                     <div className="relative z-2 flex flex-col items-center justify-center m-auto lg:flex-row lg:space-x-6">
+                       
+                         
                         {navigation.map((item) => (
+                            
                             <a
                                 key={item.id}
                                 href={item.url}
@@ -175,29 +174,33 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
                                 {item.title}
                             </a>
                         ))}
+                        
+                      
+
+                    
                     </div>
                     <HamburgerMenu />
                 </nav>
 
                 {/* Buttons */}
                 <div className="flex items-center space-x-4">
-                    {!isLoggedIn ? (
+                {!isAuthenticated ? (
                         <>
-                            {/* New account link */}
                             <a
                                 href="#signup"
                                 className="button hidden lg:block z-10 mr-4 text-n-1/50 transition-colors hover:text-n-1"
-                                onClick={openRegisterModal} // Open Register modal on click
+                                onClick={ openRegisterModal}
                             >
                                 New account
                             </a>
-                            {/* Sign in button */}
                             <Button className="hidden lg:flex z-10 px-4 py-2 text-center" onClick={openLoginModal}>
                                 Sign in
                             </Button>
                         </>
                     ) : (
-                        <ProfileIcon className="w-8 h-8 text-n-1" /> // Render profile icon if logged in
+                        <Button className="hidden lg:flex z-10 px-4 py-2 text-center">
+                            Profile
+                        </Button>
                     )}
                     <Button className="ml-auto lg:hidden" px="px-3" onClick={toggleNavigation}>
                         <MenuSvg openNavigation={openNavigation} />
@@ -205,8 +208,12 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
                 </div>
             </div>
 
-            {/* Login Modal */}
-            {isLoginModalOpen && <Login closeModal={toggleLoginModal} handleLogin={handleLogin} />}  
+            {isLoginModalOpen && (
+    <Login 
+        closeModal={toggleLoginModal} 
+        setIsAuthenticated={setIsAuthenticated} // Make sure this line is present
+    />
+)}
             
             {/* Register Modal */}
             {isRegisterModalOpen && <Register closeModal={toggleRegisterModal} />} 
