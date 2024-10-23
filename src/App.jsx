@@ -15,6 +15,7 @@ import TeamSection from './components/TeamSection';
 import { Routes, Route } from 'react-router-dom';  // Import Routes and Route for routing
 import Classes from './components/Classes';  // Import the new Classes component
 import CommunityPage from "./components/CommunityPage";
+import benefitCard2 from "./assets/benefits/card-2.svg";
 
 import { benefitIcon1, benefitImage2 } from './assets';
 
@@ -65,7 +66,7 @@ const App = () => {
           discount: offer.discount,
           duration: offer.duration,
           isActive: offer.is_active,
-          backgroundUrl: "../src/assets/benefits/card-2.svg", 
+          backgroundUrl: benefitCard2, 
           iconUrl: benefitIcon1,
           imageUrl: benefitImage2,
         }));
