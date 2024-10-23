@@ -1,6 +1,6 @@
 
 
-  import React, { useState } from 'react';
+import React, { useState } from 'react';
 import Section from './Section';
 import teamImage from '../assets/testsrc/testImage1.png'; // Import the image
 import VideoModal from './VideoModal'; // Import the VideoModal component
