@@ -82,7 +82,7 @@ import {
       id: "8",
       title: "Sign out",
       url: "#logout",
-      // onlyMobile: true,
+      onlyMobile: true,
     },
     {
       id: "7",
