@@ -16,6 +16,7 @@ const Register = ({ closeModal, openLoginModal }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isOTPModalOpen, setIsOTPModalOpen] = useState(false);
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
   
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -36,7 +37,7 @@ const Register = ({ closeModal, openLoginModal }) => {
 
     try {
       // Send a POST request to the registration API
-      const response = await axios.post('http://127.0.0.1:8000/zyrax/register/', registrationData);
+      const response = await axios.post(`${baseUrl}/register/`, registrationData);
       console.log('Registration successful:', response.data);
 
       // Handle successful registration, open OTP modal
@@ -45,7 +46,7 @@ const Register = ({ closeModal, openLoginModal }) => {
     } catch (error) {
       // Handle error, set error message
       console.error('Error during registration:', error.response.data);
-      setErrorMessage('Registration failed. Please try again.');
+      setErrorMessage('Phone number already exists');
     }
   };
 
