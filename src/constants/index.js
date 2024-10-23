@@ -1,5 +1,6 @@
 import {
     benefitIcon1,
+    benefitCard2,
     benefitImage2,
     chromecast,
     disc02,
@@ -32,7 +33,6 @@ import {
     twitter,
     yourlogo,
   } from "../assets";
-  
   export const navigation = [
     {
       id: "0",
@@ -262,21 +262,6 @@ import {
     },
   ];
   
-  export const benefits = [
-    {
-      id: "",
-      title: "",
-      text: "",
-      amount: "",
-      discount: "",
-      duration: "",
-      isActive: "",
-      backgroundUrl: "",
-      iconUrl: benefitIcon1,
-      imageUrl: benefitImage2,
-    },
-    
-  ];
   
   export const socials = [
     {

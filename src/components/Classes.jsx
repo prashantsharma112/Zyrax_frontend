@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from "react";
 import Button from "./Button"; // Importing the custom Button component
-import ClassBG from "../assets/ClassBG.webp";
+import ClassBG from "../assets/ClassBG.jpg";
  // Import the background image
 
 const Classes = ({classSlots}) => {
@@ -94,11 +94,7 @@ const Classes = ({classSlots}) => {
               <div key={classSlot.id}>
                 <div className="bg-gray-800 bg-opacity-70 text-white p-6 rounded-lg shadow-lg flex flex-col items-start lg:p-8">
                   <div className="flex items-center mb-4">
-                    {/* <img
-                      src={classSlot.image}
-                      alt={classSlot.title}
-                      className="w-24 h-24 object-cover rounded-md mr-4 lg:w-32 lg:h-32"
-                    /> */}
+                
                     <div>
                       <h2 className="text-2xl font-semibold lg:text-3xl">
                         {classSlot.title}
