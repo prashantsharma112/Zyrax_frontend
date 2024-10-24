@@ -30,7 +30,6 @@ const App = () => {
   const [phoneNumber, setPhoneNumber] = useState(''); 
   const [classesData, setClassesData] = useState([]);
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
-  // const [accessToken, setAccessToken] = useState(localStorage.getItem('accessToken'));
 
 
   useEffect(() => {
@@ -169,14 +168,3 @@ const App = () => {
 };
 
 export default App;
-
-
-
-
-
-
-
-
-
-
-
