@@ -1,3 +1,4 @@
+
 import Heading from "./Heading";
 import Section from './Section';
 
@@ -5,23 +6,28 @@ const Benefits = ({ benefits }) => {
     return (
         <Section id="features" className="gradient-background">
             <div className="container relative z-2">
-                <Heading className="md:max-w-md lg:max-w-2xl"
-                    title="Get Fit, Have Fun: Join Our Zumba Classes Today!"
-                />
+                <Heading className="md:max-w-md lg:max-w-2xl" 
+                 title="Get Fit, Have Fun: Join Our Zumba Classes Today!" />
+                
                 <div className="flex flex-wrap gap-6 sm:gap-8 md:gap-10 mb-10 justify-center">
                     {benefits.map((item) => {
                         // Calculate discounted price
                         const discountedAmount = item.amount - (item.amount * (item.discount / 100));
 
                         return (
-                            <div className=" relative  bg-[length:100%_100%] w-full h-full max-w-[310px] sm:max-w-[340px]  transform transition duration-300 hover:scale-105 mx-auto"
-                                style={{
-                                    backgroundImage: `url(${item.backgroundUrl})`,
-                                    // backgroundSize: 'cover',
-
-                                }}
+                            <div className="relative w-full h-full max-w-[310px] sm:max-w-[340px] mx-auto transform transition duration-300 hover:scale-105"
                                 key={item.id}>
-                                <div className="relative z-2 flex flex-col min-h-[11rem] sm:min-h-[20rem] p-[1.6rem] sm:p-[1.5rem] pb-6 mb-3 rounded-lg  bg-opacity-50">
+
+                                {/* Image acting as the card border and background */}
+                                <img 
+                                    src={item.backgroundUrl}
+                                    alt={item.title}
+                                    className="absolute top-0 left-0 w-full h-full  rounded-lg z-0"
+                                />
+
+                                {/* Card Content */}
+                                <div className="relative z-10 flex flex-col min-h-[11rem] sm:min-h-[20rem] p-[1.6rem] sm:p-[1.5rem] pb-6 mb-3 rounded-lg bg-opacity-50 ">
+
                                     {/* Centered Title in Uppercase */}
                                     <h5 className="h5 mb-2 sm:mb-4 text-md sm:text-lg text-white text-center uppercase tracking-wide">
                                         {item.title}
@@ -52,7 +58,7 @@ const Benefits = ({ benefits }) => {
                                     <div className="flex items-center mt-auto">
                                         <img
                                             src={item.iconUrl}
-                                            width={32} // Reduced icon size
+                                            width={32} // Icon size
                                             height={32}
                                             alt={item.title}
                                             className="rounded-full shadow-lg"
@@ -62,7 +68,6 @@ const Benefits = ({ benefits }) => {
                                         </button>
                                     </div>
                                 </div>
-
                             </div>
                         );
                     })}
@@ -73,4 +78,3 @@ const Benefits = ({ benefits }) => {
 };
 
 export default Benefits;
-
