@@ -28,6 +28,7 @@ const Benefits = ({ benefits }) => {
 
                                 {/* Card Content */}
                                 <div className="relative z-10 flex flex-col min-h-[11rem] sm:min-h-[20rem] p-[1.6rem] sm:p-[1.5rem] pb-6 mb-3 rounded-lg bg-opacity-50 ">
+
                                     {/* Centered Title in Uppercase */}
                                     <h5 className="h5 mb-2 sm:mb-4 text-md sm:text-lg text-white text-center uppercase tracking-wide">
                                         {item.title}
