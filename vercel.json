@@ -9,15 +9,7 @@
     {
       "src": "/(.*)",
       "dest": "/"
-    },
-    {
-      "src": "/",
-      "dest": "/community"
-    },
-    {
-      "src": "/",
-      "dest": "/classes"
     }
   ]
-  
+
 }
