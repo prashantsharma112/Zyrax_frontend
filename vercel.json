@@ -18,8 +18,5 @@
       "src": "/",
       "dest": "/classes"
     }
-  ],
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
   ]
 }
