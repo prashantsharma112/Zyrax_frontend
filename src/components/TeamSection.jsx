@@ -1,9 +1,9 @@
 
 
 import React, { useState } from 'react';
-import Section from './Section';
+import Section from './subComponents/Section';
 import teamImage from '../assets/testsrc/testImage1.png'; // Import the image
-import VideoModal from './VideoModal'; // Import the VideoModal component
+import VideoModal from './subComponents/VideoModal'; // Import the VideoModal component
 
 const TeamSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility

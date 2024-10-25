@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';  // Make sure you import axios for making API calls
-import VerifyOTP from './VerifyOTP'; 
+import VerifyOTP from './subComponents/VerifyOTP'; 
 import Button from './Button'; 
 
 const Register = ({ closeModal, openLoginModal }) => {
