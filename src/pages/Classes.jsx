@@ -160,7 +160,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import Button from "./Button"; // Importing the custom Button component
+import Button from "../components/Button"; // Importing the custom Button component
 import ClassBG from "../assets/ClassBG.jpg"; // Import the background image
 
 const Classes = ({ classSlots }) => {

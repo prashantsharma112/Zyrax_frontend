@@ -8,9 +8,9 @@ const Footer = () => {
         <div className="md:flex justify-between">
           {/* Company Info */}
           <div>
-            <h2 className="text-xl font-bold mb-2">Company Name</h2>
+            <h2 className="text-xl font-bold mb-2">Zyrax</h2>
             <p className="text-sm">
-              Building innovative solutions for your software needs.
+            Fitness
             </p>
           </div>
 

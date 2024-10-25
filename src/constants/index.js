@@ -75,8 +75,6 @@ import {
       id: "6",
       title: "Classes",
       url: "/classes",
-      
-
     },
     {
       id: "8",

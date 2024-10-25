@@ -182,11 +182,11 @@ import axios from "axios";
 import Login from './components/Login';
 import Register from './components/Register';
 import Footer from './components/Footer';
-import VerifyOtp from './components/VerifyOTP'; 
+import VerifyOtp from './components/subComponents/VerifyOTP'; 
 import TeamSection from './components/TeamSection';
-import { Routes, Route } from 'react-router-dom';  // Only import Routes and Route
-import Classes from './components/Classes';  
-import CommunityPage from "./components/CommunityPage";
+import {  Routes, Route } from 'react-router-dom';
+import Classes from './pages/Classes';  
+import CommunityPage from "./pages/CommunityPage";
 import benefitCard2 from "./assets/benefits/card-2.svg";
 import { benefitIcon1, benefitImage2 } from './assets';
 
@@ -274,6 +274,7 @@ const App = () => {
   };
 
   return (
+    
     <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
       <Header 
         openLoginModal={() => setIsLoginModalOpen(true)} 
@@ -286,17 +287,17 @@ const App = () => {
         <div>Error: {error}</div>
       ) : (
         <>
-          <Routes>
-            <Route path="/" element={
-              <>
-                <Hero imageUrl={imageUrl} id="home" />
-                <Benefits benefits={benefitsData} />
-                <TeamSection />
-              </>
-            } />
-            <Route path="/classes" element={<Classes classSlots={classesData} />} />
-            <Route path="/community" element={<CommunityPage />} />
-          </Routes>
+     <Routes>
+              <Route path="/" element={
+                <>
+                  <Hero imageUrl={imageUrl} id="home" />
+                  <Benefits benefits={benefitsData} />
+                  <TeamSection />
+                </>
+              } />
+              <Route path="/classes" element={<Classes classSlots={classesData} />} />
+              <Route path="/community" element={<CommunityPage />} />
+            </Routes>
           <Footer />
         </>
       )}
@@ -310,7 +311,7 @@ const App = () => {
       )}
       
       {isRegisterModalOpen && (
-        <Register 
+        <Register  
           closeModal={() => setIsRegisterModalOpen(false)} 
           onRegisterSubmit={handleRegisterSubmit} 
         />
@@ -324,6 +325,8 @@ const App = () => {
         />
       )}
     </div>
+
+
   );
 };
 

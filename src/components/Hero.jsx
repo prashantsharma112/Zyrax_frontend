@@ -3,7 +3,7 @@
 
 import { curve, heroBackground } from "../assets";
 import Button from "./Button";
-import Section from "./Section";
+import Section from "./subComponents/Section";
 import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
 import { useRef } from "react";
 
