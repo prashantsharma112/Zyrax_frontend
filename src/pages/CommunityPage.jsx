@@ -25,7 +25,7 @@ const CommunityPage = () => {
         <div className="flex items-center mb-6">
           <FaUserCircle size={48} className="text-gray-400 mr-4" />
           <div>
-            <h2 className="text-lg font-bold text-white">Prashant Sharma</h2>
+            <h2 className="text-lg font-bold text-white">ABCDEF</h2>
             <p className="text-sm text-gray-500">View Profile</p>
           </div>
         </div>
