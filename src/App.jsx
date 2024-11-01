@@ -271,6 +271,23 @@ const App = () => {
     setIsOtpModalOpen(true);
   };
 
+  const [profile, setProfile] = useState({
+    profileName: '',
+    bio: '',
+    phoneNumber: '',
+    address: '',
+    height: '',
+    weight: '',
+    gender: 'male',
+    cycleStartDate: new Date(),
+    profilePicture: null,
+  });
+
+  // Handle saving the profile data
+  const handleSaveProfile = (updatedProfile) => {
+    setProfile(updatedProfile); // Update the profile state
+  };
+
   return (
     <div className="pt-[4.75rem] lg:pt-[5.25rem] overflow-hidden">
       <Header
@@ -293,8 +310,8 @@ const App = () => {
           } />
         {isAuthenticated && (
     <>
-      <Route path="/edit-profile" element={<EditProfile />} />   
-      <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<Profile profile={profile} onEdit={() => navigate('/edit-profile', { state: profile })} />} />
+        <Route path="/edit-profile" element={<EditProfile onSave={handleSaveProfile} />} />   
       <Route path="/classes" element={<Classes classSlots={classesData} />} />
     </>
   )}
