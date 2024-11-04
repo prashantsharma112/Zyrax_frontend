@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../Button';
-import logout from '../logout'; // Import your logout function
+import logout from './logout';
 
 const ProfileMenu = ({ openBMICalculator, setIsAuthenticated, setIsDropdownOpen }) => {
   const navigate = useNavigate();
