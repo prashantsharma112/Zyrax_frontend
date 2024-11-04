@@ -1,11 +1,12 @@
 
 
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
+import BMICalculator from '../components/subComponents/BMICalculator';
+import ProfileMenu from '../components/subComponents/ProfileMenu';
 
-const Profile = ({ profile }) => {
+const Profile = ({ profile,  }) => {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState(false);
 
@@ -20,7 +21,7 @@ const Profile = ({ profile }) => {
   return (
     <div className="min-h-screen bg-black text-white flex flex-col md:flex-row justify-center items-center p-8">
       {/* Profile Section */}
-      <div className="md:w-2/3 p-6  rounded-lg shadow-md md:mr-6">
+      <div className="items-center p-6 rounded-lg shadow-md md:mr-6">
         <h1 className="text-3xl font-semibold mb-6">Profile</h1>
         <div className="flex justify-center mb-6">
           <img
@@ -54,22 +55,10 @@ const Profile = ({ profile }) => {
         )}
       </div>
 
-      {/* Menu Section */}
-      <div className="md:w-1/3 p-6  rounded-lg shadow-md flex flex-col space-y-4 mt-6 md:mt-0">
-        <h2 className="text-2xl font-semibold mb-4">Menu</h2>
-        <Button className="w-full bg-red-500 text-white py-2 rounded-md focus:outline-none" onClick={() => navigate('/logout')}>
-          Logout
-        </Button>
-        <Button className="w-full bg-blue-500 text-white py-2 rounded-md focus:outline-none" onClick={() => navigate('/attendance-calendar')}>
-          Attendance Calendar
-        </Button>
-        <Button className="w-full bg-green-500 text-white py-2 rounded-md focus:outline-none" onClick={() => navigate('/bmi-calculator')}>
-          BMI Calculator
-        </Button>
-        {/* Add more menu items as needed */}
-      </div>
+    
     </div>
   );
 };
 
 export default Profile;
+

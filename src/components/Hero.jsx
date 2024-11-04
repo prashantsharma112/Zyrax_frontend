@@ -9,8 +9,9 @@ import { useRef } from "react";
 
 const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
     const parallaxRef = useRef(null);
-    const baseUrl = 'http://127.0.0.1:8000';  // Define the base URL
 
+
+    
     // Debug log to check the received props
     console.log("Received imageUrl in Hero:", imageUrl);
 
@@ -52,7 +53,7 @@ const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
                             <div className="aspect-[16/9] rounded-b-[0.9rem] rounded-t-[0.9rem] overflow-hidden md:aspect-[16/9] lg:aspect-[16/0]">
                                 {imageUrl ? (
                                     <img
-                                        src={baseUrl+imageUrl}  // Concatenate base URL with image path
+                                        src={imageUrl}  // Concatenate base URL with image path
                                         className="w-full h-full object-cover"
                                         width={1024}
                                         height={490}

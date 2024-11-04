@@ -41,11 +41,7 @@ import {
       // onlyMobile: true,
 
     },
-    {
-      id: "1",
-      title: "Services",
-      url: "#services",
-    },
+ 
     {
       id: "2",
       title: "Community",
@@ -53,11 +49,7 @@ import {
       
 
     },
-    {
-      id: "3",
-      title: "Success Story",
-      url: "#success_story",
-    },
+  
    
     {
       id: "4",

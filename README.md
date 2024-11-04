@@ -7,6 +7,10 @@ http://127.0.0.1:8000/admin/content/banner/
 python manage.py runserver
 
 
+<!-- Base url of localhost -->
+# VITE_API_BASE_URL=http://localhost:8000/zyrax
+
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
