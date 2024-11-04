@@ -26,7 +26,7 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
     };
 
     return (
-        <div className="fixed top-0 left-0 w-full z-50 border-b-n-6 lg:bg-n-8/90 lg:backdrop-blur-sm">
+        <div className="fixed top-0 left-0 w-full z-50 bg-black border-b-n-6 lg:bg-n-8/90 lg:backdrop-blur-sm">
             <div className="flex items-center justify-between px-5 lg:px-7.5 xl:px-10 max-lg:pt-4">
                 <a className="block w-[12rem] xl:mr-8 mt-2" href="/">
                     <img src={logo} width={50} height={40} alt="Zyrax" />
@@ -61,7 +61,7 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
                             >
                                 New account
                             </a>
-                            <Button className="hidden lg:flex z-10 px-4 py-2 text-center" onClick={openLoginModal}>
+                            <Button className="lg:flex z-10 px-4 py-2 text-center" onClick={openLoginModal}>
                                 Sign in
                             </Button>
                         </>
@@ -74,7 +74,7 @@ const Header = ({ openLoginModal, openRegisterModal }) => {
                                 onClick={toggleDropdown}
                             />
                             {isDropdownOpen && (
-                                <div className="absolute right-0 mt-15 bg-black shadow-lg rounded-lg z-20">
+                                <div className="absolute right-0 mt-15 bg-black shadow-lg rounded-lg z-20 opacity-90">
                                     <ProfileMenu
                                         openBMICalculator={() => setShowBMICalculator(true)}
                                         setIsAuthenticated={setIsAuthenticated}

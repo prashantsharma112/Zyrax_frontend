@@ -55,7 +55,7 @@ const AddPostForm = ({ onPostAdded }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg p-4 shadow-lg max-w-lg mx-auto mb-4">
+        <div className="bg-white rounded-lg p-4 shadow-lg overflow-hidden max-w-lg mx-auto mb-4">
             <div className="flex items-center mb-4">
                 <img
                     src="path/to/profile-picture.jpg" // Replace with actual profile picture

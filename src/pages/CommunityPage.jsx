@@ -1,15 +1,14 @@
+
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaCalendarAlt, FaChartLine, FaCalculator, FaSignOutAlt, FaUserCircle, FaEllipsisV } from 'react-icons/fa';
 import AddPostForm from '../components/AddPostForm';
 import Post from '../components/Post';
 
-
 const CommunityPage = () => {
     const [posts, setPosts] = useState([]);
     const [isSidebarVisible, setIsSidebarVisible] = useState(false); // State for sidebar visibility on mobile
-
- 
 
     // Function to fetch posts from the backend
     const fetchPosts = async () => {
@@ -30,7 +29,7 @@ const CommunityPage = () => {
         <div className="min-h-screen bg-gray-900 text-gray-300 flex"> {/* Dark background and light text */}
             {/* Sidebar - Hidden on mobile and visible on larger screens */}
             <div
-                className={`w-64 bg-gray-800 shadow-lg p-4 rounded-lg h-screen fixed top-0 left-0 transition-transform transform ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'
+                className={`w-64 bg-gray-800 shadow-lg p-4 h-screen fixed top-0 left-0 transition-transform transform ${isSidebarVisible ? 'translate-x-0' : '-translate-x-full'
                     } lg:translate-x-0 lg:static`} // Sidebar with dark background
             >
                 {/* Profile Section */}
@@ -64,8 +63,8 @@ const CommunityPage = () => {
             </div>
 
             {/* Main Content */}
-            <div className="flex-1 ml-0"> {/* Adjusted left margin based on sidebar visibility */}
-                <div className="container mx-auto px-4">
+            <div className="flex-1 flex justify-center w-full"> {/* Centering main content */}
+                <div className="w-full max-w-2xl px-4"> {/* Limits width and centers on larger screens */}
                     {/* Header with Three-dot Icon */}
                     <div className="flex justify-between items-center mb-6">
                         <h1 className="text-3xl font-bold text-white text-center mx-auto mt-8"> {/* Light text for title */}
@@ -80,7 +79,7 @@ const CommunityPage = () => {
                         </button>
                     </div>
 
-                    {/* Add post card */}
+                    {/* Centered Add Post and Posts List */}
                     <div className="mb-8">
                         <AddPostForm onPostAdded={fetchPosts} />
                         <div className="mt-6 space-y-4">
@@ -89,8 +88,6 @@ const CommunityPage = () => {
                             ))}
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
@@ -98,4 +95,3 @@ const CommunityPage = () => {
 };
 
 export default CommunityPage;
-

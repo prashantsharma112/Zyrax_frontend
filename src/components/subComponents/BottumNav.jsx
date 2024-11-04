@@ -15,7 +15,7 @@ const BottomNav = () => {
     };
 
     return (
-        <div className="fixed bottom-0 left-0 right-0 bg-white shadow-lg py-2 flex justify-around items-center border-t border-gray-200">
+        <div className="fixed bottom-0 left-0 right-0 bg-black shadow-lg py-2 flex justify-around items-center border-t border-gray-200 opacity-80">
             <button onClick={() => navigate('/')} className="flex flex-col items-center text-gray-500 hover:text-gray-900">
                 <AiOutlineHome size={24} />
                 <span className="text-xs">Home</span>

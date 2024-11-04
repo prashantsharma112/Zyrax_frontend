@@ -25,7 +25,7 @@ const BMICalculator = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 ">
       <div className="bg-black p-6 rounded-lg shadow-lg w-11/12 max-w-md relative">
         <h2 className="text-2xl font-semibold text-center mb-4">BMI Calculator</h2>
 
