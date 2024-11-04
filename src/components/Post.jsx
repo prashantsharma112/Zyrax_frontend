@@ -4,7 +4,7 @@ import CommentSection from './Comment';
 
 const Post = ({ post }) => {
     return (
-        <div className="bg-gray-800 rounded-lg shadow-lg p-4 max-w-lg mx-auto overflow-hidden">
+        <div className="bg-gray-800 rounded-lg  shadow-lg p-4 max-w-lg w-full-sm mx-auto overflow-hidden">
             <div className="mb-2 flex items-center">
                 <img
                     src="path/to/profile-picture.jpg"
