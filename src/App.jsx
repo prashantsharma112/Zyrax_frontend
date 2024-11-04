@@ -109,7 +109,7 @@ const App = () => {
     address: '',
     height: '',
     weight: '',
-    gender: 'male',
+    gender: '',
     cycleStartDate: new Date(),
     profilePicture: null,
   });
@@ -134,7 +134,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={
             <>
-              <Hero imageUrl={imageUrl} id="home" />
+              <Hero imageUrl={imageUrl}  />
               <Benefits benefits={benefitsData} />
               <TeamSection />
             </>
