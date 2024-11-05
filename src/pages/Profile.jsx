@@ -3,9 +3,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
-import BMICalculator from '../components/subComponents/BMICalculator';
-import ProfileMenu from '../components/subComponents/ProfileMenu';
-
 const Profile = ({ profile,  }) => {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState(false);
