@@ -10,6 +10,7 @@ import { useRef } from "react";
 const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
     const parallaxRef = useRef(null);
 
+    // const baseUrl = 'http://127.0.0.1:8000';
 
     
     // Debug log to check the received props

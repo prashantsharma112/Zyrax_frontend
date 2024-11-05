@@ -3,6 +3,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import Button from './Button';
 
 const AddPostForm = ({ onPostAdded }) => {
     const [content, setContent] = useState('');
@@ -55,7 +56,7 @@ const AddPostForm = ({ onPostAdded }) => {
     };
 
     return (
-        <div className="bg-white rounded-lg p-4 shadow-lg overflow-hidden max-w-lg mx-auto mb-4">
+        <div className="bg-black rounded-lg p-4 shadow-lg overflow-hidden max-w-lg mx-auto mb-4">
             <div className="flex items-center mb-4">
                 <img
                     src="path/to/profile-picture.jpg" // Replace with actual profile picture
@@ -93,9 +94,9 @@ const AddPostForm = ({ onPostAdded }) => {
                         ))}
                     </div>
                 )}
-                <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
+                <Button type="submit" className=" text-white w-full py-2 px-4 rounded ">
                     Add Post
-                </button>
+                </Button>
             </form>
         </div>
     );
