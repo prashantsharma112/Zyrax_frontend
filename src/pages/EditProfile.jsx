@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useNavigate } from 'react-router-dom';
-import Button from './Button';
+import Button from '../components/subComponents/Button';
 
 const EditProfile = ({ onSave }) => {
   const navigate = useNavigate();

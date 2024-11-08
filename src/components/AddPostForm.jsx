@@ -3,7 +3,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import Button from './Button';
+import Button from './subComponents/Button';
 
 const AddPostForm = ({ onPostAdded }) => {
     const [content, setContent] = useState('');

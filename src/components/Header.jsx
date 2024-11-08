@@ -115,7 +115,7 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import logo from '../assets/Zyrax.svg';
 import { navigation } from '../constants/index';
-import Button from './Button';
+import Button from './subComponents/Button';
 import profileImage from '../assets/background.jpg';
 import ProfileMenu from './subComponents/ProfileMenu';
 import BMICalculator from './subComponents/BMICalculator';

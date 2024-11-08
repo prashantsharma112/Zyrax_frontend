@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Button from '../Button';
+import Button from './Button';
 
 const ForgotPassword = ({ closeModal }) => {
   const [step, setStep] = useState(1); // Step 1: Phone number input, Step 2: OTP and new password input

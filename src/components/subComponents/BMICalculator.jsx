@@ -80,7 +80,7 @@
 
 // BMICalculator.jsx
 import React, { useState } from "react";
-import Button from "../Button";
+import Button from "./Button";
 
 const BMICalculator = ({ onClose }) => {
   const [weight, setWeight] = useState("");
