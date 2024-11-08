@@ -4,17 +4,11 @@
 import { curve, heroBackground } from "../assets";
 import Button from "./subComponents/Button";
 import Section from "./subComponents/Section";
+import imageUrl from "../assets/testsrc/ClassBG.jpg"
 import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
-import { useRef } from "react";
 
-const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
-    const parallaxRef = useRef(null);
 
-    // const baseUrl = 'http://127.0.0.1:8000';
-
-    
-    // Debug log to check the received props
-    console.log("Received imageUrl in Hero:", imageUrl);
+const Service_Hero = ({ }) => {  // Destructure imageUrl correctly
 
     return (
         <Section
@@ -24,12 +18,12 @@ const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
             customPaddings
             id="hero"
         >
-            <div className="container relative" ref={parallaxRef}>
+            <div className="container relative" >
                 <div className="relative z-1 max-w-[62rem] mx-auto text-center mb-[3.875rem] md:mb-20 lg:mb-[6.25rem]">
                     <h1 className="h1 mb-6">
-                        Dance Your Way To Fitness And Fun With{` `}
+                        
                         <span className="inline-block relative">
-                            Zyrax Fitness{" "}
+                            OUR SERVICES{" "}
                             <img
                                 src={curve}
                                 className="absolute top-full left-0 w-full xl:-mt-2"
@@ -42,20 +36,19 @@ const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
                     <p className="body-1 max-w-3xl mx-auto mb-6 text-n-2 lg:mb-8">
                         Join our Zumba community and transform your fitness journey enthusiastically
                     </p>
-                    <Button href="/pricing" white>
+                    <Button >
                         Join Now
                     </Button>
                 </div>
 
-                <div className="relative max-w-[30rem] mx-auto md:max-w-[100rem] xl:mb-24">
+                <div className="relativ max-w-[40rem] mx-auto md:max-w-[100rem] xl:mb-24">
                     <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient">
                         <div className="relative bg-n-8 rounded-[1rem]">
                             {/* <div className="h-[1.4rem] bg-n-10 rounded-t-[0.9rem]" /> */}
                             <div className="aspect-[16/9] rounded-b-[0.9rem] rounded-t-[0.9rem] overflow-hidden md:aspect-[16/9] lg:aspect-[16/0]">
                                 {imageUrl ? (
                                     <img
-                                        src={imageUrl}
-                                        // src={baseUrl+imageUrl}  // Concatenate base URL with image path
+                                        src={imageUrl}  // Concatenate base URL with image path
                                         className="w-full h-full object-cover"
                                         width={1024}
                                         height={490}
@@ -86,4 +79,4 @@ const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
     );
 };
 
-export default Hero;
+export default Service_Hero;

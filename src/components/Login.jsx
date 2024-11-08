@@ -4,7 +4,7 @@
 import React, { useState} from 'react';
 import axios from 'axios';
 import cardBackground from '../assets/benefits/card-3.svg';
-import Button from './Button';
+import Button from './subComponents/Button';
 import ForgotPassword from './subComponents/ForgotPassword';
 
 const Login = ({ closeModal, openRegisterModal, setIsAuthenticated }) => {

@@ -10,6 +10,11 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Roboto', 'sans-serif'],
+      },
       colors: {
         color: {
           1: "#5d17eb",
@@ -40,6 +45,8 @@ export default {
       },
       fontFamily: {
         sans: ["var(--font-sora)", ...fontFamily.sans],
+        heading: ['Poppins', 'sans-serif'],
+        body: ['Roboto', 'sans-serif'],
         code: "var(--font-code)",
         grotesk: "var(--font-grotesk)",
       },
@@ -83,6 +90,7 @@ export default {
       },
     },
   },
+  
   plugins: [
     plugin(function ({ addBase, addComponents, addUtilities }) {
       addBase({});
@@ -132,6 +140,7 @@ export default {
           "@apply font-code text-xs font-bold uppercase tracking-wider": {},
         },
       });
+
       addUtilities({
         ".tap-highlight-color": {
           "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)",

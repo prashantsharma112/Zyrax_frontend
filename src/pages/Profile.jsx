@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
+import Button from '../components/subComponents/Button';
 const Profile = ({ profile,  }) => {
   const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState(false);

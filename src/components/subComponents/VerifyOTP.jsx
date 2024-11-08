@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import axios from "axios";
-import Button from "../Button";
+import Button from "./Button";
 
 const VerifyOtp = ({ phoneNumber, onOtpVerified, resendOtp, closeModal }) => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
