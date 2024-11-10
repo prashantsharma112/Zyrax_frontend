@@ -72,11 +72,7 @@ const BottomNav = () => {
                 <MdOutlineDesignServices size={24} />
                 <span className="text-xs">Services</span>
             </button>
-            Three-dot menu button
-            <button onClick={handleMoreFeatures} className="flex flex-col items-center text-gray-500 hover:text-gray-900">
-                <AiOutlineEllipsis size={24} />
-                <span className="text-xs">More</span>
-            </button>
+           
         </div>
     );
 };
