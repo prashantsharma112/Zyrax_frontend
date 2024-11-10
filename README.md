@@ -4,6 +4,7 @@
 http://127.0.0.1:8000/admin/content/banner/
 
 <!-- To run Backend -->
+pip instal
 python manage.py runserver
 
 

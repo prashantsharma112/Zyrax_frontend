@@ -151,6 +151,7 @@ useEffect(() => {
       ) : error ? (
         <div>Error: {error}</div>
       ) : (
+        
         <Routes>
           <Route path="/" element={
             <>
@@ -167,7 +168,7 @@ useEffect(() => {
             </>
           )}
           <Route path="/community" element={<CommunityPage />} />
-          <Route path="/services" element={<Services serviceData={servicePosts}/>} />
+          <Route path="/services" element={<Services serviceData={servicePosts} imageUrl={imageUrl}/>} />
 
         </Routes>
       )}

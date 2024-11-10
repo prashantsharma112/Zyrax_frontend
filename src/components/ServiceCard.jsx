@@ -1,32 +1,63 @@
 
+// const ServiceCard = ({ serviceData = [] }) => {
+//     return (
+//         <>
+//             {serviceData.map((post) => (
+//                 <div key={post.id} className="service-card flex max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden m-4">
+//                     {/* Image Section */}
+//                     <div className="w-1/3">
+//                         <img
+//                             src={post.image}
+//                             alt={post.title}
+//                             className="object-cover w-full h-full"
+//                         />
+//                     </div>
+
+//                     {/* Text Section */}
+//                     <div className="p-6 w-2/3 flex flex-col justify-between">
+//                         <div>
+//                             <h3 className="text-2xl font-bold text-gray-800 mb-2">
+//                                 {post.title}
+//                             </h3>
+//                             <p className="text-gray-600 text-sm mb-4">
+//                                 {post.description}
+//                             </p>
+//                         </div>
+                       
+//                     </div>
+//                 </div>
+//             ))}
+//         </>
+//     );
+// };
+
+// export default ServiceCard;
+
+// ServiceCard.jsx
 const ServiceCard = ({ serviceData = [] }) => {
-    // const baseUrl = 'http://127.0.0.1:8000';
     return (
         <>
             {serviceData.map((post) => (
-                <div key={post.id} className="max-w-sm sm:max-w-xs lg:max-w-full lg:flex m-4 lg:m-20 card-border">
-                    <div
-                        className="h-72 sm:h-50 lg:h-100 lg:w-100 flex-none text-center rounded-lg overflow-hidden"
-                        title={post.title}
-                    >
+                <div
+                    key={post.id}
+                    className="service-card flex flex-col sm:flex-row md:flex-col lg:flex-row max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden m-4"
+                >
+                    {/* Image Section */}
+                    <div className="w-full sm:w-1/3 md:w-full lg:w-1/3 h-48 sm:h-auto">
                         <img
                             src={post.image}
-                            // src={baseUrl+post.image}
-
                             alt={post.title}
                             className="object-cover w-full h-full"
                         />
-                        
-                        console.log(serviceData);
-  
-
                     </div>
-                    <div className="bg-black p-4 sm:p-3 flex flex-col justify-between leading-normal rounded-b-lg">
-                        <div className="mb-8">
-                            <div className="text-white font-bold text-xl sm:text-sm lg:text-2xl mb-2 font-heading">
+
+                    {/* Text Section */}
+                    <div className="p-6 w-full sm:w-2/3 md:w-full lg:w-2/3 flex flex-col justify-between">
+                        <div>
+                            <h3 className="text-xl md:text-2xl font-bold text-gray-800 mb-2">
                                 {post.title}
-                            </div>
-                            <p className="text-white text-lg sm:text-sm lg:text-xl mt-5 m-5 font-body">
+                            </h3>
+                            <p className="text-gray-600 text-sm mb-4">
                                 {post.description}
                             </p>
                         </div>
