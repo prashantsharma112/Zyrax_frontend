@@ -42,7 +42,7 @@ const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
                     <p className="body-1 max-w-3xl mx-auto mb-6 text-n-2 lg:mb-8">
                         Join our Zumba community and transform your fitness journey enthusiastically
                     </p>
-                    <Button href="/pricing" white>
+                    <Button href="/classes" white>
                         Join Now
                     </Button>
                 </div>
