@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 
 const IBWCard = ({ profile }) => {
   const [ibw, setIBW] = useState(null);
-  const [status, setStatus] = useState(""); // Status message for IBW
+  const [status, setStatus] = useState(""); 
   const [cardColor, setCardColor] = useState("bg-gradient-to-br from-black to-black");
 
   const height = profile?.additional_info?.height
     ? parseFloat(profile.additional_info.height)
-    : null; // height in cm
+    : null; 
   const gender =
     profile?.additional_info?.gender === "M"
       ? "male"
