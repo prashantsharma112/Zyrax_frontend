@@ -1,55 +1,58 @@
 
 
-// App.jsx
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from "react";
-import Header from './components/Header';
+
+
+
+
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axiosInstance from './components/axiosInstance'; // Use axiosInstance for authenticated API calls
+import axios from 'axios'; // Use plain axios for unauthenticated calls
+import Header from './header/Header';
 import Hero from './components/Hero';
 import Benefits from './components/Benefits';
 import ButtonGradient from './assets/svg/ButtonGradient';
-import axios from "axios";
-import Login from './components/Login';
-import Register from './components/Register';
+import Login from './header/Login';
+import Register from './header/Register';
 import Footer from './components/Footer';
-import VerifyOtp from './components/subComponents/VerifyOTP';
+import VerifyOtp from './header/VerifyOTP';
 import TeamSection from './components/TeamSection';
 import Classes from './pages/Classes';
-import CommunityPage from "./pages/CommunityPage";
+import CommunityPage from './pages/CommunityPage';
 import Profile from './pages/Profile';
-import benefitCard2 from "./assets/benefits/card-2.svg";
+import benefitCard2 from './assets/benefits/card-2.svg';
 import { benefitIcon1, benefitImage2 } from './assets';
-import EditProfile from './pages/EditProfile';
-import BMICalculator from './components/subComponents/BMICalculator'; // Import BMICalculator
-import Services from './pages/Services'; // Adjust based on your folder structure
+import EditProfile from './profile/DetailsCard';
+import Services from './pages/Services';
 
-const App = () => {
+const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [benefitsData, setBenefitsData] = useState([]);
   const [servicePosts, setServicePosts] = useState([]);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
-  const [isBMICalculatorOpen, setIsBMICalculatorOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [classesData, setClassesData] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('accessToken'));
+  const [attendanceData, setAttendanceData] = useState([]);
+  const [profile, setProfile] = useState(null);
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
+  const navigate = useNavigate();
+
+  // Fetch Banner Image (No Authentication Required)
   useEffect(() => {
     const fetchImage = async () => {
       try {
-        const response = await fetch(`${baseUrl}/banners/`);
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
-        if (data && data.length > 0) {
-          setImageUrl(data[0].image);
+        const response = await axios.get(`${baseUrl}/banners/`);
+        if (response.data && response.data.length > 0) {
+          setImageUrl(response.data[0].image);
         }
       } catch (error) {
-        console.error("Error fetching image:", error);
+        console.error('Error fetching image:', error);
         setError(error.message);
       } finally {
         setLoading(false);
@@ -58,10 +61,47 @@ const App = () => {
     fetchImage();
   }, []);
 
+  // Listen for token expiry event and trigger login modal
+  useEffect(() => {
+    const handleTokenExpiry = () => {
+      console.log('Token expired, showing login modal...');
+      setIsLoginModalOpen(true); // Open login modal when token expires
+    };
+
+    window.addEventListener('tokenExpired', handleTokenExpiry);
+
+    return () => {
+      window.removeEventListener('tokenExpired', handleTokenExpiry);
+    };
+  }, []);
+
+  // Fetch Profile Data
+  useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        if (!token) throw new Error('No token found');
+
+        const response = await axiosInstance.get('/profile/details/', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setProfile(response.data);
+      } catch (error) {
+        console.error('Error fetching profile:', error);
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (isAuthenticated) fetchProfileData();
+  }, [isAuthenticated]);
+
+  // Fetch Offers
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/offers/`);
+        const response = await axiosInstance.get('/offers/');
         const fetchedOffers = response.data.map(offer => ({
           id: offer.id,
           title: offer.title,
@@ -84,10 +124,11 @@ const App = () => {
     fetchOffers();
   }, []);
 
+  // Fetch Classes
   useEffect(() => {
     const fetchClasses = async () => {
       try {
-        const response = await axios.get(`${baseUrl}/classes/`);
+        const response = await axiosInstance.get('/classes/');
         setClassesData(response.data);
       } catch (error) {
         console.error('Error fetching classes:', error);
@@ -97,45 +138,55 @@ const App = () => {
     fetchClasses();
   }, []);
 
-  // Use effect to fetch service post data
-useEffect(() => {
-  const fetchServicePosts = async () => {
+  // Fetch Service Posts
+  useEffect(() => {
+    const fetchServicePosts = async () => {
       try {
-          const response = await axios.get(`${baseUrl}/service-post/`);
-          setServicePosts(response.data); // Assuming response data is an array of service posts
+        const response = await axiosInstance.get('/service-post/');
+        setServicePosts(response.data);
       } catch (error) {
-          console.error("Error fetching service posts:", error);
-          setError(error.message);
+        console.error('Error fetching service posts:', error);
+        setError(error.message);
       }
-  };
-  fetchServicePosts();
-}, []);
+    };
+    fetchServicePosts();
+  }, []);
 
+  // Fetch Attendance Data
+  useEffect(() => {
+    const fetchAttendance = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        if (!token) throw new Error('No token found');
+
+        const response = await axiosInstance.get(
+          '/attendance/monthly_attendance/2/?month=11&year=2024',
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        console.log('Attendance data:', response.data);
+        setAttendanceData(response.data);
+      } catch (error) {
+        console.error('Error fetching attendance data:', error);
+        setError(error.message);
+      }
+    };
+
+    if (isAuthenticated) fetchAttendance();
+  }, [userId, isAuthenticated]);
+
+  // Handle OTP Verification
   const handleOtpVerification = () => {
     setIsOtpModalOpen(false);
     setIsLoginModalOpen(true);
   };
 
-  const handleRegisterSubmit = (phone) => {
+  // Handle Registration
+  const handleRegisterSubmit = phone => {
     setPhoneNumber(phone);
     setIsRegisterModalOpen(false);
     setIsOtpModalOpen(true);
-  };
-
-  const [profile, setProfile] = useState({
-    profileName: '',
-    bio: '',
-    phoneNumber: '',
-    address: '',
-    height: '',
-    weight: '',
-    gender: '',
-    cycleStartDate: new Date(),
-    profilePicture: null,
-  });
-
-  const handleSaveProfile = (updatedProfile) => {
-    setProfile(updatedProfile); // Update the profile state
   };
 
   return (
@@ -143,7 +194,7 @@ useEffect(() => {
       <Header
         openLoginModal={() => setIsLoginModalOpen(true)}
         openRegisterModal={() => setIsRegisterModalOpen(true)}
-        openBMICalculator={() => setIsBMICalculatorOpen(true)} // Open BMI Calculator
+        profile={profile}
       />
 
       {loading ? (
@@ -151,28 +202,47 @@ useEffect(() => {
       ) : error ? (
         <div>Error: {error}</div>
       ) : (
-        
         <Routes>
-          <Route path="/" element={
-            <>
-              <Hero imageUrl={imageUrl} />
-              <Benefits benefits={benefitsData} />
-              <TeamSection />
-            </>
-          } />
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero imageUrl={imageUrl} />
+                <Benefits benefits={benefitsData} />
+                <TeamSection />
+              </>
+            }
+          />
           {isAuthenticated && (
             <>
-              <Route path="/profile" element={<Profile profile={profile} onEdit={() => navigate('/edit-profile', { state: profile })} />} />
-              <Route path="/edit-profile" element={<EditProfile onSave={handleSaveProfile} />} />   
-              <Route path="/classes" element={<Classes classSlots={classesData} />} />
+              <Route
+                path="/profile"
+                element={
+                  <Profile
+                    profile={profile}
+                    attendanceData={attendanceData}
+                    onEdit={() => navigate('/edit-profile')}
+                  />
+                }
+              />
+              <Route path="/edit-profile" element={<EditProfile profile={profile} />} />
+              <Route
+                path="/classes"
+                element={<Classes classSlots={classesData} attendanceData={attendanceData} />}
+              />
             </>
           )}
-          <Route path="/community" element={<CommunityPage />} />
-          <Route path="/services" element={<Services serviceData={servicePosts} imageUrl={imageUrl}/>} />
-
+          <Route
+            path="/community"
+            element={<CommunityPage profile={profile} isAuthenticated={isAuthenticated} />}
+          />
+          <Route
+            path="/services"
+            element={<Services serviceData={servicePosts} imageUrl={imageUrl} />}
+          />
         </Routes>
       )}
-      
+
       <Footer />
       <ButtonGradient />
 
@@ -183,24 +253,20 @@ useEffect(() => {
           setIsAuthenticated={setIsAuthenticated}
         />
       )}
-      
+
       {isRegisterModalOpen && (
-        <Register  
-          closeModal={() => setIsRegisterModalOpen(false)} 
-          onRegisterSubmit={handleRegisterSubmit} 
-        />
-      )}
-      
-      {isOtpModalOpen && (
-        <VerifyOtp 
-          phoneNumber={phoneNumber}
-          onOtpVerified={handleOtpVerification} 
-          resendOtp={() => console.log("Resend OTP")} 
+        <Register
+          closeModal={() => setIsRegisterModalOpen(false)}
+          onRegisterSubmit={handleRegisterSubmit}
         />
       )}
 
-{isBMICalculatorOpen && (
-        <BMICalculator onClose={() => setIsBMICalculatorOpen(false)} />
+      {isOtpModalOpen && (
+        <VerifyOtp
+          phoneNumber={phoneNumber}
+          onOtpVerified={handleOtpVerification}
+          resendOtp={() => console.log('Resend OTP')}
+        />
       )}
     </div>
   );

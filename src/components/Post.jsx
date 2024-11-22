@@ -2,16 +2,23 @@
 import React from 'react';
 import CommentSection from './Comment';
 
-const Post = ({ post }) => {
+const Post = ({ post, profile }) => {
+
+    
+    const { first_name, last_name} = profile;
+
+    const profileimage =  profile?.additional_info?.profile_picture;
+   
+    console.log(profileimage);
     return (
         <div className="bg-gray-800 rounded-lg  shadow-lg p-4 max-w-lg w-full-sm mx-auto overflow-hidden">
             <div className="mb-2 flex items-center">
                 <img
-                    src="path/to/profile-picture.jpg"
+                    src={profileimage}
                     alt="User Profile"
                     className="rounded-full w-10 h-10 mr-3"
                 />
-                <h4 className="font-bold text-gray-300">Prashant Sharma</h4>
+                <h4 className="font-bold text-gray-300">{`${first_name} ${last_name}`}</h4>
             </div>
             <h2 className="text-xl font-semibold text-gray-300 mb-2">{post.title}</h2>
             <p className="text-gray-300 text-base mb-4">
