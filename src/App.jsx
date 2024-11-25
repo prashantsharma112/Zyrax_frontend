@@ -24,6 +24,7 @@ import benefitCard2 from './assets/benefits/card-2.svg';
 import { benefitIcon1, benefitImage2 } from './assets';
 import EditProfile from './profile/DetailsCard';
 import Services from './pages/Services';
+import Spinner from './components/Spinner';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -198,9 +199,9 @@ const App = ({ userId }) => {
       />
 
       {loading ? (
-        <div>Loading...</div>
+       <Spinner />
       ) : error ? (
-        <div>Error: {error}</div>
+        <div className="text-center text-red-500">Error: {error}</div>
       ) : (
         <Routes>
           <Route
