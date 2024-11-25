@@ -33,7 +33,7 @@ const App = ({ userId }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [globalLoading, setGlobalLoading] = useState(true); // For app initialization
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [classesData, setClassesData] = useState([]);
@@ -56,7 +56,7 @@ const App = ({ userId }) => {
         console.error('Error fetching image:', error);
         setError(error.message);
       } finally {
-        setLoading(false);
+        setGlobalLoading(false);
       }
     };
     fetchImage();
@@ -91,7 +91,7 @@ const App = ({ userId }) => {
         console.error('Error fetching profile:', error);
         setError(error.message);
       } finally {
-        setLoading(false);
+        setGlobalLoading(false);
       }
     };
 
@@ -198,8 +198,8 @@ const App = ({ userId }) => {
         profile={profile}
       />
 
-      {loading ? (
-       <Spinner />
+      {globalLoading ? (
+        <Spinner />
       ) : error ? (
         <div className="text-center text-red-500">Error: {error}</div>
       ) : (

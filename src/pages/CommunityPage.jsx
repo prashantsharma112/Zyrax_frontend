@@ -5,8 +5,12 @@ import axios from 'axios';
 import { FaCalendarAlt, FaChartLine, FaCalculator, FaSignOutAlt, FaUserCircle, FaEllipsisV } from 'react-icons/fa';
 import AddPostForm from '../components/AddPostForm';
 import Post from '../components/Post';
+import Spinner from '../components/Spinner';
+
 
 const CommunityPage = ({ profile,  isAuthenticated }) => {
+    const [loading, setLoading] = useState(true);
+
     const [posts, setPosts] = useState([]);
     const [isSidebarVisible, setIsSidebarVisible] = useState(false); // State for sidebar visibility on mobile
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -18,13 +22,18 @@ const CommunityPage = ({ profile,  isAuthenticated }) => {
             setPosts(response.data); // Assuming response.data contains the array of posts
         } catch (error) {
             console.error('Error fetching posts:', error);
-        }
+        } finally {
+            setLoading(false);
+          }
     };
 
     // Use effect to fetch posts when the component mounts
     useEffect(() => {
         fetchPosts();
     }, []);
+
+    if (loading) return <Spinner />; // Page-specific spinner
+
 
     return (
         <div className="min-h-screen bg-gray-900 text-gray-300 flex"> {/* Dark background and light text */}
