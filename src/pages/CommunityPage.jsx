@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { FaCalendarAlt, FaChartLine, FaCalculator, FaSignOutAlt, FaUserCircle, FaEllipsisV } from 'react-icons/fa';
-import AddPostForm from '../components/AddPostForm';
-import Post from '../components/Post';
+import AddPostForm from '../Community/AddPostForm';
+import Post from '../Community/Post';
 import Spinner from '../components/Spinner';
 
 

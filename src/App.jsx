@@ -16,7 +16,7 @@ import Login from './header/Login';
 import Register from './header/Register';
 import Footer from './components/Footer';
 import VerifyOtp from './header/VerifyOTP';
-import TeamSection from './components/TeamSection';
+import TeamSection from './Home/TeamSection';
 import Classes from './pages/Classes';
 import CommunityPage from './pages/CommunityPage';
 import Profile from './pages/Profile';
@@ -43,6 +43,7 @@ const App = ({ userId }) => {
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   const navigate = useNavigate();
+
 
   // Fetch Banner Image (No Authentication Required)
   useEffect(() => {
