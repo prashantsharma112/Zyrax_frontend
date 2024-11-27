@@ -7,7 +7,7 @@
     animation: spin 1s linear infinite;
   }
   
-  @keyframes spinn {
+  @keyframes spinner {
     to {
       transform: rotate(360deg);
     }

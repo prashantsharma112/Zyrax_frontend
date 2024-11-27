@@ -8,11 +8,13 @@ const CommentSection = ({ postId }) => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState('');
     const [showComments, setShowComments] = useState(false);
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/zyrax/posts/${postId}/comments/`);
+                const response = await axios.get(`${baseUrl}/posts/${postId}/comments/`);
                 setComments(response.data);
             } catch (error) {
                 console.error('Error fetching comments:', error);
@@ -35,7 +37,7 @@ const CommentSection = ({ postId }) => {
 
         try {
             const response = await axios.post(
-                `http://127.0.0.1:8000/zyrax/posts/${postId}/comments/create/`,
+                `${baseUrl}/posts/${postId}/comments/create/`,
                 { content: newComment },
                 { headers: { Authorization: `Bearer ${token}` } }
             );

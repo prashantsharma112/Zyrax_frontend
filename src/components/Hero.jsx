@@ -7,13 +7,12 @@ import Section from "./subComponents/Section";
 import { BackgroundCircles, BottomLine, Gradient } from "./design/Hero";
 import { useRef } from "react";
 
-const Hero = ({ imageUrl }) => {  // Destructure imageUrl correctly
+const Hero = ({ imageUrl }) => {  
     const parallaxRef = useRef(null);
 
-    // const baseUrl = 'http://127.0.0.1:8000';
+   
 
     
-    // Debug log to check the received props
     console.log("Received imageUrl in Hero:", imageUrl);
 
     return (
