@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { FaCalendarAlt, FaChartLine, FaCalculator, FaSignOutAlt, FaUserCircle, FaEllipsisV } from 'react-icons/fa';
+import { FaEllipsisV } from 'react-icons/fa';
 import AddPostForm from '../Community/AddPostForm';
 import Post from '../Community/Post';
 import Spinner from '../components/Spinner';
@@ -47,12 +47,7 @@ const CommunityPage = ({ profile,  isAuthenticated }) => {
                             Zumba Community
                         </h1>
                         {/* Three-dot menu button for mobile view */}
-                        <button
-                            onClick={() => setIsSidebarVisible(!isSidebarVisible)} // Toggle sidebar visibility
-                            className="lg:hidden text-3xl p-2 bg-gray-700 rounded-full text-white"
-                        >
-                            <FaEllipsisV />
-                        </button>
+                      
                     </div>
 
                     {/* Centered Add Post and Posts List */}

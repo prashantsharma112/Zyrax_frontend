@@ -65,7 +65,7 @@ const Profile = ({ profile, attendanceData }) => {
           </div>
           <div className="col-span-12 bg-gray-950 rounded-lg shadow-md p-4 h-full">
             <h2 className="text-xl font-bold mb-4">Attendance Calendar</h2>
-            <AttendanceCalendar attendanceData={attendanceData} />
+            <AttendanceCalendar attendanceData={attendanceData} profile={profile} />
           </div>
         </div> 
 
