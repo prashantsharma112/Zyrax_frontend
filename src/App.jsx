@@ -26,7 +26,7 @@ import EditProfile from './profile/DetailsCard';
 import Services from './pages/Services';
 import Spinner from './components/Spinner';
 
-const App = ({ userId }) => {
+const App = ({userId}) => {
   const [imageUrl, setImageUrl] = useState(null);
   const [benefitsData, setBenefitsData] = useState([]);
   const [servicePosts, setServicePosts] = useState([]);
@@ -40,9 +40,13 @@ const App = ({ userId }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('accessToken'));
   const [attendanceData, setAttendanceData] = useState([]);
   const [profile, setProfile] = useState(null);
+  const [profileId, setprofileId] = useState(null);
+  const [tutorProfiles, setTutorProfiles] = useState([]);
+
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   const navigate = useNavigate();
+
 
 
   // Fetch Banner Image (No Authentication Required)
@@ -61,6 +65,21 @@ const App = ({ userId }) => {
       }
     };
     fetchImage();
+  }, []);
+
+
+  useEffect(() => {
+    const fetchTutorProfiles = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/get_tutor_profile/`);
+        setTutorProfiles(response.data);
+      } catch (error) {
+        console.error('Error fetching tutor profiles:', error);
+        setError(error.message);
+      }
+    };
+  
+    fetchTutorProfiles();
   }, []);
 
   // Listen for token expiry event and trigger login modal
@@ -83,11 +102,12 @@ const App = ({ userId }) => {
       try {
         const token = localStorage.getItem('accessToken');
         if (!token) throw new Error('No token found');
-
+  
         const response = await axiosInstance.get('/profile/details/', {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(response.data);
+        setprofileId(response.data.user.id); // Ensure `profileId` is updated here
       } catch (error) {
         console.error('Error fetching profile:', error);
         setError(error.message);
@@ -95,9 +115,10 @@ const App = ({ userId }) => {
         setGlobalLoading(false);
       }
     };
-
+  
     if (isAuthenticated) fetchProfileData();
   }, [isAuthenticated]);
+  
 
   // Fetch Offers
   useEffect(() => {
@@ -160,9 +181,15 @@ const App = ({ userId }) => {
       try {
         const token = localStorage.getItem('accessToken');
         if (!token) throw new Error('No token found');
-
+        if (!profileId) throw new Error('Profile ID is missing');
+  
+        // Get current month and year dynamically
+        const currentDate = new Date();
+        const month = currentDate.getMonth() + 1; // getMonth() returns 0-based month
+        const year = currentDate.getFullYear();
+  
         const response = await axiosInstance.get(
-          '/attendance/monthly_attendance/2/?month=11&year=2024',
+          `/attendance/monthly_attendance/${profileId}/?month=${month}&year=${year}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -174,9 +201,14 @@ const App = ({ userId }) => {
         setError(error.message);
       }
     };
-
-    if (isAuthenticated) fetchAttendance();
-  }, [userId, isAuthenticated]);
+  
+    // Only fetch attendance if the user is authenticated and profileId is available
+    if (isAuthenticated && profileId) {
+      fetchAttendance();
+    }
+  }, [isAuthenticated, profileId]);
+  
+  
 
   // Handle OTP Verification
   const handleOtpVerification = () => {
@@ -211,7 +243,7 @@ const App = ({ userId }) => {
               <>
                 <Hero imageUrl={imageUrl} />
                 <Benefits benefits={benefitsData} />
-                <TeamSection />
+                <TeamSection tutorProfiles={tutorProfiles} />
               </>
             }
           />
