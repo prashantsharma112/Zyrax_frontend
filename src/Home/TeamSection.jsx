@@ -1,3 +1,5 @@
+
+
 // import React, { useState } from 'react';
 // import Section from '../components/subComponents/Section';
 // import VideoModal from '../components/VideoModal'; // Import the VideoModal component
@@ -32,12 +34,16 @@
 //                 <div className="radio-border">
 //                   <img
 //                     src={member.image || 'fallback-image-url.jpg'} // Handle missing image
-//                     alt={member.name || 'Team Member'}
+//                     alt={`${member.first_name || ''} ${member.last_name || ''}`.trim() || 'Team Member'}
 //                     className="object-cover cursor-pointer"
 //                     onClick={() => handleImageClick(member.video)} // Handle image click
 //                   />
 //                 </div>
-//                 <h3 className="text-xl font-semibold mt-4">{member.name || 'Unnamed Coach'}</h3>
+//                 <h3 className="text-xl font-semibold mt-4">
+//                   {member.first_name && member.last_name
+//                     ? `${member.first_name} ${member.last_name}`
+//                     : 'Unnamed Coach'}
+//                 </h3>
 //                 <p className="text-gray-600">{member.description || 'No description available'}</p>
 //               </div>
 //             ))}
@@ -65,6 +71,7 @@ import VideoModal from '../components/VideoModal'; // Import the VideoModal comp
 const TeamSection = ({ tutorProfiles }) => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
   const [videoSrc, setVideoSrc] = useState(''); // State for video source URL
+  const [expandedIndex, setExpandedIndex] = useState(null); // Track which description is expanded
 
   // Function to handle image click
   const handleImageClick = (video) => {
@@ -76,6 +83,11 @@ const TeamSection = ({ tutorProfiles }) => {
   const handleCloseModal = () => {
     setIsModalOpen(false); // Close the modal
     setVideoSrc(''); // Reset the video URL
+  };
+
+  // Function to toggle "Read More" description
+  const toggleReadMore = (index) => {
+    setExpandedIndex(expandedIndex === index ? null : index);
   };
 
   return (
@@ -102,7 +114,20 @@ const TeamSection = ({ tutorProfiles }) => {
                     ? `${member.first_name} ${member.last_name}`
                     : 'Unnamed Coach'}
                 </h3>
-                <p className="text-gray-600">{member.description || 'No description available'}</p>
+                <p className="text-gray-600">
+                  {/* Truncate description and add Read More/Read Less */}
+                  {expandedIndex === index || (member.description?.length || 0) <= 100
+                    ? member.description || 'No description available'
+                    : `${member.description.substring(0, 100)}...`}
+                  {member.description && member.description.length > 100 && (
+                    <button
+                      onClick={() => toggleReadMore(index)}
+                      className="text-blue-500 ml-2 underline hover:text-blue-700"
+                    >
+                      {expandedIndex === index ? 'Read Less' : 'Read More'}
+                    </button>
+                  )}
+                </p>
               </div>
             ))}
           </div>
