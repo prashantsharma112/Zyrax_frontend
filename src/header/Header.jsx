@@ -1,5 +1,6 @@
 
 
+import { FaUserCircle } from 'react-icons/fa'; // Import a default profile icon from a library like react-icons.
 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ import { navigation } from '../constants/index';
 import Button from '../components/subComponents/Button';
 import ProfileMenu from './ProfileMenu';
 import BottomNav from '../components/subComponents/BottumNav';
+import ProfileIcon from '../assets/profileIcon.jpg'
 
 const Header = ({ openLoginModal, openRegisterModal, profile}) => {
     const pathname = useLocation();
@@ -70,7 +72,7 @@ const Header = ({ openLoginModal, openRegisterModal, profile}) => {
                     ) : (
                         <div className="relative">
                             <img
-                                src={image}
+                                src={image||ProfileIcon}
                                 alt="Profile"
                                 className="cursor-pointer w-10 h-10 rounded-full"
                                 onClick={toggleDropdown}
@@ -88,15 +90,6 @@ const Header = ({ openLoginModal, openRegisterModal, profile}) => {
                     )}
                 </div>
             </div>
-
-            {/* {isLoginModalOpen && (
-                <Login
-                    closeModal={() => setIsLoginModalOpen(false)}
-                    setIsAuthenticated={setIsAuthenticated}
-                />
-            )} */}
-            {/* {isRegisterModalOpen && <Register closeModal={() => setIsRegisterModalOpen(false)} />} */}
-
             <div className="block lg:hidden">
                 <BottomNav />
             </div>

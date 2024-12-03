@@ -1,3 +1,6 @@
+
+
+
 /** @type {import('tailwindcss').Config} */
 import { fontFamily } from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
@@ -90,7 +93,7 @@ export default {
       },
     },
   },
-  
+
   plugins: [
     plugin(function ({ addBase, addComponents, addUtilities }) {
       addBase({});
@@ -141,12 +144,13 @@ export default {
         },
       });
 
+      // Add the fade-container utility
       addUtilities({
-        ".tap-highlight-color": {
-          "-webkit-tap-highlight-color": "rgba(0, 0, 0, 0)",
+        ".fade-container": {
+          height: "50px", // Adjust height as needed
+          background: "linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.1))",
         },
       });
     }),
   ],
 };
-

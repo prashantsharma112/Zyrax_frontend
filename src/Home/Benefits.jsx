@@ -1,7 +1,7 @@
 
 
-import Heading from "./subComponents/Heading";
-import Section from './subComponents/Section';
+import Heading from "../components/subComponents/Heading";
+import Section from '../components/subComponents/Section';
 
 const Benefits = ({ benefits }) => {
     return (
