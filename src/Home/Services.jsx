@@ -1,14 +1,12 @@
 
 
-
-// Services.jsx
 import Section from '../components/subComponents/Section';
-import ServiceCard from '../components/ServiceCard';
+import ServiceCard from './ServiceCard';
 
 const Services = ({ serviceData }) => {
     return (
         <Section>
-            <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 gap-6 lg:m-20 m-10">
+            <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4">
                 <ServiceCard serviceData={serviceData} />
             </div>
         </Section>

@@ -1,81 +1,171 @@
 
 
-import React, { useState } from 'react';
-import Section from '../components/subComponents/Section';
-import VideoModal from './VideoModal'; // Import the VideoModal component
+
+// import React, { useState } from "react";
+// import Section from "../components/subComponents/Section";
+// import CardContent from "./CardContent";
+
+// const TeamSection = ({ tutorProfiles }) => {
+//   const [expandedIndex, setExpandedIndex] = useState(null);
+
+//   const toggleReadMore = (index) => {
+//     setExpandedIndex(expandedIndex === index ? null : index);
+//   };
+
+//   const formatDescription = (description) => {
+//     if (!description) return "No description available";
+
+//     const words = description.split(" ");
+//     if (words.length <= 2) {
+//       return description;
+//     }
+
+//     const firstWord = words[0];
+//     const lastWord = words[words.length - 1];
+//     const middleWords = words.slice(1, words.length - 1).join(" ");
+
+//     return (
+//       <>
+//         <span className="font-bold">{firstWord} </span>
+//         {middleWords}
+//         <span className="font-bold"> {lastWord}</span>
+//       </>
+//     );
+//   };
+
+//   const closeExpandedCard = () => {
+//     setExpandedIndex(null);
+//   };
+
+//   return (
+//     <Section>
+//       <div>
+//         <h2 className="text-center text-2xl font-bold mb-6">OUR FITNESS COACH</h2>
+
+//         {tutorProfiles && tutorProfiles.length > 0 ? (
+//           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-9 justify-items-center mx-auto">
+//             {tutorProfiles.map((member, index) => (
+//              <div
+//              key={index}
+//              className="relative flex justify-center items-center w-full max-w-[280px] rounded-xl overflow-hidden shadow-2xl cursor-pointer transition-all duration-500 ease-in-out group"
+//            >
+//              {/* Background Image */}
+//              <div className="absolute inset-0 w-full h-full rounded-xl overflow-hidden">
+//                <img
+//                  src={member.image || "fallback-image-url.jpg"}
+//                  alt={`${member.first_name || ""} ${member.last_name || ""}`.trim() || "Team Member"}
+//                  className="w-full h-full object-cover filter blur-2xl"
+//                />
+//              </div>
+           
+//              {/* Foreground Image */}
+//              <img
+//                src={member.image || "fallback-image-url.jpg"}
+//                alt={`${member.first_name || ""} ${member.last_name || ""}`.trim() || "Team Member"}
+//                className="relative block w-[80%] h-auto rounded-xl mx-auto my-2"
+//              />
+           
+//              {/* Card Content */}
+//              <CardContent member={member} formatDescription={formatDescription} />
+//            </div>
+           
+//             ))}
+//           </div>
+//         ) : (
+//           <p className="text-center text-gray-500">
+//             No team members available at the moment.
+//           </p>
+//         )}
+//       </div>
+//     </Section>
+//   );
+// };
+
+// export default TeamSection;
+
+
+
+import React, { useState } from "react";
+import Section from "../components/subComponents/Section";
+import CardContent from "./CardContent";
 
 const TeamSection = ({ tutorProfiles }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // State for modal visibility
-  const [videoSrc, setVideoSrc] = useState(''); // State for video source URL
-  const [expandedIndex, setExpandedIndex] = useState(null); // Track which description is expanded
+  const [expandedIndex, setExpandedIndex] = useState(null);
 
-  // Function to handle image click
-  const handleImageClick = (video) => {
-    setVideoSrc(video); // Set the video URL
-    setIsModalOpen(true); // Open the modal
-  };
-
-  // Function to close the modal
-  const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the modal
-    setVideoSrc(''); // Reset the video URL
-  };
-
-  // Function to toggle "Read More" description
   const toggleReadMore = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index);
   };
 
+  const formatDescription = (description) => {
+    if (!description) return "No description available";
+
+    const words = description.split(" ");
+    if (words.length <= 2) {
+      return description;
+    }
+
+    const firstWord = words[0];
+    const lastWord = words[words.length - 1];
+    const middleWords = words.slice(1, words.length - 1).join(" ");
+
+    return (
+      <>
+        <span className="font-bold">{firstWord} </span>
+        {middleWords}
+        <span className="font-bold"> {lastWord}</span>
+      </>
+    );
+  };
+
+  const closeExpandedCard = () => {
+    setExpandedIndex(null);
+  };
+
   return (
     <Section>
-      <div className="py-10 bg-transparent px-4 sm:px-8 lg:px-16">
-        <h2 className="text-4xl font-bold text-center mb-10">OUR FITNESS COACH</h2>
+      <div>
+        <h2 className="text-center text-2xl font-bold mb-6">OUR FITNESS COACH</h2>
 
-        {/* Render Team Members */}
         {tutorProfiles && tutorProfiles.length > 0 ? (
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 px-9 justify-items-center mx-auto">
             {tutorProfiles.map((member, index) => (
-              <div key={index} className="flex flex-col items-center text-center">
-                {/* Animated Border */}
-                <div className="radio-border">
+              <div
+                key={index}
+                className="flex justify-center items-center w-full max-w-[280px] rounded-xl overflow-hidden shadow-2xl relative cursor-pointer transition-all ease-in-out duration-500 group"
+              >
+                {/* Card with blurred image */}
+                <div className="absolute top-0 left-0 w-full h-full rounded-xl overflow-hidden border-4 border-black shadow-2xl">
                   <img
-                    src={member.image || 'fallback-image-url.jpg'} // Handle missing image
-                    alt={`${member.first_name || ''} ${member.last_name || ''}`.trim() || 'Team Member'}
-                    className="object-cover cursor-pointer"
-                    onClick={() => handleImageClick(member.video)} // Handle image click
+                    src={member.image || "fallback-image-url.jpg"}
+                    alt={`${member.first_name || ""} ${member.last_name || ""}`.trim() || "Team Member"}
+                    className="w-full h-full object-cover filter blur-2xl rounded-xl"
                   />
                 </div>
-                <h3 className="text-xl font-semibold mt-4">
-                  {member.first_name && member.last_name
-                    ? `${member.first_name} ${member.last_name}`
-                    : 'Unnamed Coach'}
-                </h3>
-                <p className="text-gray-600">
-                  {/* Truncate description and add Read More/Read Less */}
-                  {expandedIndex === index || (member.description?.length || 0) <= 100
-                    ? member.description || 'No description available'
-                    : `${member.description.substring(0, 100)}...`}
-                  {member.description && member.description.length > 100 && (
-                    <button
-                      onClick={() => toggleReadMore(index)}
-                      className="text-blue-500 ml-2 underline hover:text-blue-700"
-                    >
-                      {expandedIndex === index ? 'Read Less' : 'Read More'}
-                    </button>
-                  )}
-                </p>
+
+                <img
+                  src={member.image || "fallback-image-url.jpg"}
+                  alt={`${member.first_name || ""} ${member.last_name || ""}`.trim() || "Team Member"}
+                  className="relative block w-[80%] h-auto rounded-xl mx-auto my-2"
+                />
+
+                {/* Card Content */}
+                <CardContent
+                  member={member}
+                  isExpanded={expandedIndex === index}
+                  toggleReadMore={toggleReadMore}
+                  closeExpandedCard={closeExpandedCard}
+                  index={index}
+                  formatDescription={formatDescription}
+                />
               </div>
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500">No team members available at the moment.</p>
+          <p className="text-center text-gray-500">
+            No team members available at the moment.
+          </p>
         )}
       </div>
-
-      {/* Video Modal */}
-      {isModalOpen && (
-        <VideoModal isOpen={isModalOpen} onClose={handleCloseModal} videoSrc={videoSrc} />
-      )}
     </Section>
   );
 };
