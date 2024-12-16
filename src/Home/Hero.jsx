@@ -55,7 +55,7 @@ const Hero = ({ imageUrl = [] }) => {
         <div className="relative text-center text-white max-w-[30rem] mx-auto md:max-w-[100rem] xl:mb-24">
           <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient mb-10 shadow-[0_0_15px_5px_rgba(0,0,0,0.5)]">
             <div className="relative rounded-[1rem]">
-              <div className="aspect-[16/9] rounded-b-[0.9rem] rounded-t-[0.9rem] overflow-hidden md:aspect-[16/9] lg:aspect-[12/5]">
+              <div className="asspect[12/5] rounded-b-[0.9rem] rounded-t-[0.9rem] overflow-hidden md:aspect-[12/5] lg:aspect-[12/5]">
                 {imageUrl.length > 0 ? (
                   <img
                     src={imageUrl[currentSlide]}

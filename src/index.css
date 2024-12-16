@@ -1,3 +1,4 @@
+/* Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300&display=swap");
@@ -17,79 +18,63 @@
   scroll-behavior: smooth;
 }
 
+/* Hide scrollbar in all browsers */
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hidden {
+  -ms-overflow-style: none;  /* for Internet Explorer 10+ */
+  scrollbar-width: none;  /* for Firefox */
+}
+
+/* Apply custom scrollbar class */
 @layer base {
   body {
     @apply font-sans bg-n-8 text-n-1 text-base;
   }
 }
 
-.rotate-45 {
-  @apply rotate-[45deg];
+/* Rotations */
+.rotate-45 { @apply rotate-[45deg]; }
+.rotate-90 { @apply rotate-[90deg]; }
+.rotate-135 { @apply rotate-[135deg]; }
+.rotate-180 { @apply rotate-[180deg]; }
+.rotate-225 { @apply rotate-[225deg]; }
+.rotate-270 { @apply rotate-[270deg]; }
+.rotate-315 { @apply rotate-[315deg]; }
+.rotate-360 { @apply rotate-[360deg]; }
+
+.-rotate-45 { @apply rotate-[-45deg]; }
+.-rotate-90 { @apply rotate-[-90deg]; }
+.-rotate-135 { @apply rotate-[-135deg]; }
+.-rotate-180 { @apply rotate-[-180deg]; }
+.-rotate-225 { @apply rotate-[-225deg]; }
+.-rotate-270 { @apply rotate-[-270deg]; }
+.-rotate-315 { @apply rotate-[-315deg]; }
+.-rotate-360 { @apply rotate-[-360deg]; }
+
+/* Gradient Background for the Hero Section */
+.gradient-background {
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6), transparent);
+  position: relative;
+  z-index: 1;
 }
 
-.rotate-90 {
-  @apply rotate-[90deg];
+/* Dynamic Blur Background */
+.dynamic-blur-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  filter: blur(20px);
+  opacity: 0.8;
 }
 
-.rotate-135 {
-  @apply rotate-[135deg];
-}
-
-.rotate-180 {
-  @apply rotate-[180deg];
-}
-
-.rotate-225 {
-  @apply rotate-[225deg];
-}
-
-.rotate-270 {
-  @apply rotate-[270deg];
-}
-
-.rotate-315 {
-  @apply rotate-[315deg];
-}
-
-.rotate-360 {
-  @apply rotate-[360deg];
-}
-
-.-rotate-45 {
-  @apply rotate-[-45deg];
-}
-
-.-rotate-90 {
-  @apply rotate-[-90deg];
-}
-
-.-rotate-135 {
-  @apply rotate-[-135deg];
-}
-
-.-rotate-180 {
-  @apply rotate-[-180deg];
-}
-
-.-rotate-225 {
-  @apply rotate-[-225deg];
-}
-
-.-rotate-270 {
-  @apply rotate-[-270deg];
-}
-
-.-rotate-315 {
-  @apply rotate-[-315deg];
-}
-
-.-rotate-360 {
-  @apply rotate-[-360deg];
-}
-
-
-
-/* Gradient Background for the entire section */
+/* Gradient Background for Features Section */
 .gradient-background {
   background: linear-gradient(135deg, #1a1a1a 0%, #000000 40%, #5d17eb 100%);
   padding: 60px 0;
@@ -101,62 +86,54 @@
 }
 
 /* Hover Effect for the Buy Now Button */
-/* button {
-  background-color: #5d17eb;
-  box-shadow: 0 0 8px rgba(93, 23, 235, 0.7);
-  transition: background-color 0.3s ease;
-} */
-
 button:hover {
   background: transparent;
-  /* box-shadow: 0 0 12px rgba(93, 23, 235, 1), 0 0 20px rgba(93, 23, 235, 0.7); */
 }
 
 /* Adding some padding around the container */
 .container {
   padding-left: 20px;
   padding-right: 20px;
-} 
-
+}
 
 /* Team Member Card Animation */
 .radio-border {
   position: relative;
   padding: 0;
-  /* display: inline-block; Wrap the content */
   will-change: transform;
 }
 
-@property --angle{
+@property --angle {
   syntax: "<angle>";
   initial-value: 0deg;
   inherits: false;
-
 }
 
-.radio-border::after, 
+.radio-border::after,
 .radio-border::before {
   --angle: 0deg;
   content: '';
   position: absolute;
-  height: 98%; /* Make it larger than the image */
-  width: 98%; /* Make it larger than the image */
+  height: 98%;
+  width: 98%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1.05); /* Slightly larger than the image */
-  /* background-image: conic-gradient(from var(--angle),black, #89F9E8, #FACB7B,black, #D87CEE, #FACB7B,black, #9099FC, #89F9E8,black); */
-  background-image: conic-gradient(from var(--angle), transparent 10%, white);
+  transform: translate(-50%, -50%) scale(1.05);
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent 10%,
+    white
+  );
   z-index: -1;
   border-radius: 10px;
-  animation: spin 5s linear infinite; /* Infinite spinning animation */
+  animation: spin 5s linear infinite;
 }
 
 .radio-border::before {
-  filter: blur(0.5rem); /* Blur the glow */
+  filter: blur(0.5rem);
   opacity: 0.5;
 }
 
-/* Keyframes for the spinning animation */
 @keyframes spin {
   from {
     --angle: 0deg;
@@ -169,55 +146,47 @@ button:hover {
 /* Scale it to 1.05 to make the border bigger */
 .radio-border img {
   display: block;
-  border-radius: 10px; /* Ensure the image has the same border-radius */
-  position: relative; /* Stack the image above the animation */
+  border-radius: 10px;
+  position: relative;
 }
 
-
-
-
-/* Classes card border */
-
- 
+/* Classes Card Border */
 .card-border {
   position: relative;
   padding: 0;
   z-index: 1;
-
-  /* display: inline-block;  */
   will-change: transform;
 }
 
-@property --angle{
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-
-}
-
-.card-border::after, 
+.card-border::after,
 .card-border::before {
   --angle: 0deg;
   content: '';
   position: absolute;
-  height: 98%; 
+  height: 98%;
   width: 96%;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) scale(1.05); 
-  background-image: conic-gradient(from var(--angle), #89F9E8, #FACB7B,#D87CEE, #FACB7B, #9099FC, #89F9E8);
-  /* background-image: conic-gradient(from var(--angle), transparent 10%, white); */
+  transform: translate(-50%, -50%) scale(1.05);
+  background-image: conic-gradient(
+    from var(--angle),
+    #89f9e8,
+    #facb7b,
+    #d87cee,
+    #facb7b,
+    #9099fc,
+    #89f9e8
+  );
   z-index: -1;
   border-radius: 10px;
-  animation: spin 8s linear infinite; /* Infinite spinning animation */
+  animation: spin 8s linear infinite;
 }
 
 .card-border::before {
-  filter: blur(0.5rem); /* Blur the glow */
+  filter: blur(0.5rem);
   opacity: 0.5;
 }
 
-/* Keyframes for the spinning animation */
 @keyframes spin {
   from {
     --angle: 0deg;
@@ -225,4 +194,4 @@ button:hover {
   to {
     --angle: 360deg;
   }
-}   
+}
