@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 import { curve } from "../assets";
 import Button from "../components/subComponents/Button";
@@ -10,7 +8,7 @@ const Hero = ({ imageUrl = [] }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
-    if (imageUrl.length === 0) return; // Prevent running the interval if no images are available
+    if (imageUrl.length === 0) return; 
 
     const slideInterval = setInterval(() => {
       setCurrentSlide((prevSlide) =>
@@ -55,11 +53,11 @@ const Hero = ({ imageUrl = [] }) => {
         <div className="relative text-center text-white max-w-[30rem] mx-auto md:max-w-[100rem] xl:mb-24">
           <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient mb-10 shadow-[0_0_15px_5px_rgba(0,0,0,0.5)]">
             <div className="relative rounded-[1rem]">
-              <div className="asspect[12/5] rounded-b-[0.9rem] rounded-t-[0.9rem] overflow-hidden md:aspect-[12/5] lg:aspect-[12/5]">
+              <div className="aspect-[12/6] rounded-b-[0.9rem] rounded-t-[0.9rem] overflow-hidden">
                 {imageUrl.length > 0 ? (
                   <img
                     src={imageUrl[currentSlide]}
-                    className="w-full h-full"
+                    className="w-full h-full object-cover"
                     alt={`Slide ${currentSlide + 1}`}
                   />
                 ) : (

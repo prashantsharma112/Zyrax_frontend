@@ -22,7 +22,7 @@ const Profile = ({ profile, attendanceData }) => {
             <ProfileSection profile={profile} />
           </div>
           <div className="col-span-8   bg-gray-950 rounded-lg shadow-md p-2 h-full">
-            <h2 className="text-xl font-bold mb-4">Health Satus</h2>
+            <h2 className="text-xl font-bold mb-4">Health Status</h2>
             <div className="flex gap-2 ">
             
                 <BMICalculator profile={profile} className="bg-yellow-100  rounded-lg  shadow" />
