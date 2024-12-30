@@ -1,17 +1,17 @@
 
 
 
-import React from "react";
+import React from 'react';
 import TestImg from '../../assets/testsrc/OIP.jpeg';
-import Section from "../../components/subComponents/Section";
+import Section from '../../components/subComponents/Section';
 
-const ServiceHero = () => {
+const ServiceHero = ({ title = "Default Title" }) => { // Default fallback title
   return (
     <Section>
-      <div className="flex flex-col md:flex-row items-center justify-between p-8 rounded-lg min-h-screen ml-0 md:ml-12 mr-0 md:mr-12">
+      <div className="flex flex-col md:flex-row items-center justify-between p-8 rounded-lg  ml-0 md:ml-12 mr-0 md:mr-12">
         
-        {/* Right content - Image */}
-        <div className="w-full md:max-w-[50%] relative">
+        {/* Right content - Image with square aspect ratio */}
+        <div className="w-full md:w-[500px] aspect-square relative">
           <img 
             src={TestImg} 
             alt="Kettlebell" 
@@ -21,11 +21,15 @@ const ServiceHero = () => {
 
         {/* Left content - Centered for large screens */}
         <div className="text-white w-full mt-8 md:mt-0 md:max-w-[50%] flex flex-col items-center justify-center">
-          <h2 className="text-5xl  font-semibold mb-4 text-center">BellyFatReduction</h2>
+          <h2 className="text-5xl font-semibold mb-4 text-center">{title}</h2> {/* Dynamic title */}
           <ul className="space-y-4 mb-6 text-center">
-            <li>Unlimited access to all PRO gyms</li>
-            <li>At-home live workouts</li>
-            <li>Free credits to access ELITE gyms & group classes</li>
+            {[
+              "Unlimited access to all PRO gyms",
+              "At-home live workouts",
+              "Free credits to access ELITE gyms & group classes"
+            ].map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
           </ul>
           <div className="text-xl font-bold mb-6 text-center">
             Starting at <span className="text-yellow-500">₹995</span> / month

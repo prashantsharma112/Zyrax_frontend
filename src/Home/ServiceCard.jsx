@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 const ServiceCard = ({ serviceData = [] }) => {
   const navigate = useNavigate();
 
-  const handleCardClick = () => {
-    navigate('/service-def'); // Navigate to the ServiceDef page
+  const handleCardClick = (title) => {
+    navigate('/service-def', { state: { title } }); // Pass title as state
   };
 
   return (
@@ -12,7 +12,7 @@ const ServiceCard = ({ serviceData = [] }) => {
       {serviceData.map((post) => (
         <div
           key={post.id}
-          onClick={handleCardClick}
+          onClick={() => handleCardClick(post.title)} // Pass title on click
           className="service-card bg-gray-800 text-white rounded-lg shadow-lg cursor-pointer border-2 border-gray-700 
             hover:shadow-[0_0_20px_rgba(255,255,255,0.8)] active:animate-glow transition-all duration-300
             w-72 sm:w-80 p-4 sm:p-6 flex flex-col items-center text-center"

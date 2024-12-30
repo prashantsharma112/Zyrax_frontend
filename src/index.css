@@ -28,6 +28,18 @@
   scrollbar-width: none;  /* for Firefox */
 }
 
+/* src/swiper.css */
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+}
+
+
 /* Apply custom scrollbar class */
 @layer base {
   body {
@@ -95,6 +107,10 @@ button:hover {
   padding-left: 20px;
   padding-right: 20px;
 }
+.inset-shadow {
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+}
+
 
 /* Team Member Card Animation */
 .radio-border {

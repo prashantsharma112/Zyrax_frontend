@@ -8,7 +8,7 @@ import Benefits from './Home/Benefits';
 import ButtonGradient from './assets/svg/ButtonGradient';
 import Login from './header/Login';
 import Register from './header/Register';
-import Footer from './components/Footer';
+import Footer from './footer/Footer';
 import VerifyOtp from './header/VerifyOTP';
 import TeamSection from './Home/TeamSection';
 import Classes from './pages/Classes';
@@ -21,7 +21,11 @@ import Services from './Home/Services';
 import Spinner from './components/Spinner';
 import ProtectedRoute from './components/subComponents/ProtectedRoute;'
 import ServiceDef from './pages/ServiceDef';
-// import ServiceHero from './header/serviceCompo/ServiceHero';
+import BeforeAfter from './components/BeforeAfter';
+import BeforeAfterPage from './pages/BeforeAfterPage';
+import AboutUs from './pages/AboutUs';
+import RefundPolicypage from './pages/RefundPolicypage';
+import CallBackRequestPage from './pages/CallBackRequestPage';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -39,13 +43,12 @@ const App = ({ userId }) => {
   const [profile, setProfile] = useState(null);
   const [profileId, setprofileId] = useState(null);
   const [tutorProfiles, setTutorProfiles] = useState([]);
+  const [testimonials, setTestimonials] = useState([]);
+
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
   const navigate = useNavigate();
-  console.log(servicePosts);
-
-
 
   useEffect(() => {
     const fetchBannerImage = async () => {
@@ -146,6 +149,22 @@ const App = ({ userId }) => {
     fetchOffers();
   }, []);
 
+  // fetch Testimonial
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await axios.get(`${baseUrl}/testimonials/`);
+        setTestimonials(response.data); // Assuming the response data is an array of testimonials
+      } catch (error) {
+        console.error('Error fetching testimonials:', error);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+
+
   // Fetch Classes
   useEffect(() => {
     const fetchClasses = async () => {
@@ -216,7 +235,7 @@ const App = ({ userId }) => {
   };
 
   // Handle Registration
-  const handleRegisterSubmit = phone => {  
+  const handleRegisterSubmit = phone => {
     setPhoneNumber(phone);
     setIsRegisterModalOpen(false);
     setIsOtpModalOpen(true);
@@ -236,6 +255,7 @@ const App = ({ userId }) => {
         <div className="text-center text-red-500">Error: {error}</div>
       ) : (
         <Routes>
+
           <Route
             path="/"
             element={
@@ -243,6 +263,7 @@ const App = ({ userId }) => {
                 <Hero imageUrl={imageUrl} />
                 <Services serviceData={servicePosts} imageUrl={imageUrl} />
                 <Benefits benefits={benefitsData} />
+                <BeforeAfter showSlider={true} testimonials={testimonials}  /> {/* Slider visible */}
                 <TeamSection tutorProfiles={tutorProfiles} />
               </>
             }
@@ -285,7 +306,12 @@ const App = ({ userId }) => {
             element={<ServiceDef />} // Define the ServiceDef route
           />
 
-        
+          <Route path="/before&after" element={<BeforeAfterPage testimonials={testimonials} />} />
+          <Route path="/aboutUs" element={<AboutUs />} />
+          <Route path="/refundPolicypage" element={<RefundPolicypage />} />
+          <Route path="/callback_request_page" element={<CallBackRequestPage />} />
+
+
         </Routes>
       )}
 
@@ -319,3 +345,4 @@ const App = ({ userId }) => {
 };
 
 export default App;
+
