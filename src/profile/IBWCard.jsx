@@ -77,7 +77,7 @@ const IBWCard = ({ profile }) => {
       {/* Error or Missing Data Message */}
       {!ibw && (
         <div className="mt-4 p-4 bg-gray-800 text-gray-100 rounded-md text-center shadow-sm">
-          <p>Unable to calculate IBW. Please provide valid profile information.</p>
+          <p>Please update your height and weight in the Details Card to calculate your BMI.</p>
         </div>
       )}
     </div>

@@ -28,7 +28,7 @@ const BeforeAfterPage = ({testimonials}) => {
         {testimonials.map((item) => (
           <div
             key={item.title}
-            className="relative shadow-lg text-white rounded-xl overflow-hidden cursor-pointer"
+            className="relative shadow-lg text-white overflow-hidden cursor-pointer"
           >
             <div className="aspect-[1/1]">
               <img

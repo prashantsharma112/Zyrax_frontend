@@ -102,7 +102,7 @@ const BMRCard = ({ profile }) => {
       {/* Error or Missing Data Message */}
       {!bmr && (
         <div className="mt-4 p-4 bg-gray-800 text-gray-100 rounded-md text-center shadow-sm">
-          <p>Unable to calculate BMR. Please provide valid profile information.</p>
+          <p>Please update your height and weight in the Details Card to calculate your BMI.</p>
         </div>
       )}
     </div>

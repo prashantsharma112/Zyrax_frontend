@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/subComponents/Button';
 import Logout from './Logout'
 
-const ProfileMenu = ({ openBMICalculator, setIsAuthenticated, setIsDropdownOpen }) => {
+const ProfileMenu = ({ setIsAuthenticated, setIsDropdownOpen }) => {
   const navigate = useNavigate();
 
 

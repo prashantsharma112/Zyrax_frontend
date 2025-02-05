@@ -1,3 +1,5 @@
+
+
 import { useEffect, useState } from "react";
 import { curve } from "../assets";
 import Button from "../components/subComponents/Button";
@@ -6,17 +8,22 @@ import { BackgroundCircles, BottomLine, Gradient } from "../components/design/He
 
 const Hero = ({ imageUrl = [] }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [isTransitioning, setIsTransitioning] = useState(false);
 
   useEffect(() => {
     if (imageUrl.length === 0) return; 
 
     const slideInterval = setInterval(() => {
-      setCurrentSlide((prevSlide) =>
-        prevSlide === imageUrl.length - 1 ? 0 : prevSlide + 1
-      );
-    }, 5000);
+      setIsTransitioning(true);
+      setTimeout(() => {
+        setCurrentSlide((prevSlide) =>
+          prevSlide === imageUrl.length - 1 ? 0 : prevSlide + 1
+        );
+        setIsTransitioning(false);
+      }, 500); // Match this with the CSS transition duration
+    }, 4500);
 
-    return () => clearInterval(slideInterval); // Cleanup interval on component unmount
+    return () => clearInterval(slideInterval); 
   }, [imageUrl]);
 
   return (
@@ -53,7 +60,11 @@ const Hero = ({ imageUrl = [] }) => {
         <div className="relative text-center text-white max-w-[30rem] mx-auto md:max-w-[100rem] xl:mb-24">
           <div className="relative z-1 p-0.5 rounded-2xl bg-conic-gradient mb-10 shadow-[0_0_15px_5px_rgba(0,0,0,0.5)]">
             <div className="relative rounded-[1rem]">
-              <div className="aspect-[12/6] rounded-b-[0.9rem] rounded-t-[0.9rem] overflow-hidden">
+              <div
+                className={`aspect-[12/6] rounded-b-[0.9rem] rounded-t-[0.9rem] overflow-hidden transition-opacity duration-500 ${
+                  isTransitioning ? "opacity-0" : "opacity-100"
+                }`}
+              >
                 {imageUrl.length > 0 ? (
                   <img
                     src={imageUrl[currentSlide]}
@@ -92,3 +103,4 @@ const Hero = ({ imageUrl = [] }) => {
 };
 
 export default Hero;
+
