@@ -15,9 +15,7 @@ export default {
       boxShadow: {
         'inset-shadow': 'inset 0 0 50px rgba(0, 0, 0, 0.5)',
       },
-      colors: {
-        purpleHover: "#5d17eb", // Add your custom color
-      },
+      
       fontFamily: {
         sans: ["Inter", ...fontFamily.sans],
         heading: ["Poppins", "sans-serif"],
@@ -26,7 +24,6 @@ export default {
         grotesk: ["var(--font-grotesk)"],
       },
       colors: {
-      
         color: {
           1: "#5d17eb",
           2: "#FFC876",

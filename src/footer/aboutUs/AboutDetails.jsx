@@ -14,13 +14,6 @@ const AboutDetails = () => {
                         alt="Group outdoors"
                         className="rounded-xl shadow-lg w-[200px] h-[250px]"
                     />
-
-                    {/* Second Image (hidden for small screens) */}
-                    <img
-                        src={testImg2}
-                        alt="Group indoors top"
-                        className="rounded-xl shadow-lg w-[300px] h-[200px] hidden sm:block"
-                    />
                 </div>
 
                 {/* Text Section */}

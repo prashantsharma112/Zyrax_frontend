@@ -1,7 +1,4 @@
 
-
-import { FaUserCircle } from 'react-icons/fa'; // Import a default profile icon from a library like react-icons.
-
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';

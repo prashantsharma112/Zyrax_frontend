@@ -4,7 +4,7 @@ const ServiceCard = ({ serviceData = [] }) => {
   const navigate = useNavigate();
 
   const handleCardClick = (title) => {
-    navigate('/service-def', { state: { title } }); // Pass title as state
+    navigate('/service-def', { state: {title, image, description} }); // Pass title as state
   };
 
   return (

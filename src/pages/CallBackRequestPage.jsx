@@ -1,4 +1,4 @@
-import CallbackRequest from "../footer/CallbackRequest";
+import CallbackRequest from "../footer/ContactUs/CallbackRequest";
 const CallBackRequestPage = () => {
     return(
     <div>

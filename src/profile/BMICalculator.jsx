@@ -56,7 +56,7 @@ const BMICalculator = ({ profile }) => {
   };
 
   return (
-    <div className={`p-6 rounded-lg shadow-md w-11/12 max-w-md mx-auto mt-5 mb-5 ${cardColor}`}>
+    <div className={`p-6 rounded-lg shadow-md w-11/12 max-w-md mx-auto mt-5 mb-5 bg-gradient-to-br from-black to-black ${cardColor}`}>
       <h2 className=" font-semibold text-center mb-4 pr-15">BMI Calculator</h2>
 
       <div style={{ width: "120px", height: "120px", margin: "0 auto" }}>
@@ -91,8 +91,8 @@ const BMICalculator = ({ profile }) => {
       )}
 
       {!bmi && (
-        <div className="mt-4 p-4 bg-gray-100 text-gray-700 rounded-md text-center shadow-sm">
-          <p>Unable to calculate BMI. Please provide valid height and weight.</p>
+        <div className="mt-4 p-4 bg-gray-800 text-gray-100 rounded-md text-center shadow-sm">
+          <p>Please update your height and weight in the Details Card to calculate your BMI.</p>
         </div>
       )}
     </div>
