@@ -100,7 +100,7 @@ export {
   background,
   curve,
   robot,
-  heroBackground,
+  // heroBackground,
   curve1,
   curve2,
   discord,

@@ -12,7 +12,7 @@ const CommunityPage = ({ profile,  isAuthenticated }) => {
     const [loading, setLoading] = useState(true);
 
     const [posts, setPosts] = useState([]);
-    const [isSidebarVisible, setIsSidebarVisible] = useState(false); // State for sidebar visibility on mobile
+    // const [isSidebarVisible, setIsSidebarVisible] = useState(false); // State for sidebar visibility on mobile
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
     // Function to fetch posts from the backend
