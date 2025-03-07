@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axiosInstance from './components/axiosInstance'; // Use axiosInstance for authenticated API calls
 import axios from 'axios'; // Use plain axios for unauthenticated calls
@@ -19,7 +20,7 @@ import { benefitIcon1, benefitImage2 } from './assets';
 import EditProfile from './profile/DetailsCard';
 import Services from './Home/Services';
 import Spinner from './components/Spinner';
-import ProtectedRoute from './components/subComponents/ProtectedRoute;'
+import ProtectedRoute from './components/subComponents/ProtectedRoute;';
 import ServiceDef from './pages/ServiceDef';
 import BeforeAfter from './components/BeforeAfter';
 import BeforeAfterPage from './pages/BeforeAfterPage';
@@ -34,21 +35,26 @@ const App = ({ userId }) => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isOtpModalOpen, setIsOtpModalOpen] = useState(false);
-  const [globalLoading, setGlobalLoading] = useState(true); // For app initialization
+  const [globalLoading, setGlobalLoading] = useState(true);
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [classesData, setClassesData] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(localStorage.getItem('accessToken'));
   const [attendanceData, setAttendanceData] = useState([]);
   const [profile, setProfile] = useState(null);
-  const [profileId, setprofileId] = useState(null);
+  const [profileId, setProfileId] = useState(null);
   const [tutorProfiles, setTutorProfiles] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
 
-
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
-
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Reload page on route change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+  
 
   useEffect(() => {
     const fetchBannerImage = async () => {
@@ -109,7 +115,7 @@ const App = ({ userId }) => {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(response.data);
-        setprofileId(response.data.user.id); // Ensure `profileId` is updated here
+        setProfileId(response.data.user.id); // Ensure `profileId` is updated here
       } catch (error) {
         console.error('Error fetching profile:', error);
         setError(error.message);
@@ -255,7 +261,6 @@ const App = ({ userId }) => {
         <div className="text-center text-red-500">Error: {error}</div>
       ) : (
         <Routes>
-
           <Route
             path="/"
             element={
@@ -263,7 +268,7 @@ const App = ({ userId }) => {
                 <Hero imageUrl={imageUrl} />
                 <Services serviceData={servicePosts} imageUrl={imageUrl} />
                 <Benefits benefits={benefitsData} />
-                <BeforeAfter showSlider={true} testimonials={testimonials}  /> {/* Slider visible */}
+                <BeforeAfter showSlider={true} testimonials={testimonials} />
                 <TeamSection tutorProfiles={tutorProfiles} />
               </>
             }
@@ -281,7 +286,6 @@ const App = ({ userId }) => {
                 }
               />
               <Route path="/edit-profile" element={<EditProfile profile={profile} />} />
-
             </>
           )}
 
@@ -296,22 +300,12 @@ const App = ({ userId }) => {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/community"
-            element={<CommunityPage profile={profile} isAuthenticated={isAuthenticated} />}
-          />
-
-          <Route
-            path="/service-def"
-            element={<ServiceDef />} // Define the ServiceDef route
-          />
-
+          <Route path="/community" element={<CommunityPage profile={profile} isAuthenticated={isAuthenticated} />} />
+          <Route path="/service-def" element={<ServiceDef />} />
           <Route path="/before&after" element={<BeforeAfterPage testimonials={testimonials} />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/refundPolicypage" element={<RefundPolicypage />} />
           <Route path="/callback_request_page" element={<CallBackRequestPage />} />
-
-
         </Routes>
       )}
 
@@ -325,18 +319,23 @@ const App = ({ userId }) => {
           setIsAuthenticated={setIsAuthenticated}
         />
       )}
-
       {isRegisterModalOpen && (
         <Register
           closeModal={() => setIsRegisterModalOpen(false)}
-          onRegisterSubmit={handleRegisterSubmit}
+          onRegisterSubmit={(phone) => {
+            setPhoneNumber(phone);
+            setIsRegisterModalOpen(false);
+            setIsOtpModalOpen(true);
+          }}
         />
       )}
-
       {isOtpModalOpen && (
         <VerifyOtp
           phoneNumber={phoneNumber}
-          onOtpVerified={handleOtpVerification}
+          onOtpVerified={() => {
+            setIsOtpModalOpen(false);
+            setIsLoginModalOpen(true);
+          }}
           resendOtp={() => console.log('Resend OTP')}
         />
       )}
@@ -345,4 +344,3 @@ const App = ({ userId }) => {
 };
 
 export default App;
-
