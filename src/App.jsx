@@ -51,7 +51,6 @@ const App = ({ userId }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(benefitsData);
 
   // Reload page on route change
   useEffect(() => {
@@ -221,7 +220,6 @@ const App = ({ userId }) => {
             headers: { Authorization: `Bearer ${token}` },
           }
         );
-        console.log('Attendance data:', response.data);
         setAttendanceData(response.data);
       } catch (error) {
         console.error('Error fetching attendance data:', error);
@@ -293,7 +291,7 @@ const App = ({ userId }) => {
                 }
               />
               <Route path="/edit-profile" element={<EditProfile profile={profile} />} />
-              <Route path="/thankyoucard" element={<ThankYouCard/>}/>
+              <Route path="/thankyoucard" element={<ThankYouCard profile={profile}  benefits={benefitsData}/>}/>
             </>
           )}
 
