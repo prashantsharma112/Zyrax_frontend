@@ -17,6 +17,7 @@ const DetailsCard = ({ profile }) => {
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const userId = profile?.user?.id;
+  console.log(userId);
 
   useEffect(() => {
     if (profile) {

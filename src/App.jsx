@@ -27,6 +27,7 @@ import BeforeAfterPage from './pages/BeforeAfterPage';
 import AboutUs from './pages/AboutUs';
 import RefundPolicypage from './pages/RefundPolicypage';
 import CallBackRequestPage from './pages/CallBackRequestPage';
+import ThankYouCard from './components/ThankYouCard';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -50,11 +51,13 @@ const App = ({ userId }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  console.log(benefitsData);
+
   // Reload page on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-  
+
 
   useEffect(() => {
     const fetchBannerImage = async () => {
@@ -267,7 +270,11 @@ const App = ({ userId }) => {
               <>
                 <Hero imageUrl={imageUrl} />
                 <Services serviceData={servicePosts} imageUrl={imageUrl} />
-                <Benefits benefits={benefitsData} />
+                <Benefits
+                  benefits={benefitsData}
+                  isAuthenticated={!!isAuthenticated}
+                  openLoginModal={() => setIsLoginModalOpen(true)}
+                />
                 <BeforeAfter showSlider={true} testimonials={testimonials} />
                 <TeamSection tutorProfiles={tutorProfiles} />
               </>
@@ -286,6 +293,7 @@ const App = ({ userId }) => {
                 }
               />
               <Route path="/edit-profile" element={<EditProfile profile={profile} />} />
+              <Route path="/thankyoucard" element={<ThankYouCard/>}/>
             </>
           )}
 
