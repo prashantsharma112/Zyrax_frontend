@@ -30,8 +30,8 @@ function AttendanceCalendar({ attendanceData }) {
   };
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-lg w-full max-w-md mx-auto">
-      {/* Header with Month and Year */}
+<div className="p-4 bg-white rounded-lg shadow-md max-w-md min-h-[400px] mx-auto flex flex-col">
+{/* Header with Month and Year */}
       <div className="flex flex-col items-center mb-4">
         <div className="text-lg sm:text-xl font-semibold text-gray-700">
           {today.toLocaleString('default', { month: 'long' })} {currentYear}🕓 {timeString}

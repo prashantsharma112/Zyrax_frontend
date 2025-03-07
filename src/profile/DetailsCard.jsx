@@ -75,8 +75,8 @@ const DetailsCard = ({ profile }) => {
   };
 
   return (
-    <div className="bg-white p-6 bg-cover rounded-lg shadow-md max-w-md mx-auto">
-      {/* Display success or error message */}
+<div className="bg-white p-6 rounded-lg shadow-md max-w-md min-h-[400px] mx-auto flex flex-col">
+{/* Display success or error message */}
       {successMessage && (
         <div className="bg-green-100 text-green-800 p-2 rounded-md mb-4">
           {successMessage}
