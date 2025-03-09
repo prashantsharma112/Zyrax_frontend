@@ -1,20 +1,27 @@
 
-
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CheckCircle } from "lucide-react";
 import Button from "./subComponents/Button";
 
 export default function ThankYouCard({ profile }) {
   const [selectedBenefit, setSelectedBenefit] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [subscriptionVerified, setSubscriptionVerified] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    // Retrieve stored benefit
     const storedBenefit = localStorage.getItem("selectedBenefit");
     if (storedBenefit) {
       setSelectedBenefit(JSON.parse(storedBenefit));
     }
   }, []);
+
+  useEffect(() => {
+    if (subscriptionVerified) {
+      navigate("/profile"); // Redirect when subscription is verified
+    }
+  }, [subscriptionVerified, navigate]);
 
   const verifySubscription = async () => {
     if (!profile?.user?.id || !selectedBenefit?.id || !profile?.phone_number) {
@@ -52,15 +59,13 @@ export default function ThankYouCard({ profile }) {
       const result = await response.json();
       console.log("API Response:", result);
 
-      // Ensure we are extracting the correct subscription object
       const subscriptionData = result.subscription;
       if (!subscriptionData) {
         throw new Error("Subscription data is missing in API response");
       }
 
-      // Store in localStorage and log the stored data
-      localStorage.setItem("subscriptionData", JSON.stringify(subscriptionData));
-      console.log("Stored Subscription Data:", subscriptionData);
+
+      setSubscriptionVerified(true);
     } catch (error) {
       console.error("Error verifying subscription:", error.message);
       setErrorMessage("Failed to verify subscription.");
@@ -77,9 +82,14 @@ export default function ThankYouCard({ profile }) {
         <CheckCircle className="text-green-500 w-16 h-16 mx-auto" />
         <h2 className="text-xl font-semibold mt-4">Thank You</h2>
         <p className="text-gray-600 mt-2">
-          Your subscription has been processed successfully for <strong>{selectedBenefit.title}</strong>.
+          {errorMessage ? (
+            <span className="text-red-500">{errorMessage}</span>
+          ) : (
+            <>
+              Your subscription has been processed successfully for <strong>{selectedBenefit.title}</strong>.
+            </>
+          )}
         </p>
-        {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
         <Button className="mt-4 w-full bg-blue-600 text-white" onClick={verifySubscription}>
           Check Your Subscription
         </Button>

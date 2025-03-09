@@ -9,3 +9,4 @@ const Logout = (setIsAuthenticated, setIsDropdownOpen) => {
   
   export default Logout;
   
+  

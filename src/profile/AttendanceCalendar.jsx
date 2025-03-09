@@ -15,7 +15,7 @@ function AttendanceCalendar({ attendanceData }) {
 
   const getAttendanceStatus = (day) => {
     if (!attendanceData || !Array.isArray(attendanceData) || attendanceData.length === 0) {
-      console.error("Attendance data is missing or empty.");
+      // console.error("Attendance data is missing or empty.");
       return 'Unknown';
     }
 
