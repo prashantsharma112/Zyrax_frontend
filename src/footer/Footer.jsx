@@ -34,7 +34,8 @@ const Footer = () => {
               <div className="flex justify-center items-center">
                 <span className="mr-2">📞</span>
                 <a
-                  href="tel:345789456789"
+                  href="tel:9084252037
+"
                   className="hover:underline"
                   style={{ '--hover-color': '#5d17eb' }}
                   onMouseEnter={(e) => (e.target.style.color = 'var(--hover-color)')}
@@ -96,7 +97,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <a
-                    href="https://wa.me/7078267307?text=hii%20how%20are%20you%20bro"
+                    href="https://wa.me/9084252037?text=hii%20how%20are%20you%20bro"
                     className="inline-block text-white px-4 py-2 rounded-md hover:bg-[#5e57ff]"
                   >
                     Connect on WhatsApp

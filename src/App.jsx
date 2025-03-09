@@ -28,6 +28,7 @@ import AboutUs from './pages/AboutUs';
 import RefundPolicypage from './pages/RefundPolicypage';
 import CallBackRequestPage from './pages/CallBackRequestPage';
 import ThankYouCard from './components/ThankYouCard';
+import HelpSettings from './pages/HelpSettings';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -312,6 +313,7 @@ const App = ({ userId }) => {
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/refundPolicypage" element={<RefundPolicypage />} />
           <Route path="/callback_request_page" element={<CallBackRequestPage />} />
+          <Route path="/helpsetting" element={<HelpSettings profile={profile}/>} />
         </Routes>
       )}
 
@@ -323,6 +325,7 @@ const App = ({ userId }) => {
           closeModal={() => setIsLoginModalOpen(false)}
           openRegisterModal={() => setIsRegisterModalOpen(true)}
           setIsAuthenticated={setIsAuthenticated}
+          profile={profile}
         />
       )}
       {isRegisterModalOpen && (

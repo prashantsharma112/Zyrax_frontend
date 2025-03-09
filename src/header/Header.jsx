@@ -79,6 +79,7 @@ const Header = ({ openLoginModal, openRegisterModal, profile}) => {
                                     <ProfileMenu
                                         setIsAuthenticated={setIsAuthenticated}
                                         closeDropdown={closeDropdown}
+                                        profile={profile}
                                     />
                                    
                                 </div>
