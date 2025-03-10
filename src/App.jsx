@@ -29,6 +29,7 @@ import RefundPolicypage from './pages/RefundPolicypage';
 import CallBackRequestPage from './pages/CallBackRequestPage';
 import ThankYouCard from './components/ThankYouCard';
 import HelpSettings from './pages/HelpSettings';
+import Logout from './header/Logout';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -313,7 +314,9 @@ const App = ({ userId }) => {
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/refundPolicypage" element={<RefundPolicypage />} />
           <Route path="/callback_request_page" element={<CallBackRequestPage />} />
-          <Route path="/helpsetting" element={<HelpSettings profile={profile}/>} />
+          <Route path="/helpsetting" element={<HelpSettings profile={profile}  setIsAuthenticated={setIsAuthenticated}/>} />
+          <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
+
         </Routes>
       )}
 

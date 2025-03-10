@@ -1,154 +1,112 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Button from '../components/subComponents/Button';
 
 const ForgotPassword = ({ closeModal }) => {
-  const [step, setStep] = useState(1); // Step 1: Phone number input, Step 2: OTP and new password input
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [step, setStep] = useState(1);
+  const [phoneNumber, setPhoneNumber] = useState('+91');
   const [otp, setOtp] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  // Function to handle phone number submission (move to step 2)
-  const handleSendOTP = (e) => {
-    e.preventDefault();
-    // Logic to send OTP to the phone number
-    setStep(2);
-  };
+  const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-  // Function to handle password update submission
-  const handleUpdatePassword = (e) => {
+  // Handle sending OTP
+  const handleSendOTP = async (e) => {
     e.preventDefault();
-    // Logic to verify OTP and update password
-    if (newPassword === confirmPassword) {
-      console.log('Password updated successfully!');
-      // Logic to close modal or give feedback to the user
-      closeModal();
-    } else {
-      alert("Passwords don't match");
+    try {
+      await axios.post(`${baseUrl}/forgot-password/`, { phone_number: phoneNumber });
+      localStorage.setItem('phone_number', phoneNumber);
+      setStep(2);
+    } catch (error) {
+      console.error('Error sending OTP:', error);
+      alert('Failed to send OTP. Please try again.');
     }
   };
 
-  // Toggle password visibility
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
+  // Handle password reset
+  const handleUpdatePassword = async (e) => {
+    e.preventDefault();
+    if (newPassword !== confirmPassword) {
+      alert("Passwords don't match");
+      return;
+    }
+    try {
+      const storedPhoneNumber = localStorage.getItem('phone_number');
+      await axios.post(`${baseUrl}/reset_password/`, {
+        phone_number: storedPhoneNumber,
+        otp,
+        new_password: newPassword,
+      });
+      alert('Password updated successfully!');
+      closeModal();
+    } catch (error) {
+      console.error('Error updating password:', error);
+      alert('Failed to update password. Please check OTP and try again.');
+    }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
       <div className="relative p-12 w-full max-w-md mx-auto rounded-lg shadow-lg backdrop-blur-lg">
-        {/* Close Button */}
-        <button
-          onClick={closeModal}
-          className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300"
-        >
-          &times;
-        </button>
-
-        {/* Step 1: Enter Phone Number */}
-        {step === 1 && (
+        <button onClick={closeModal} className="absolute top-4 right-4 text-white text-2xl hover:text-gray-300">&times;</button>
+        {step === 1 ? (
           <>
             <h2 className="text-3xl text-white mb-6 text-center">Forgot Password</h2>
             <form onSubmit={handleSendOTP}>
-              <div className="mb-4">
-                <label className="block text-white mb-2" htmlFor="phoneNumber">
-                  Enter Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phoneNumber"
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-transparent text-white"
-                  placeholder="Enter your phone number"
-                  required
-                />
-              </div>
-              <Button type="submit" className="w-full items-center bg-transparent text-lg">
-                Send OTP
-              </Button>
+              <label className="block text-white mb-2">Enter Phone Number</label>
+              <input
+                type="tel"
+                value={phoneNumber}
+                onChange={(e) => {
+                  let value = e.target.value.replace(/\D/g, '');
+                  if (value.startsWith('91')) {
+                    value = '+91' + value.slice(2);
+                  } else {
+                    value = '+91' + value;
+                  }
+                  setPhoneNumber(value);
+                }}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-transparent text-white"
+                placeholder="Enter your phone number"
+                required
+              />
+              <Button type="submit" className="w-full bg-blue-500 text-white mt-4">Send OTP</Button>
             </form>
           </>
-        )}
-
-        {/* Step 2: Enter OTP and New Password */}
-        {step === 2 && (
+        ) : (
           <>
             <h2 className="text-3xl text-white mb-6 text-center">Reset Password</h2>
             <form onSubmit={handleUpdatePassword}>
-              {/* OTP Input */}
-              <div className="mb-4">
-                <label className="block text-white mb-2" htmlFor="otp">
-                  Enter OTP
-                </label>
-                <input
-                  type="text"
-                  id="otp"
-                  value={otp}
-                  onChange={(e) => setOtp(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-transparent text-white"
-                  placeholder="Enter the OTP sent to your phone"
-                  required
-                />
-              </div>
-
-              {/* New Password Field */}
-              <div className="mb-4 relative">
-                <label className="block text-white mb-2" htmlFor="newPassword">
-                  New Password
-                </label>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  id="newPassword"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-transparent text-white"
-                  placeholder="Enter your new password"
-                  required
-                />
-                {/* Toggle Password Visibility */}
-                <div
-                  className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-                  onClick={toggleShowPassword}
-                >
-                  {showPassword ? (
-                    <FaEyeSlash className="text-white" />
-                  ) : (
-                    <FaEye className="text-white" />
-                  )}
-                </div>
-              </div>
-
-              {/* Confirm Password Field */}
-              <div className="mb-4 relative">
-                <label className="block text-white mb-2" htmlFor="confirmPassword">
-                  Confirm New Password
-                </label>
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  id="confirmPassword"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-transparent text-white"
-                  placeholder="Confirm your new password"
-                  required
-                />
-                {/* Toggle Password Visibility */}
-                <div
-                  className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-                  onClick={toggleShowPassword}
-                >
-                  {showPassword ? (
-                    <FaEyeSlash className="text-white" />
-                  ) : (
-                    <FaEye className="text-white" />
-                  )}
-                </div>
-              </div>
-
-              <Button type="submit" className="w-full items-center bg-transparent text-lg">
-                Update Password
-              </Button>
+              <label className="block text-white mb-2">Enter OTP</label>
+              <input
+                type="text"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-transparent text-white"
+                placeholder="Enter the OTP sent to your phone"
+                required
+              />
+              <label className="block text-white mt-4">New Password</label>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-transparent text-white"
+                placeholder="Enter your new password"
+                required
+              />
+              <label className="block text-white mt-4">Confirm Password</label>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-transparent text-white"
+                placeholder="Confirm your new password"
+                required
+              />
+              <Button type="submit" className="w-full bg-green-500 text-white mt-4">Update Password</Button>
             </form>
           </>
         )}
