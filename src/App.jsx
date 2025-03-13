@@ -30,6 +30,7 @@ import CallBackRequestPage from './pages/CallBackRequestPage';
 import ThankYouCard from './components/ThankYouCard';
 import HelpSettings from './pages/HelpSettings';
 import Logout from './header/Logout';
+import SubscriptionCard from './components/SubscriptionCard';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -48,7 +49,10 @@ const App = ({ userId }) => {
   const [profileId, setProfileId] = useState(null);
   const [tutorProfiles, setTutorProfiles] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
+  const [subscriptionData, setSubscriptionData] = useState(null);
+  console.log(benefitsData);
 
+  console.log(subscriptionData);
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const location = useLocation();
@@ -58,6 +62,30 @@ const App = ({ userId }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+  useEffect(() => {
+
+    const fetchSubscriptionData = async () => {
+      try {
+        const token = localStorage.getItem("accessToken"); // Ensure authentication
+        const response = await axiosInstance.get(`/fetch-subscription/`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!response.data) {
+          throw new Error("No subscription data found");
+        }
+
+        setSubscriptionData(response.data);
+      } catch (error) {
+        console.error("Error fetching subscription data:", error);
+      }
+    };
+
+    fetchSubscriptionData();
+  }, []);
+
+
+
 
 
   useEffect(() => {
@@ -275,6 +303,7 @@ const App = ({ userId }) => {
                   isAuthenticated={!!isAuthenticated}
                   openLoginModal={() => setIsLoginModalOpen(true)}
                 />
+
                 <BeforeAfter showSlider={true} testimonials={testimonials} />
                 <TeamSection tutorProfiles={tutorProfiles} />
               </>
@@ -293,7 +322,7 @@ const App = ({ userId }) => {
                 }
               />
               <Route path="/edit-profile" element={<EditProfile profile={profile} />} />
-              <Route path="/thankyoucard" element={<ThankYouCard profile={profile}  benefits={benefitsData}/>}/>
+              <Route path="/thankyoucard" element={<ThankYouCard profile={profile} benefits={benefitsData} />} />
             </>
           )}
 
@@ -304,7 +333,13 @@ const App = ({ userId }) => {
                 isAuthenticated={isAuthenticated}
                 openLoginModal={() => setIsLoginModalOpen(true)}
               >
-                <Classes classSlots={classesData} attendanceData={attendanceData} />
+                <Classes classSlots={classesData}
+                  attendanceData={attendanceData}
+                  subscriptionData={subscriptionData}
+                  isAuthenticated={isAuthenticated}
+                  benefits={benefitsData}
+                  openLoginModal={() => setIsLoginModalOpen(true)}
+                />
               </ProtectedRoute>
             }
           />
@@ -314,7 +349,13 @@ const App = ({ userId }) => {
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/refundPolicypage" element={<RefundPolicypage />} />
           <Route path="/callback_request_page" element={<CallBackRequestPage />} />
-          <Route path="/helpsetting" element={<HelpSettings profile={profile}  setIsAuthenticated={setIsAuthenticated}/>} />
+          <Route path="/helpsetting" element={<HelpSettings
+            profile={profile}
+            isAuthenticated={isAuthenticated}
+            subscriptionData={subscriptionData}
+            benefits={benefitsData}
+            openLoginModal={() => setIsLoginModalOpen(true)}
+          />} />
           <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
 
         </Routes>

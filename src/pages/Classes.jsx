@@ -6,7 +6,7 @@ import ClassBG from "../assets/ClassBG.jpg";
 import ClassCard from "../classes/ClassCard";
 import AttendancePercentage from "../classes/AttendancePercentage";
 
-const Classes = ({ classSlots, userId, attendanceData }) => {
+const Classes = ({ classSlots, userId, attendanceData, subscriptionData, benefits, openLoginModal, isAuthenticated }) => {
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -113,6 +113,10 @@ const Classes = ({ classSlots, userId, attendanceData }) => {
               getDayLabel={getDayLabel}
               convertTo12HourFormat={convertTo12HourFormat}
               markAttendance={markAttendance}
+              subscriptionData={subscriptionData}
+              benefits={benefits}
+               openLoginModal={openLoginModal} 
+               isAuthenticated={isAuthenticated}
             />
           ))}
         </div>
