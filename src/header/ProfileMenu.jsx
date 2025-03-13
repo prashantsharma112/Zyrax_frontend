@@ -1,17 +1,19 @@
 
 
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../components/subComponents/Button";
-
+import LogoutModal from "./LogoutModal"; // ✅ Import LogoutModal
 
 const ProfileMenu = ({ setIsDropdownOpen }) => {
-  const navigate = useNavigate(); // Ensure it's inside a component
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const navigate = useNavigate();
 
-
-  const handleLogout = () => {
-    navigate("/logout"); // Redirect to Logout component
+  const handleLogoutConfirm = () => {
+    localStorage.removeItem("accessToken"); // ✅ Clear token
+    navigate("/logout"); // ✅ Redirect to Logout component
   };
+
   return (
     <div className="p-6 rounded-lg shadow-md flex flex-col space-y-4 mt-6 md:mt-0">
       <Button
@@ -24,10 +26,13 @@ const ProfileMenu = ({ setIsDropdownOpen }) => {
 
       <Button
         className="w-full bg-red-500 text-white py-2 rounded-md focus:outline-none"
-        onClick={handleLogout} // Calls the function that logs out & redirects
+        onClick={() => setIsLogoutModalOpen(true)} // ✅ Open modal instead of logging out immediately
       >
         Logout
       </Button>
+
+      {/* ✅ Render Logout Modal when open */}
+      {isLogoutModalOpen && <LogoutModal onClose={() => setIsLogoutModalOpen(false)} onConfirm={handleLogoutConfirm} />}
     </div>
   );
 };

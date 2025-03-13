@@ -1,34 +1,28 @@
 
-
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+import { useNavigate } from "react-router-dom";
 import SubscriptionDetails from "../helpsetting/SubscriptionDetails";
+import LogoutModal from "../header/LogoutModal"; // ✅ Import the modal
 
-export default function HelpSettings() {
+export default function HelpSettings({subscriptionData, benefits, openLoginModal, isAuthenticated}) {
   const [activeTab, setActiveTab] = useState("subscription");
-  const [subscriptionData, setSubscriptionData] = useState(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
-  const navigate = useNavigate(); // ✅ Initialize useNavigate
-
-  useEffect(() => {
-    const storedData = localStorage.getItem("subscriptionData");
-    if (storedData) {
-      setSubscriptionData(JSON.parse(storedData));
-    }
-  }, []);
+  const navigate = useNavigate();
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  const handleLogout = () => {
+  const handleLogoutConfirm = () => {
     localStorage.removeItem("accessToken"); // ✅ Clear token
     navigate("/logout"); // ✅ Redirect to logout page
   };
 
   return (
     <div className="flex h-screen bg-black text-white">
+      {/* ✅ Sidebar Toggle Button */}
       <button
         className="md:hidden text-white text-2xl fixed top-18 left-4 z-50 bg-black p-2 rounded-md"
         onClick={toggleSidebar}
@@ -36,9 +30,11 @@ export default function HelpSettings() {
         ☰
       </button>
 
+      {/* ✅ Sidebar Navigation */}
       <div
-        className={`fixed md:static top-0 left-0 w-64 md:w-1/4 bg-black h-full p-6 flex flex-col gap-5 transition-transform duration-300 transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0 z-50`}
+        className={`fixed md:static top-0 left-0 w-64 md:w-1/4 bg-black h-full p-6 flex flex-col gap-5 transition-transform duration-300 transform ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0 z-50`}
       >
         <button
           className="md:hidden text-white text-xl absolute top-2 right-1"
@@ -48,8 +44,9 @@ export default function HelpSettings() {
         </button>
 
         <button
-          className={`p-3 rounded-lg text-left ${activeTab === "subscription" ? "bg-gray-700" : "hover:bg-gray-700"
-            }`}
+          className={`p-3 rounded-lg text-left ${
+            activeTab === "subscription" ? "bg-gray-700" : "hover:bg-gray-700"
+          }`}
           onClick={() => {
             setActiveTab("subscription");
             setIsSidebarOpen(false);
@@ -58,8 +55,9 @@ export default function HelpSettings() {
           Subscription
         </button>
         <button
-          className={`p-3 rounded-lg text-left ${activeTab === "support" ? "bg-gray-700" : "hover:bg-gray-700"
-            }`}
+          className={`p-3 rounded-lg text-left ${
+            activeTab === "support" ? "bg-gray-700" : "hover:bg-gray-700"
+          }`}
           onClick={() => {
             setActiveTab("support");
             setIsSidebarOpen(false);
@@ -68,14 +66,16 @@ export default function HelpSettings() {
           Help & Support
         </button>
         <button
-          className="p-3 rounded-lg text-left" onClick={handleLogout} // ✅ Calls handleLogout
+          className="p-3 rounded-lg text-left bg-red-500 hover:bg-red-600"
+          onClick={() => setIsLogoutModalOpen(true)}
         >
           Logout
         </button>
       </div>
 
+      {/* ✅ Main Content */}
       <div className="flex-1 p-6 pt-16">
-        {activeTab === "subscription" && <SubscriptionDetails subscriptionData={subscriptionData} />}
+        {activeTab === "subscription" && <SubscriptionDetails subscriptionData={subscriptionData} benefits={benefits} openLoginModal={openLoginModal} isAuthenticated={isAuthenticated}/>}
         {activeTab === "support" && (
           <div>
             <h2 className="text-xl font-bold mb-4">Help & Support</h2>
@@ -83,6 +83,11 @@ export default function HelpSettings() {
           </div>
         )}
       </div>
+
+      {/* ✅ Logout Modal */}
+      {isLogoutModalOpen && (
+        <LogoutModal onClose={() => setIsLogoutModalOpen(false)} onConfirm={handleLogoutConfirm} />
+      )}
     </div>
   );
 }
