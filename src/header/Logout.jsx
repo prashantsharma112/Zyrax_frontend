@@ -1,12 +1,22 @@
 
+  
 
-const Logout = (setIsAuthenticated, setIsDropdownOpen) => {
+import { useEffect } from "react";
+
+const Logout = ({ setIsAuthenticated }) => {
+  useEffect(() => {
+    localStorage.removeItem("accessToken");
+
     setIsAuthenticated(false);
-    localStorage.removeItem('accessToken'); // Remove token on logout
-    setIsDropdownOpen(false);
-    window.location.reload();
-  };
-  
-  export default Logout;
-  
-  
+
+    if (window.close) {
+      window.close();
+    }
+
+    window.location.href = "/";
+  }, []);
+
+  return null; // No UI needed
+};
+
+export default Logout;
