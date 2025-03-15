@@ -1,20 +1,26 @@
 
+
 import React, { useState } from "react";
 import axios from "axios";
 import { FiCamera } from "react-icons/fi";
-import ImageModal from './ImageModal'; // Import the modal component
+import { useNavigate } from "react-router-dom";
+import ImageModal from "./ImageModal"; 
+import Button from "../components/subComponents/Button";
 
 const ProfileSection = ({ profile }) => {
   const [newProfilePicture, setNewProfilePicture] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState(false); // State for modal visibility
+  const navigate = useNavigate();
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const userId = profile?.user?.id;
 
   if (!profile) {
     return <div>Loading...</div>;
   }
+  
+  console.log(profile);
 
   const { first_name, last_name, phone_number, date_of_birth } = profile;
   const profile_picture =
@@ -106,6 +112,14 @@ const ProfileSection = ({ profile }) => {
         <p className="text-gray-100 text-sm">{phone_number}</p>
         <p className="text-gray-100 text-sm">{date_of_birth}</p>
       </div>
+
+      {/* Subscription & Help & Support Button */}
+      <Button
+        className="mt-4 px-4 py-2  font-bold rounded-lg"
+        onClick={() => navigate("/helpsetting")}
+      >
+        Subscription Details
+      </Button>
 
       {showModal && (
         <ImageModal imageUrl={profile_picture} onClose={handleCloseModal} />
