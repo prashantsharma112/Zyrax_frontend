@@ -31,6 +31,7 @@ import ThankYouCard from './components/ThankYouCard';
 import HelpSettings from './pages/HelpSettings';
 import Logout from './header/Logout';
 import SubscriptionCard from './components/SubscriptionCard';
+import LogoutModal from './header/LogoutModal';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -357,6 +358,7 @@ const App = ({ userId }) => {
             openLoginModal={() => setIsLoginModalOpen(true)}
           />} />
           <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
+          <Route path='/logoutmodel' element={<LogoutModal/>}/>
 
         </Routes>
       )}
