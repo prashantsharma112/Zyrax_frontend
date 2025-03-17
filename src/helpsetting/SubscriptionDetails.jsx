@@ -1,8 +1,13 @@
 
-import React from "react";
+import React, { useState } from "react";
 import SubscriptionCard from "../components/SubscriptionCard";
+import UpgradeCard from "./UpgradeCard"; // Import the UpgradeCard component
+import Modal from "../components/subComponents/Modal";
+import Button from "../components/subComponents/Button";
 
-const SubscriptionDetails = ({ subscriptionData, loading, error, benefits, openLoginModal, isAuthenticated}) => {
+const SubscriptionDetails = ({ subscriptionData, loading, error, benefits, openLoginModal, isAuthenticated, showUpgrade }) => {
+  const [isUpgradeModalOpen, setUpgradeModalOpen] = useState(false); // State for modal visibility
+
   console.log(subscriptionData);
 
   // Ensure subscriptionData is an array
@@ -11,10 +16,10 @@ const SubscriptionDetails = ({ subscriptionData, loading, error, benefits, openL
     : [];
 
   // Get the most recent valid subscription (if any exist)
-  const latestSubscription = validSubscriptions.length > 0 
+  const latestSubscription = validSubscriptions.length > 0
     ? validSubscriptions.reduce((latest, current) =>
         new Date(current.end_date) > new Date(latest.end_date) ? current : latest
-      ) 
+      )
     : null;
 
   return (
@@ -32,15 +37,11 @@ const SubscriptionDetails = ({ subscriptionData, loading, error, benefits, openL
           <div className="space-y-4 text-lg">
             <div className="flex justify-between">
               <span className="text-white font-semibold">Start Date:</span>
-              <span className="text-white">
-                {new Date(latestSubscription.start_date).toLocaleDateString()}
-              </span>
+              <span className="text-white">{new Date(latestSubscription.start_date).toLocaleDateString()}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-white font-semibold">End Date:</span>
-              <span className="text-white">
-                {new Date(latestSubscription.end_date).toLocaleDateString()}
-              </span>
+              <span className="text-white">{new Date(latestSubscription.end_date).toLocaleDateString()}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-white font-semibold">Transaction ID:</span>
@@ -55,8 +56,39 @@ const SubscriptionDetails = ({ subscriptionData, loading, error, benefits, openL
           </div>
         </div>
       ) : (
-        // Show SubscriptionCard only if there's no active subscription
-        <SubscriptionCard benefits={benefits} openLoginModal={openLoginModal} isAuthenticated={isAuthenticated}/>
+        <SubscriptionCard benefits={benefits} openLoginModal={openLoginModal} isAuthenticated={isAuthenticated} />
+      )}
+
+      {/* Upgrade Button (Always Visible) */}
+      <div className="mt-6 text-center">
+        <Button
+          onClick={() => setUpgradeModalOpen(true)}
+          className="py-2 px-5 "
+        >
+          Upgrade Plan
+        </Button>
+      </div>
+
+      {/* Show UpgradeCard if showUpgrade is true */}
+      {showUpgrade && (
+        <UpgradeCard benefits={benefits} openLoginModal={openLoginModal} isAuthenticated={isAuthenticated} subscriptionData={subscriptionData} />
+      )}
+
+      {/* Upgrade Modal */}
+      {isUpgradeModalOpen && (
+        // <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
+        //   <div className="bg-white p-6 rounded-lg shadow-lg w-200">
+        <Modal onClose={() => setUpgradeModalOpen(false)}>
+
+            <h2 className="text-xl font-semibold mb-4">Upgrade Your Plan</h2>
+            <UpgradeCard
+              benefits={benefits}
+              openLoginModal={openLoginModal}
+              isAuthenticated={isAuthenticated}
+              subscriptionData={subscriptionData}
+            />
+               </Modal>
+            
       )}
     </>
   );
