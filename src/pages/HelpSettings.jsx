@@ -1,10 +1,14 @@
 
-import { useState, useEffect } from "react";
+
+
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SubscriptionDetails from "../helpsetting/SubscriptionDetails";
-import LogoutModal from "../header/LogoutModal"; // ✅ Import the modal
+import LogoutModal from "../header/LogoutModal";
+import FAQ from "../helpsetting/FAQ";
+import Button from "../components/subComponents/Button";
 
-export default function HelpSettings({subscriptionData, benefits, openLoginModal, isAuthenticated}) {
+export default function HelpSettings({ subscriptionData, benefits, openLoginModal, isAuthenticated }) {
   const [activeTab, setActiveTab] = useState("subscription");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -16,8 +20,8 @@ export default function HelpSettings({subscriptionData, benefits, openLoginModal
   };
 
   const handleLogoutConfirm = () => {
-    localStorage.removeItem("accessToken"); // ✅ Clear token
-    navigate("/logout"); // ✅ Redirect to logout page
+    localStorage.removeItem("accessToken");
+    navigate("/logout");
   };
 
   return (
@@ -73,15 +77,36 @@ export default function HelpSettings({subscriptionData, benefits, openLoginModal
         </button>
       </div>
 
-      {/* ✅ Main Content */}
-      <div className="flex-1 p-6 pt-16">
-        {activeTab === "subscription" && <SubscriptionDetails subscriptionData={subscriptionData} benefits={benefits} openLoginModal={openLoginModal} isAuthenticated={isAuthenticated}/>}
-        {activeTab === "support" && (
-          <div>
-            <h2 className="text-xl font-bold mb-4">Help & Support</h2>
-            <p>Find answers to your questions and contact customer support if needed.</p>
-          </div>
-        )}
+      {/* ✅ Main Content - Ensure Scrolling Only in Content Section */}
+      <div className="flex-1 flex flex-col h-screen">
+        
+
+        {/* ✅ Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-6">
+          {activeTab === "subscription" && (
+            <SubscriptionDetails
+              subscriptionData={subscriptionData}
+              benefits={benefits}
+              openLoginModal={openLoginModal}
+              isAuthenticated={isAuthenticated}
+            />
+          )}
+          {activeTab === "support" && (
+            <div>
+              <h2 className="text-xl font-bold mb-4 p-5">Help & Support</h2>
+
+              {/* ✅ Button to Redirect to Callback Request Page */}
+              <Button onClick={() => navigate("/callback_request_page")} className="mt-4 px-4 py-2">
+                Request a Callback
+              </Button>
+
+              {/* ✅ FAQ Section with Scroll Fix */}
+              <div className="max-h-[80vh] overflow-y-auto mt-4 border-t border-gray-700 p-4">
+                <FAQ />
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* ✅ Logout Modal */}

@@ -207,6 +207,9 @@ const Register = ({ closeModal, openLoginModal }) => {
             phoneNumber={phoneNumber}
             onVerify={handleVerifyOTP}
             onResend={handleResendOTP}
+            openLoginModal={openLoginModal}
+            closeModal={closeModal}
+
           />
         )}
       </div>

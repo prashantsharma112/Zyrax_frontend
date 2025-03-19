@@ -3,6 +3,7 @@
 
 
 const CardContent = ({ member, isExpanded, closeExpandedCard, formatDescription }) => {
+  console.log(member);
   return (
     <div
       className={`absolute inset-0 bg-white p-4 shadow-lg rounded-lg flex flex-col justify-center items-center transition-all duration-500 ease-in-out ${
@@ -44,3 +45,4 @@ const CardContent = ({ member, isExpanded, closeExpandedCard, formatDescription 
 };
 
 export default CardContent;
+

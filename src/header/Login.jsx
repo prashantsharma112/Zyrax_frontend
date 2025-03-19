@@ -5,7 +5,7 @@ import cardBackground from '../assets/benefits/card-3.svg';
 import Button from '../components/subComponents/Button';
 import ForgotPassword from '../header/ForgotPassword';
 
-const Login = ({ closeModal, openRegisterModal, setIsAuthenticated }) => {
+const Login = ({ closeModal, openRegisterModal, setIsAuthenticated,openLoginModal}) => {
   const [forgotPasswordModal, setForgotPasswordModal] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('+91');
   const [password, setPassword] = useState('');
@@ -120,7 +120,7 @@ const Login = ({ closeModal, openRegisterModal, setIsAuthenticated }) => {
         </div>
       </div>
 
-      {forgotPasswordModal && <ForgotPassword closeModal={toggleForgotPasswordModal} />}
+      {forgotPasswordModal && <ForgotPassword closeModal={toggleForgotPasswordModal} openLoginModal={openLoginModal} />}
     </>
   );
 };

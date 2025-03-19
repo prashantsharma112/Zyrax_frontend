@@ -14,7 +14,7 @@ export default function ThankYouCard({ profile }) {
     const storedBenefit = localStorage.getItem("selectedBenefit");
     if (storedBenefit) {
       setSelectedBenefit(JSON.parse(storedBenefit));
-    }
+    } 
   }, []);
 
   useEffect(() => {
