@@ -1,12 +1,14 @@
 
-
 import React from "react";
+import { useNavigate } from "react-router-dom";  // ✅ Import useNavigate
 import axios from "axios";
 import ClassBG from "../assets/ClassBG.jpg";
 import ClassCard from "../classes/ClassCard";
 import AttendancePercentage from "../classes/AttendancePercentage";
+import Button from "../components/subComponents/Button";
 
 const Classes = ({ classSlots, userId, attendanceData, subscriptionData, benefits, openLoginModal, isAuthenticated }) => {
+  const navigate = useNavigate();  // ✅ Initialize navigate function
 
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -77,10 +79,9 @@ const Classes = ({ classSlots, userId, attendanceData, subscriptionData, benefit
   const currentMonth = currentDate.getMonth();
   const currentYear = currentDate.getFullYear();
 
-  
-
   return (
     <div className="relative min-h-screen w-full flex flex-col items-center">
+      {/* Background Image */}
       <img
         src={ClassBG}
         alt="Class Background"
@@ -88,8 +89,18 @@ const Classes = ({ classSlots, userId, attendanceData, subscriptionData, benefit
         style={{ zIndex: -1 }}
       />
 
-      {/* Attendance Percentage Section at the Top */}
-      <div className="w-full bg-gray-800 bg-opacity-0 p-4">
+      {/* ✅ Trail Video Button at Top-Right */}
+      <div className="absolute top-20 right-6 z-10">
+        <Button
+          onClick={() => navigate("/trailvideo")}
+          className="bg-black  text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-600 transition"
+          >
+          Trail Classes
+        </Button>
+      </div>
+
+      {/* Attendance Percentage Section */}
+      <div className="w-full bg-gray-800 bg-opacity-0 py-10">
         <AttendancePercentage
           attendanceData={attendanceData}
           currentDay={currentDay}
@@ -100,26 +111,32 @@ const Classes = ({ classSlots, userId, attendanceData, subscriptionData, benefit
 
       <div className="container mx-auto px-4 pt-20 pb-20 md:pt-24 lg:pt-28">
         <h1 className="text-3xl font-bold mb-6 text-center text-white">
-          Classes Schedule
+          {classSlots.length > 0 ? "Classes Schedule" : "Trail Classes"}
         </h1>
 
-        <div className="space-y-6">
-          {classSlots.map((classSlot) => (
-            <ClassCard
-              key={classSlot.id}
-              classSlot={classSlot}
-              timeLeft={calculateTimeLeft(classSlot.class_date, classSlot.time)}
-              calculateTimeLeft={calculateTimeLeft}
-              getDayLabel={getDayLabel}
-              convertTo12HourFormat={convertTo12HourFormat}
-              markAttendance={markAttendance}
-              subscriptionData={subscriptionData}
-              benefits={benefits}
-               openLoginModal={openLoginModal} 
-               isAuthenticated={isAuthenticated}
-            />
-          ))}
-        </div>
+        {classSlots.length > 0 ? (
+          <div className="space-y-6">
+            {classSlots.map((classSlot) => (
+              <ClassCard
+                key={classSlot.id}
+                classSlot={classSlot}
+                timeLeft={calculateTimeLeft(classSlot.class_date, classSlot.time)}
+                calculateTimeLeft={calculateTimeLeft}
+                getDayLabel={getDayLabel}
+                convertTo12HourFormat={convertTo12HourFormat}
+                markAttendance={markAttendance}
+                subscriptionData={subscriptionData}
+                benefits={benefits}
+                openLoginModal={openLoginModal}
+                isAuthenticated={isAuthenticated}
+              />
+            ))}
+          </div>
+        ) : (
+          <p className="text-center text-gray-400 text-lg mt-10">
+            No classes available at the moment.
+          </p>
+        )}
       </div>
     </div>
   );

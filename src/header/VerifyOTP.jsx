@@ -1,11 +1,10 @@
 
 
-
 import React, { useState } from "react";
 import axios from "axios";
 import Button from "../components/subComponents/Button";
 
-const VerifyOtp = ({ phoneNumber, onOtpVerified, resendOtp, closeModal }) => {
+const VerifyOtp = ({ phoneNumber, onOtpVerified, resendOtp, closeModal, openLoginModal }) => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -39,7 +38,11 @@ const VerifyOtp = ({ phoneNumber, onOtpVerified, resendOtp, closeModal }) => {
 
       if (response.status === 201 && response.data.message === "User created successfully") {
         setSuccessMessage(response.data.message); // Set success message
-        onOtpVerified(); // Proceed if the user is created successfully
+
+        setTimeout(() => {
+          onOtpVerified(); // Proceed if the user is created successfully
+          openLoginModal(); // Open the login modal after a delay
+        }, 2000); // Delay of 2 seconds
       } else {
         setError("OTP verification failed. Please try again.");
       }

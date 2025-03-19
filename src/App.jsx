@@ -32,6 +32,9 @@ import HelpSettings from './pages/HelpSettings';
 import Logout from './header/Logout';
 import SubscriptionCard from './components/SubscriptionCard';
 import LogoutModal from './header/LogoutModal';
+import FullScreenVideo from './Home/FullScreenVideo';
+import YouTubeCard from './components/YouTubeCard';
+import TrailVideo from './components/TrailVideo';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -307,7 +310,8 @@ const App = ({ userId }) => {
 
                 <BeforeAfter showSlider={true} testimonials={testimonials} />
                 <TeamSection tutorProfiles={tutorProfiles} />
-              </>
+                {/* <YouTubeCard videoUrl="https://www.youtube.com/watch?v=R7rRmBEQjlw" /> */}
+                </>
             }
           />
           {isAuthenticated && (
@@ -359,6 +363,7 @@ const App = ({ userId }) => {
           />} />
           <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
           <Route path='/logoutmodel' element={<LogoutModal/>}/>
+          <Route path='/trailvideo' element={<TrailVideo/>}/>
 
         </Routes>
       )}
@@ -372,6 +377,8 @@ const App = ({ userId }) => {
           openRegisterModal={() => setIsRegisterModalOpen(true)}
           setIsAuthenticated={setIsAuthenticated}
           profile={profile}
+          openLoginModal={() => setIsLoginModalOpen(true)}
+
         />
       )}
       {isRegisterModalOpen && (

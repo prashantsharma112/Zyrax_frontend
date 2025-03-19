@@ -39,7 +39,7 @@ const ClassCard = ({
 
   const isClassAvailable = currentTime >= classStartTime && currentTime <= classEndTime;
   const timeDiff = (classStartTime - currentTime) / 1000; // Time difference in seconds
-  const showCountdown = timeDiff > 0 && timeDiff <= 3600; // Only show countdown within 1 hour
+  const showCountdown = timeDiff > 0 && timeDiff <= 3600; // Only show countdown within 1 hour 
 
   // Subscription logic
   const firstSubscription = subscriptionData?.length > 0 ? subscriptionData[0] : null;

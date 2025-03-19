@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import Button from '../components/subComponents/Button';
 
-const ForgotPassword = ({ closeModal }) => {
+const ForgotPassword = ({ closeModal, openLoginModal }) => {
   const [step, setStep] = useState(1);
   const [phoneNumber, setPhoneNumber] = useState('+91');
   const [otp, setOtp] = useState('');
@@ -40,8 +40,8 @@ const ForgotPassword = ({ closeModal }) => {
         new_password: newPassword,
       });
       alert('Password updated successfully!');
-      closeModal();
-    } catch (error) {
+      openLoginModal()
+        } catch (error) {
       console.error('Error updating password:', error);
       alert('Failed to update password. Please check OTP and try again.');
     }
@@ -106,7 +106,7 @@ const ForgotPassword = ({ closeModal }) => {
                 placeholder="Confirm your new password"
                 required
               />
-              <Button type="submit" className="w-full bg-green-500 text-white mt-4">Update Password</Button>
+              <Button type="submit" onClick={openLoginModal()} className="w-full bg-green-500 text-white mt-4">Update Password</Button>
             </form>
           </>
         )}
