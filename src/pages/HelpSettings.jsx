@@ -8,7 +8,7 @@ import LogoutModal from "../header/LogoutModal";
 import FAQ from "../helpsetting/FAQ";
 import Button from "../components/subComponents/Button";
 
-export default function HelpSettings({ subscriptionData, benefits, openLoginModal, isAuthenticated }) {
+export default function HelpSettings({ subscriptionData, benefits, openLoginModal, isAuthenticated, faqs}) {
   const [activeTab, setActiveTab] = useState("subscription");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
@@ -102,7 +102,7 @@ export default function HelpSettings({ subscriptionData, benefits, openLoginModa
 
               {/* ✅ FAQ Section with Scroll Fix */}
               <div className="max-h-[80vh] overflow-y-auto mt-4 border-t border-gray-700 p-4">
-                <FAQ />
+                <FAQ faqs={faqs}/>
               </div>
             </div>
           )}
