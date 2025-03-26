@@ -1,33 +1,8 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-const FAQ = () => {
-  const faqs = [
-    {
-      question: "What is Zunba?",
-      answer: "Zunba is a [brief description of the platform/service].",
-    },
-    {
-      question: "How can I sign up on Zunba?",
-      answer: "You can sign up by visiting [signup link] and following the instructions.",
-    },
-    {
-      question: "Is Zunba free to use?",
-      answer: "Zunba offers both free and premium plans. Check our pricing page for details.",
-    },
-    {
-      question: "How do I reset my password?",
-      answer: "Click on the “Forgot Password” option on the login page and follow the steps.",
-    },
-    {
-      question: "Who can use Zunba?",
-      answer: "Zunba is designed for [target audience].",
-    },
-    {
-      question: "How can I contact customer support?",
-      answer: "You can reach out via [support email] or our contact page.",
-    },
-  ];
+const FAQ = ({faqs}) => {
+
 
   const [openIndex, setOpenIndex] = useState(null);
 

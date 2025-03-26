@@ -100,7 +100,7 @@ const Classes = ({ classSlots, userId, attendanceData, subscriptionData, benefit
       </div>
 
       {/* Attendance Percentage Section */}
-      <div className="w-full bg-gray-800 bg-opacity-0 py-10">
+      <div className="w-full bg-gray-800 bg-opacity-0 py-5">
         <AttendancePercentage
           attendanceData={attendanceData}
           currentDay={currentDay}

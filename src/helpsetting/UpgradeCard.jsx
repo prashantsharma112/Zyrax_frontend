@@ -5,28 +5,28 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 
-const UpgradeCard = ({ benefits, isAuthenticated, openLoginModal, subscriptionData }) => {
-  console.log("Subscription Data:", subscriptionData);
-
-  const firstSubscription = subscriptionData?.length > 0 ? subscriptionData[0] : null;
-  const subscribedOfferId = firstSubscription?.offer;
-
-  const filteredBenefits = benefits.filter(item => item.id !== subscribedOfferId);
+const SubscriptionCard = ({ benefits, isAuthenticated, openLoginModal }) => {
 
   const handleBuyNow = (item) => {
     if (!isAuthenticated) {
-      openLoginModal();
+      openLoginModal();  // Open login modal if not authenticated
       return;
     }
-    localStorage.setItem("selectedBenefit", JSON.stringify(item));
-    window.location.href = item.text;
+
+    // Store the selected benefit in localStorage
+    localStorage.setItem("selectedBenefit", JSON.stringify(item)); 
+
+    // Redirect to the benefit URL
+    window.location.href = item.text;  
   };
 
   return (
     <div className="py-10">
-      <h2 className="text-center text-3xl font-bold text-white mb-6">Upgrade Your Plan</h2>
+      <h2 className="text-center text-3xl font-bold text-white mb-6">Choose Your Plan</h2>
+      
       <div className="container relative z-2 flex flex-col items-center">
 
+        {/* Swiper Slider */}
         <Swiper
           modules={[Pagination]}
           spaceBetween={20}
@@ -39,17 +39,23 @@ const UpgradeCard = ({ benefits, isAuthenticated, openLoginModal, subscriptionDa
           }}
           className="w-full max-w-2xl"
         >
-          {filteredBenefits.map((item) => {
+          {benefits.map((item) => {
             const discountedAmount = item.amount - (item.amount * (item.discount / 100));
 
             return (
               <SwiperSlide key={item.id}>
+                {/* Card Container */}
                 <div className="relative w-full max-w-[280px] sm:max-w-[300px] transform transition duration-300 hover:scale-105 mx-auto border-2 border-purple-500 rounded-lg bg-gray-900 bg-opacity-90">
+                  
+                  {/* Card Content */}
                   <div className="relative z-10 flex flex-col min-h-[10rem] sm:min-h-[18rem] p-5 sm:p-6 pb-4 rounded-lg">
+                    
+                    {/* Title */}
                     <h5 className="text-lg sm:text-xl text-white text-center font-semibold uppercase tracking-wide mb-2">
                       {item.title}
                     </h5>
 
+                    {/* Pricing & Discount Section */}
                     <div className="flex flex-col items-center mb-2">
                       <p className="text-2xl font-semibold text-purple-400">
                         ₹{discountedAmount.toFixed(2)}
@@ -65,8 +71,11 @@ const UpgradeCard = ({ benefits, isAuthenticated, openLoginModal, subscriptionDa
                       </p>
                     </div>
 
+                    {/* Action Buttons */}
                     <div className="flex flex-col items-center mt-auto gap-3">
-                      <a href="https://wa.me/9084252037?text=Hello!%20I'm%20interested%20in%20this%20plan.">
+
+                      {/* WhatsApp Icon */}
+                      <a href={`https://wa.me/9084252037?text=Hello!%20I'm%20interested%20in%20the%20${item.title}%20plan.`}>
                         <img
                           src={item.iconUrl}
                           width={40}
@@ -75,8 +84,10 @@ const UpgradeCard = ({ benefits, isAuthenticated, openLoginModal, subscriptionDa
                           className="rounded-full shadow-lg"
                         />
                       </a>
+
+                      {/* Buy Now Button */}
                       <button
-                        onClick={() => handleBuyNow(item)}
+                        onClick={() => handleBuyNow(item)} 
                         className="py-2 px-6 rounded-md font-medium text-white transition-all duration-300 bg-purple-600 hover:bg-purple-800 hover:shadow-lg focus:ring focus:ring-purple-500"
                       >
                         Buy Now
@@ -93,4 +104,4 @@ const UpgradeCard = ({ benefits, isAuthenticated, openLoginModal, subscriptionDa
   );
 };
 
-export default UpgradeCard;
+export default SubscriptionCard;

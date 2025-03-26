@@ -1,6 +1,7 @@
 
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { fetchVideos, fetchFaqs } from '../src/components/api';
 import axiosInstance from './components/axiosInstance'; // Use axiosInstance for authenticated API calls
 import axios from 'axios'; // Use plain axios for unauthenticated calls
 import Header from './header/Header';
@@ -30,11 +31,11 @@ import CallBackRequestPage from './pages/CallBackRequestPage';
 import ThankYouCard from './components/ThankYouCard';
 import HelpSettings from './pages/HelpSettings';
 import Logout from './header/Logout';
-import SubscriptionCard from './components/SubscriptionCard';
 import LogoutModal from './header/LogoutModal';
-import FullScreenVideo from './Home/FullScreenVideo';
-import YouTubeCard from './components/YouTubeCard';
 import TrailVideo from './components/TrailVideo';
+import ForgotPassword from './header/ForgotPassword';
+import RatingForm from './footer/RatingForm';
+import WhatsAppButton from './components/WhatsAppButton';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -54,18 +55,50 @@ const App = ({ userId }) => {
   const [tutorProfiles, setTutorProfiles] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [subscriptionData, setSubscriptionData] = useState(null);
-  console.log(benefitsData);
+  const [videos, setVideos] = useState([]);
+  const [faqs, setFaqs] = useState([]);
 
-  console.log(subscriptionData);
+  // console.log(videos);
+  // console.log(faqs);
+
+
+
   const baseUrl = import.meta.env.VITE_API_BASE_URL;
   const navigate = useNavigate();
   const location = useLocation();
+
+
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [videoData, faqData,] = await Promise.all([
+          fetchVideos(),
+          fetchFaqs(),
+        ]);
+
+        setVideos(videoData);
+        setFaqs(faqData);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } 
+    };
+
+    fetchData();
+  }, []);
+
+
 
 
   // Reload page on route change
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
+
+
+
+
   useEffect(() => {
 
     const fetchSubscriptionData = async () => {
@@ -289,6 +322,7 @@ const App = ({ userId }) => {
         openRegisterModal={() => setIsRegisterModalOpen(true)}
         profile={profile}
       />
+      <WhatsAppButton/>
 
       {globalLoading ? (
         <Spinner />
@@ -311,7 +345,7 @@ const App = ({ userId }) => {
                 <BeforeAfter showSlider={true} testimonials={testimonials} />
                 <TeamSection tutorProfiles={tutorProfiles} />
                 {/* <YouTubeCard videoUrl="https://www.youtube.com/watch?v=R7rRmBEQjlw" /> */}
-                </>
+              </>
             }
           />
           {isAuthenticated && (
@@ -360,10 +394,15 @@ const App = ({ userId }) => {
             subscriptionData={subscriptionData}
             benefits={benefitsData}
             openLoginModal={() => setIsLoginModalOpen(true)}
+            faqs={faqs}
           />} />
           <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
-          <Route path='/logoutmodel' element={<LogoutModal/>}/>
-          <Route path='/trailvideo' element={<TrailVideo/>}/>
+          <Route path='/logoutmodel' element={<LogoutModal />} />
+          <Route path='/trailvideo' element={<TrailVideo  videos={videos}/>} />
+          <Route path='/fogpass' element={<ForgotPassword openLoginModal={() => setIsLoginModalOpen(true)}
+          />}/>
+          <Route path='/rating' element={<RatingForm isAuthenticated={isAuthenticated}
+          />}/>
 
         </Routes>
       )}

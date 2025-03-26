@@ -1,20 +1,31 @@
 
+// import React from "react";
+// import YouTubeCard from "./YouTubeCard";
+
+// const TrailVideo = (videos) => {
+
+
+//   return (
+//     <div className="min-h-screen bg-black">
+//       <h1 className="text-3xl font-bold text-center py-8">Trail Videos</h1>
+//       <YouTubeCard videos={videos} />
+//     </div>
+//   );
+// };
+
+// export default TrailVideo;
+
+
 import React from "react";
 import YouTubeCard from "./YouTubeCard";
 
-const TrailVideo = () => {
- const videoUrls = [
-  "https://www.youtube.com/watch?v=ZCSGRrzHS7g",
-  "https://www.youtube.com/watch?v=at6B7V-eZxM",
-  "https://www.youtube.com/watch?v=AWruapvge9A"
-
-  
-];
+const TrailVideo = ({ videos }) => {  // ✅ Destructure the `videos` prop
+  console.log("Videos in TrailVideo:", videos);  // Debug log
 
   return (
     <div className="min-h-screen bg-black">
       <h1 className="text-3xl font-bold text-center py-8">Trail Videos</h1>
-      <YouTubeCard videoUrls={videoUrls} />
+      <YouTubeCard videos={videos} />  {/* ✅ Pass the videos array properly */}
     </div>
   );
 };

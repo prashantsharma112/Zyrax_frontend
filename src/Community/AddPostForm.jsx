@@ -13,7 +13,7 @@ const AddPostForm = ({ onPostAdded, profile }) => {
     // Extract user details
     const first_name = profile?.first_name || 'User';
     const last_name = profile?.last_name || '';
-    const profileImage = profile?.additional_info?.profile_picture || '/default-profile.png'; 
+    const profileImage = profile?.additional_info?.profile_picture || '/default-profile.png';
 
     const handleSubmit = async (e) => {
         e.preventDefault();
