@@ -33,6 +33,9 @@ import HelpSettings from './pages/HelpSettings';
 import Logout from './header/Logout';
 import LogoutModal from './header/LogoutModal';
 import TrailVideo from './components/TrailVideo';
+import ForgotPassword from './header/ForgotPassword';
+import RatingForm from './footer/RatingForm';
+import WhatsAppButton from './components/WhatsAppButton';
 
 const App = ({ userId }) => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -55,8 +58,8 @@ const App = ({ userId }) => {
   const [videos, setVideos] = useState([]);
   const [faqs, setFaqs] = useState([]);
 
-  console.log(videos);
-  console.log(faqs);
+  // console.log(videos);
+  // console.log(faqs);
 
 
 
@@ -319,6 +322,7 @@ const App = ({ userId }) => {
         openRegisterModal={() => setIsRegisterModalOpen(true)}
         profile={profile}
       />
+      <WhatsAppButton/>
 
       {globalLoading ? (
         <Spinner />
@@ -395,6 +399,10 @@ const App = ({ userId }) => {
           <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
           <Route path='/logoutmodel' element={<LogoutModal />} />
           <Route path='/trailvideo' element={<TrailVideo  videos={videos}/>} />
+          <Route path='/fogpass' element={<ForgotPassword openLoginModal={() => setIsLoginModalOpen(true)}
+          />}/>
+          <Route path='/rating' element={<RatingForm isAuthenticated={isAuthenticated}
+          />}/>
 
         </Routes>
       )}

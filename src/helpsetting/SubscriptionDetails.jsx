@@ -1,12 +1,23 @@
 
+
+
 import React, { useState } from "react";
 import SubscriptionCard from "../components/SubscriptionCard";
-import UpgradeCard from "./UpgradeCard"; // Import the UpgradeCard component
+import UpgradeCard from "./UpgradeCard";
 import Modal from "../components/subComponents/Modal";
 import Button from "../components/subComponents/Button";
 
-const SubscriptionDetails = ({ subscriptionData, loading, error, benefits, openLoginModal, isAuthenticated, showUpgrade }) => {
-  const [isUpgradeModalOpen, setUpgradeModalOpen] = useState(false); // State for modal visibility
+const SubscriptionDetails = ({
+  subscriptionData,
+  loading,
+  error,
+  benefits,
+  openLoginModal,
+  isAuthenticated,
+  showUpgrade
+}) => {
+  const [isUpgradeModalOpen, setUpgradeModalOpen] = useState(false);
+  const [isSubscriptionModalOpen, setSubscriptionModalOpen] = useState(false);
 
   console.log(subscriptionData);
 
@@ -24,6 +35,7 @@ const SubscriptionDetails = ({ subscriptionData, loading, error, benefits, openL
 
   return (
     <>
+      {/* Loading and Error States */}
       {loading ? (
         <div className="flex justify-center items-center py-4">
           <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-blue-500 border-b-2 border-blue-500"></div>
@@ -37,11 +49,15 @@ const SubscriptionDetails = ({ subscriptionData, loading, error, benefits, openL
           <div className="space-y-4 text-lg">
             <div className="flex justify-between">
               <span className="text-white font-semibold">Start Date:</span>
-              <span className="text-white">{new Date(latestSubscription.start_date).toLocaleDateString()}</span>
+              <span className="text-white">
+                {new Date(latestSubscription.start_date).toLocaleDateString()}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-white font-semibold">End Date:</span>
-              <span className="text-white">{new Date(latestSubscription.end_date).toLocaleDateString()}</span>
+              <span className="text-white">
+                {new Date(latestSubscription.end_date).toLocaleDateString()}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-white font-semibold">Transaction ID:</span>
@@ -56,42 +72,65 @@ const SubscriptionDetails = ({ subscriptionData, loading, error, benefits, openL
           </div>
         </div>
       ) : (
-        <SubscriptionCard benefits={benefits} openLoginModal={openLoginModal} isAuthenticated={isAuthenticated} />
+        <p className="text-center text-gray-400 py-4">No subscription data available.</p>
       )}
 
-      {/* Upgrade Button (Always Visible) */}
-      <div className="mt-6 text-center">
-        <Button
-          onClick={() => setUpgradeModalOpen(true)}
-          className="py-2 px-5 "
-        >
-          Upgrade Plan
-        </Button>
+      {/* Conditional Buttons */}
+      <div className="mt-6 text-center flex gap-4 justify-center">
+        {latestSubscription ? (
+          <Button
+            onClick={() => setUpgradeModalOpen(true)}
+            className="py-2 px-5 bg-blue-500 text-white hover:bg-blue-700 transition"
+          >
+            Upgrade Plan
+          </Button>
+        ) : (
+          <Button
+            onClick={() => setSubscriptionModalOpen(true)}
+            className="py-2 px-5 bg-green-500 text-white hover:bg-green-700 transition"
+          >
+            View Subscription Plans
+          </Button>
+        )}
       </div>
-
-      {/* Show UpgradeCard if showUpgrade is true */}
-      {showUpgrade && (
-        <UpgradeCard benefits={benefits} openLoginModal={openLoginModal} isAuthenticated={isAuthenticated} subscriptionData={subscriptionData} />
-      )}
 
       {/* Upgrade Modal */}
       {isUpgradeModalOpen && (
-        // <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
-        //   <div className="bg-white p-6 rounded-lg shadow-lg w-200">
         <Modal onClose={() => setUpgradeModalOpen(false)}>
+          <h2 className="text-xl font-semibold mb-4">Upgrade Your Plan</h2>
+          <UpgradeCard
+            benefits={benefits}
+            openLoginModal={openLoginModal}
+            isAuthenticated={isAuthenticated}
+            subscriptionData={subscriptionData}
+          />
+        </Modal>
+      )}
 
-            <h2 className="text-xl font-semibold mb-4">Upgrade Your Plan</h2>
-            <UpgradeCard
-              benefits={benefits}
-              openLoginModal={openLoginModal}
-              isAuthenticated={isAuthenticated}
-              subscriptionData={subscriptionData}
-            />
-               </Modal>
-            
+      {/* SubscriptionCard Modal */}
+      {isSubscriptionModalOpen && (
+        <Modal onClose={() => setSubscriptionModalOpen(false)}>
+          <h2 className="text-xl font-semibold mb-4">Available Subscription Plans</h2>
+          <SubscriptionCard
+            benefits={benefits}
+            openLoginModal={openLoginModal}
+            isAuthenticated={isAuthenticated}
+          />
+        </Modal>
+      )}
+
+      {/* Show UpgradeCard if `showUpgrade` is true */}
+      {showUpgrade && (
+        <UpgradeCard 
+          benefits={benefits} 
+          openLoginModal={openLoginModal} 
+          isAuthenticated={isAuthenticated} 
+          subscriptionData={subscriptionData} 
+        />
       )}
     </>
   );
 };
 
 export default SubscriptionDetails;
+
