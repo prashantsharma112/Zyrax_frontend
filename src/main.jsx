@@ -8,9 +8,7 @@ import App from './App.jsx';
 const rootElement = document.getElementById('root');
 
 createRoot(rootElement).render(
-  <React.StrictMode>
     <Router>
       <App />
     </Router>
-  </React.StrictMode>
 );
