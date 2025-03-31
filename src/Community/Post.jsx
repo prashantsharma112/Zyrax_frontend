@@ -2,7 +2,7 @@
 
 import React from 'react';
 import CommentSection from './Comment';
-
+ 
 const Post = ({ post }) => {
     return (
         <div className="bg-gray-800 rounded-lg shadow-lg p-4 max-w-lg w-full-sm mx-auto overflow-hidden">

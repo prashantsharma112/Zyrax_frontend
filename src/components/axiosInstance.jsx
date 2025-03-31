@@ -21,7 +21,7 @@ axiosInstance.interceptors.response.use(
 
       // Clear tokens from storage
       localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("refreshToken"); 
 
       // Optionally trigger login modal or redirect to login page
       window.dispatchEvent(new Event("tokenExpired"));

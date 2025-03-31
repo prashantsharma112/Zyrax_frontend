@@ -1,7 +1,7 @@
 
 import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { fetchVideos, fetchFaqs } from '../src/components/api';
+import { fetchVideos, fetchFaqs, fetchProfileData } from '../src/components/api';
 import axiosInstance from './components/axiosInstance'; // Use axiosInstance for authenticated API calls
 import axios from 'axios'; // Use plain axios for unauthenticated calls
 import Header from './header/Header';
@@ -173,28 +173,22 @@ const App = ({ userId }) => {
     };
   }, []);
 
-  // Fetch Profile Data
   useEffect(() => {
-    const fetchProfileData = async () => {
+    const loadProfile = async () => {
       try {
-        const token = localStorage.getItem('accessToken');
-        if (!token) throw new Error('No token found');
-
-        const response = await axiosInstance.get('/profile/details/', {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setProfile(response.data);
-        setProfileId(response.data.user.id); // Ensure `profileId` is updated here
+        const profileData = await fetchProfileData(); // Fetch or retrieve cached data
+        if (profileData) {
+          setProfile(profileData);
+          setProfileId(profileData.user.id);
+          console.log(profile);
+        }
       } catch (error) {
-        console.error('Error fetching profile:', error);
         setError(error.message);
-      } finally {
-        setGlobalLoading(false);
       }
     };
-
-    if (isAuthenticated) fetchProfileData();
-  }, [isAuthenticated]);
+  
+    loadProfile();
+  }, []);
 
 
   // Fetch Offers
@@ -298,8 +292,8 @@ const App = ({ userId }) => {
     if (isAuthenticated && profileId) {
       fetchAttendance();
     }
-  }, [isAuthenticated, profileId]);
-
+  }, []);
+// console.log(attendanceData);
 
 
   // Handle OTP Verification
