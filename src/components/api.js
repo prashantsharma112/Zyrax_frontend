@@ -13,14 +13,26 @@ export const fetchFaqs = async () => {
   return response.data;
 };
 
+// export const fetchProfileData = async () => {
+//   try {
+//     const token = localStorage.getItem("accessToken");
+//     if (!token) throw new Error("No token found");
+
+//     const response = await axiosInstance.get("/profile/details/", {
+//       headers: { Authorization: `Bearer ${token}` },
+//     });
+
+//     return response.data;  // Return the fetched data directly
+//   } catch (error) {
+//     console.error("Error fetching profile:", error);
+//     throw error;
+//   }
+// };
+
+
+
 export const fetchProfileData = async () => {
   try {
-    // Check if profileData exists in localStorage
-    const storedProfileData = localStorage.getItem("profileData");
-    if (storedProfileData) {
-      return JSON.parse(storedProfileData); // Return cached data
-    }
-
     const token = localStorage.getItem("accessToken");
     if (!token) throw new Error("No token found");
 
@@ -28,10 +40,12 @@ export const fetchProfileData = async () => {
       headers: { Authorization: `Bearer ${token}` },
     });
 
-    // Store the profile data in localStorage
-    localStorage.setItem("profileData", JSON.stringify(response.data));
+    // Store only the `user.id` in localStorage
+    if (response.data?.user?.id) {
+      localStorage.setItem("userId", response.data.user.id);
+    }
 
-    return response.data;
+    return response.data;  // Return the full profile data
   } catch (error) {
     console.error("Error fetching profile:", error);
     throw error;

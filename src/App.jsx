@@ -37,7 +37,7 @@ import ForgotPassword from './header/ForgotPassword';
 import RatingForm from './footer/RatingForm';
 import WhatsAppButton from './components/WhatsAppButton';
 
-const App = ({ userId }) => {
+const App = () => {
   const [imageUrl, setImageUrl] = useState(null);
   const [benefitsData, setBenefitsData] = useState([]);
   const [servicePosts, setServicePosts] = useState([]);
@@ -383,7 +383,6 @@ const App = ({ userId }) => {
           <Route path="/refundPolicypage" element={<RefundPolicypage />} />
           <Route path="/callback_request_page" element={<CallBackRequestPage />} />
           <Route path="/helpsetting" element={<HelpSettings
-            profile={profile}
             isAuthenticated={isAuthenticated}
             subscriptionData={subscriptionData}
             benefits={benefitsData}
