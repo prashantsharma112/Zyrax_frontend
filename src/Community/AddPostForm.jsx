@@ -15,7 +15,7 @@ const AddPostForm = ({ onPostAdded, profile }) => {
     const last_name = profile?.last_name || '';
     const profileImage = profile?.additional_info?.profile_picture || '/default-profile.png';
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e) => { 
         e.preventDefault();
 
         const token = localStorage.getItem('accessToken');
