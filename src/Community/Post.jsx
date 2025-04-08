@@ -2,8 +2,9 @@
 
 import React from 'react';
 import CommentSection from './Comment';
- 
+
 const Post = ({ post }) => {
+    console.log(post);
     return (
         <div className="bg-gray-800 rounded-lg shadow-lg p-4 max-w-lg w-full-sm mx-auto overflow-hidden">
             <h2 className="text-xl font-semibold text-gray-300 mb-2">{post.title}</h2>
@@ -14,7 +15,7 @@ const Post = ({ post }) => {
                 <div className="flex flex-wrap mb-4">
                     {post.images.map((image, index) => (
                         <div key={index} className="w-1/4 p-1">
-                            <img src={image} alt={`Post Image ${index + 1}`} className="rounded-lg object-cover w-full h-auto" />
+                            <img src={image.image} alt={`Post Image ${index + 1}`} className="rounded-lg object-cover w-full h-auto" />
                         </div>
                     ))}
                 </div>

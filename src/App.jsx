@@ -139,7 +139,7 @@ const App = () => {
         setGlobalLoading(false);
       }
     };
-
+    
     fetchBannerImage();
   }, []);
 
@@ -319,17 +319,15 @@ const App = () => {
       <WhatsAppButton/>
 
       {globalLoading ? (
-        <Spinner />
-      ) : error ? (
-        <div className="text-center text-red-500">Error: {error}</div>
-      ) : (
+  <Spinner />
+) : (
         <Routes>
           <Route
             path="/"
             element={
               <>
                 <Hero imageUrl={imageUrl} />
-                <Services serviceData={servicePosts} imageUrl={imageUrl} />
+                <Services serviceData={servicePosts} imageUrl={imageUrl} benefitsData={benefitsData} />
                 <Benefits
                   benefits={benefitsData}
                   isAuthenticated={!!isAuthenticated}
@@ -338,7 +336,6 @@ const App = () => {
 
                 <BeforeAfter showSlider={true} testimonials={testimonials} />
                 <TeamSection tutorProfiles={tutorProfiles} />
-                {/* <YouTubeCard videoUrl="https://www.youtube.com/watch?v=R7rRmBEQjlw" /> */}
               </>
             }
           />

@@ -13,23 +13,6 @@ export const fetchFaqs = async () => {
   return response.data;
 };
 
-// export const fetchProfileData = async () => {
-//   try {
-//     const token = localStorage.getItem("accessToken");
-//     if (!token) throw new Error("No token found");
-
-//     const response = await axiosInstance.get("/profile/details/", {
-//       headers: { Authorization: `Bearer ${token}` },
-//     });
-
-//     return response.data;  // Return the fetched data directly
-//   } catch (error) {
-//     console.error("Error fetching profile:", error);
-//     throw error;
-//   }
-// };
-
-
 
 export const fetchProfileData = async () => {
   try {

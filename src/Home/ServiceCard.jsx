@@ -1,19 +1,22 @@
 
 import { useNavigate } from 'react-router-dom';
 
-const ServiceCard = ({ serviceData = [] }) => {
+const ServiceCard = ({ serviceData = [], benefitsData }) => {
   const navigate = useNavigate();
-
   const handleCardClick = (post) => {
+    const matchedOffer = benefitsData.find(offer => offer.id === post.offer);
+    const paymentLink = matchedOffer?.text || "#"; // fallback if no match
+
     navigate('/service-def', { 
       state: { 
         title: post.title, 
         image: post.image, 
-        description: post.description 
+        description: post.description,
+        paymentLink: paymentLink
       } 
     });
   };
-
+  
   return (
     <div className="flex flex-col sm:flex-row flex-wrap justify-center items-center py-10 gap-4">
       {serviceData.map((post) => {
